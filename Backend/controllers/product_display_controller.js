@@ -51,5 +51,10 @@ exports.search = async (req, res) => {
 };
 
 exports.product = async (req, res) => {
-  res.json({ mssg: "Not yet implemented" });
+  const { id } = req.params;
+  const camera = await Camera.findById(id).exec();
+  if (camera === null) {
+    res.status(404).json({ error: "camera not found" });
+  }
+  res.status(200).json({ camera: camera.name });
 };
