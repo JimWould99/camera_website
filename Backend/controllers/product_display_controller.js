@@ -1,11 +1,12 @@
 const express = require("express");
 const Camera = require("../models/CameraModel");
+mongoose = require("mongoose");
 
 // remove name limiter later
 exports.home = async (req, res) => {
   const [recentlyAddedCameras, featuredCameras] = await Promise.all([
-    Camera.find({}, { name: 1 }).limit(10).sort({ createdAt: -1 }).exec(),
-    Camera.find({ featured: true }, { name: 1 }).limit(10).exec(),
+    Camera.find().limit(10).sort({ createdAt: -1 }).exec(),
+    Camera.find({ featured: true }).limit(10).exec(),
   ]);
   res
     .status(200)
@@ -43,18 +44,22 @@ exports.search = async (req, res) => {
   }
 
   console.log("category value", categoryValue);
-  const multipleSearch = await Camera.find(
-    { category: categoryValue, brand: brandValue, $or: searchArray },
-    { name: 1, category: 1, brand: 1 }
-  );
+  const multipleSearch = await Camera.find({
+    category: categoryValue,
+    brand: brandValue,
+    $or: searchArray,
+  });
   res.status(200).json(multipleSearch);
 };
 
 exports.product = async (req, res) => {
   const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "Invalid object id" });
+  }
   const camera = await Camera.findById(id).exec();
   if (camera === null) {
     res.status(404).json({ error: "camera not found" });
   }
-  res.status(200).json({ camera: camera.name });
+  res.status(200).json({ camera });
 };

@@ -14,7 +14,7 @@ const CameraSchema = new Schema(
     stock_no: { type: Number },
     price: { type: Number, required: true },
     max_res: { type: Number, required: true },
-    image: { data: Buffer, contentType: String },
+    image: { public_id: { type: String }, url: { type: String } },
     user: [{ type: Schema.ObjectId, ref: "User" }],
   },
   { timestamps: true }
