@@ -18,6 +18,7 @@ const NavBox = styled(Box)(({ theme }) => ({
   height: "45px",
   backgroundColor: "#525FE1",
   display: "flex",
+  borderTop: "1px solid white",
   //justifyContent: "center",
 }));
 
@@ -25,7 +26,7 @@ const NavButtonGroup = styled(ButtonGroup)(({ theme }) => ({
   //height: "50px",
   backgroundColor: "white",
   borderRadius: 1,
-  border: "1px solid #525FE1",
+  // border: "1px solid #525FE1",
 }));
 
 const NavButton = styled(Button)(({ theme }) => ({

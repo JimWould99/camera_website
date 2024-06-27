@@ -1,0 +1,24 @@
+.homeImageLeft {
+  background-image: url("../images/alexander-wang-camera.jpg");
+  height: 70vh;
+  width: 50vw;
+  background-size: 130%;
+  background-position-y: 50%;
+  background-position-x: 80%;
+}
+
+.homeImageRight {
+  background-image: url("../images/hunter-moranville-camera.jpg");
+  height: 70vh;
+  width: 50vw;
+  background-size: 110%;
+}
+
+.imageSection {
+  display: flex;
+}
+
+body {
+  padding: 0px;
+  margin: 0px;
+}

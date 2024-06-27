@@ -15,6 +15,7 @@ import {
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Rowing } from "@mui/icons-material";
+import Navbar from "./navBar";
 
 const HeaderToolBar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
@@ -111,9 +112,19 @@ const Header = () => {
             >
               Sign Up
             </HeaderButtons>
-            <HeaderButtons sx={{ color: "black" }}>Log In</HeaderButtons>
+            <HeaderButtons
+              sx={{
+                color: "#FFFDD0",
+                "&:hover": {
+                  backgroundColor: "#002244",
+                },
+              }}
+            >
+              Log In
+            </HeaderButtons>
           </RightBox>
         </HeaderToolBar>
+        <Navbar></Navbar>
       </AppBarStyled>
     </>
   );
