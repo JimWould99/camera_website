@@ -1,7 +1,23 @@
 import { useEffect, useState } from "react";
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  A11y,
+  Thumbs,
+} from "swiper/modules";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
 import CameraTile from "./components/camera_tile";
 import Header from "./components/header";
 import Navbar from "./components/navBar";
+//import Carousel from "react-material-ui-carousel";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
 import {
   AppBar,
   Toolbar,
@@ -18,7 +34,6 @@ import {
   ButtonGroup,
   Container,
 } from "@mui/material";
-
 const HomeBox = styled(Box)(({ theme }) => ({
   height: "100px",
   display: "flex",
@@ -26,26 +41,21 @@ const HomeBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   backgroundColor: "#525FE1",
 }));
-
 /*
 const HomeBody = styled(Box)(({ theme }) => ({
   width: "93vw",
 }));
-
 const Margin = styled(Box)(({ theme }) => ({
   backgroundColor: "#525FE1",
   display: "flex",
   justifyContent: "center",
 })); */
-
 const HomePage = () => {
   const [displayedCameras, setDisplayedCameras] = useState(null);
-
   useEffect(() => {
     const fetchDisplays = async () => {
       const response = await fetch("/api/product");
       const json = await response.json();
-
       if (response.ok) {
         setDisplayedCameras(json);
       }
@@ -72,7 +82,6 @@ const HomePage = () => {
           Sell without charge. Or buy quality at a great price
         </Typography>
       </HomeBox>
-
       <Box
         sx={{
           backgroundColor: " #FFA41B",
@@ -92,11 +101,27 @@ const HomePage = () => {
           Recently added cameras
         </Typography>
       </Box>
+      <Box sx={{ backgroundColor: "#FFA41B", padding: "0px 0px 20px 20px" }}>
+        <Swiper
+          sx={{ backgroundColor: "red" }}
+          modules={[Navigation, Pagination, Scrollbar, A11y, Thumbs]}
+          navigation
+          spaceBetween={40}
+          slidesPerView={3.5}
+          mousewheel
+          onSlideChange={() => console.log("slide change")}
+          scrollbar={{ draggable: true }}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
+          {displayedCameras &&
+            displayedCameras.recentlyAdded.map((camera) => (
+              <SwiperSlide key={camera._id}>
+                <CameraTile key={camera._id} camera={camera}></CameraTile>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </Box>
 
-      {displayedCameras &&
-        displayedCameras.recentlyAdded.map((camera) => (
-          <CameraTile key={camera._id} camera={camera}></CameraTile>
-        ))}
       <br />
       {displayedCameras &&
         displayedCameras.featured.map((camera) => (
@@ -105,5 +130,4 @@ const HomePage = () => {
     </>
   );
 };
-
 export default HomePage;
