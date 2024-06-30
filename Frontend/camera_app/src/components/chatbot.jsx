@@ -1,30 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { json } from "react-router-dom";
 
-const GetData = () => {};
-
 const Chatbot = () => {
-  //const initialHistory =
+  const [CamerasJSON, setCamerasJSON] = useState(null);
+
+  useEffect(() => {
+    const fetchCamera = async () => {
+      const response = await fetch("/api/product/allCameras");
+      const json = await response.json();
+      if (response.ok) {
+        setCamerasJSON(json);
+      }
+    };
+    fetchCamera();
+  }, []);
+  // console.log("json of cameras", CamerasJSON);
+  //note; need to set prompts within useEffect
+  const firstPrompt = {
+    role: "user",
+    parts: [
+      {
+        text: `You are a virtual assistant Gary in the online second hand camera store Camera Store. Your aim is to answer customers questions about different cameras. You are to recommend cameras based on suitability, and inform customers which cameras are currently available. You are to use relatively short replies with friendly and informal language. Only recommend customers cameras that are in stock.  Here is the json data from the database of all of the cameras currently available cameras:${JSON.stringify(
+          CamerasJSON
+        )}`,
+      },
+    ],
+  };
+  //console.log("first prompt", firstPrompt.parts[0].text);
+  const secondPrompt = {
+    role: "model",
+    parts: [
+      {
+        text: "Hello. I'm Gary, your virtual assistant at the 'Camera Store'! What can I help you with today? 😊\n",
+      },
+    ],
+  };
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
-  const [chatHistory, setChatHistory] = useState([
-    {
-      role: "user",
-      parts: [
-        {
-          text: "You are a virtual assistant 'Gary' in the online second hand camera store 'camera store'. Your aim is to answer customer`s questions about different cameras. You are to recommend camera`s based on suitability, and inform customers which cameras are currently available. You are to use relatively short replies with friendly and informal language.",
-        },
-      ],
-    },
-    {
-      role: "model",
-      parts: [
-        {
-          text: "Hello. I'm Gary, your virtual assistant at the 'Camera Store'! What can I help you with today? 😊\n",
-        },
-      ],
-    },
-  ]);
+  const [chatHistory, setChatHistory] = useState([firstPrompt, secondPrompt]);
 
   const getResponse = async () => {
     if (!value) {
@@ -44,8 +57,8 @@ const Chatbot = () => {
       };
       const response = await fetch("/api/product/chatbot", options);
       const data = await response.text();
-      console.log("before", chatHistory);
-      console.log("value", value);
+      //console.log("history", chatHistory[0].parts[0].text);
+      console.log(chatHistory);
       setChatHistory((oldChatHistory) => [
         ...oldChatHistory,
         {
@@ -58,7 +71,6 @@ const Chatbot = () => {
         },
       ]);
       setValue("");
-      console.log("after", chatHistory);
     } catch (error) {
       console.error(error);
       setError("issue");
@@ -68,10 +80,9 @@ const Chatbot = () => {
   const clear = () => {
     setValue("");
     setError("");
-    setChatHistory([]);
+    setChatHistory([firstPrompt, secondPrompt]);
   };
 
-  let tracker = 0;
   return (
     <>
       <div id="chatbot">
@@ -82,13 +93,12 @@ const Chatbot = () => {
           onChange={(e) => setValue(e.target.value)}
         />
       </div>
-      {!error && <button onClick={getResponse}>Ask</button>}
-      {error && (
-        <div>
-          <button onClick={clear}>Clear</button>
-          <button onClick={getResponse}>Ask</button>
-        </div>
-      )}
+
+      <div>
+        <button onClick={getResponse}>Ask</button>
+        <button onClick={clear}>Clear</button>
+      </div>
+
       {error && <p>{error}</p>}
       <div className="searchResult">
         {chatHistory.map((chat_line, index) => (
