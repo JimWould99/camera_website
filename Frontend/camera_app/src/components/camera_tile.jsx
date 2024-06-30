@@ -12,7 +12,13 @@ const CameraTile = ({ camera }) => {
   return (
     <>
       <Link href={`/camera/${camera._id}`} underline="none">
-        <Card sx={{ maxWidth: 280 }}>
+        <Card
+          sx={{
+            maxWidth: 280,
+            border: "1px solid black",
+            boxShadow: "0px 0px 7px 0px black",
+          }}
+        >
           <CardActionArea>
             <CardMedia
               component="img"

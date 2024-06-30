@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./home_page";
 import SearchPage from "./SearchPage";
 import ShowCamera from "./ShowCamera";
+import Chatbot from "./components/chatbot";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/camera/:id",
     element: <ShowCamera />,
+  },
+  {
+    path: "/chatbot",
+    element: <Chatbot />,
   },
 ]);
 

@@ -2,7 +2,21 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function CameraLarger({ cameraDetails }) {
-  return <>{cameraDetails.brand}</>;
+  return (
+    <>
+      {cameraDetails.name}
+      <br />
+      {cameraDetails.description}
+      <br />
+      {cameraDetails.brand}
+      <br />
+      {cameraDetails.price}
+      <br />
+      {cameraDetails.condition}
+      <br />
+      {cameraDetails.max_res}
+    </>
+  );
 }
 
 const ShowCamera = () => {

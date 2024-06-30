@@ -41,6 +41,19 @@ const HomeBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   backgroundColor: "#525FE1",
 }));
+
+const BrandButton = styled(Button)(({ theme }) => ({
+  width: "20%",
+  height: "100px",
+  fontSize: "2rem",
+  textTransform: "none",
+  backgroundColor: "#FFA41B",
+  color: "black",
+  fontWeight: "bold",
+  "&:hover": {
+    color: "white",
+  },
+}));
 /*
 const HomeBody = styled(Box)(({ theme }) => ({
   width: "93vw",
@@ -121,12 +134,77 @@ const HomePage = () => {
             ))}
         </Swiper>
       </Box>
-
-      <br />
-      {displayedCameras &&
-        displayedCameras.featured.map((camera) => (
-          <CameraTile key={camera._id} camera={camera}></CameraTile>
-        ))}
+      <Box
+        sx={{
+          backgroundColor: "white",
+          height: "65px",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: "bold",
+            backgroundColor: "80C4E9",
+            paddingLeft: "20px",
+          }}
+        >
+          Shop by brand
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          padding: "0px 20px 40px 20px",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <BrandButton variant="contained">Canon</BrandButton>
+        <BrandButton variant="contained">Fuji</BrandButton>
+        <BrandButton variant="contained">Nikon</BrandButton>
+        <BrandButton variant="contained">Panasonic</BrandButton>
+      </Box>
+      <Box
+        sx={{
+          backgroundColor: " #525FE1",
+          color: "#FFFDD0",
+          height: "65px",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: "bold",
+            backgroundColor: "80C4E9",
+            paddingLeft: "20px",
+          }}
+        >
+          Featured cameras
+        </Typography>
+      </Box>
+      <Box sx={{ backgroundColor: "#525FE1", padding: "0px 0px 20px 20px" }}>
+        <Swiper
+          sx={{ backgroundColor: "red" }}
+          modules={[Navigation, Pagination, Scrollbar, A11y, Thumbs]}
+          navigation
+          spaceBetween={40}
+          slidesPerView={3.5}
+          mousewheel
+          onSlideChange={() => console.log("slide change")}
+          scrollbar={{ draggable: true }}
+          onSwiper={(swiper) => console.log(swiper)}
+        >
+          {displayedCameras &&
+            displayedCameras.featured.map((camera) => (
+              <SwiperSlide key={camera._id}>
+                <CameraTile key={camera._id} camera={camera}></CameraTile>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </Box>
     </>
   );
 };
