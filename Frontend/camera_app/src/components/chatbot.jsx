@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { json } from "react-router-dom";
+import User_bubble from "./chatbot_comps/user_bubble";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-const Chatbot = ({ jsonData }) => {
+const Chatbot = ({ jsonData, handleClick }) => {
   console.log(jsonData);
   // console.log("json of cameras", CamerasJSON);
   //note; need to set prompts within
@@ -28,7 +30,8 @@ const Chatbot = ({ jsonData }) => {
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [chatHistory, setChatHistory] = useState([firstPrompt, secondPrompt]);
-  const getResponse = async () => {
+  const getResponse = async (e) => {
+    e.preventDefault();
     if (!value) {
       setError("type a question");
       return;
@@ -72,30 +75,43 @@ const Chatbot = ({ jsonData }) => {
   };
   return (
     <>
-      <div id="chatbot">
-        <div id="search"></div>
-        <input
-          type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-      </div>
-      <div>
-        <button onClick={getResponse}>Ask</button>
-        <button onClick={clear}>Clear</button>
-      </div>
-      {error && <p>{error}</p>}
-      <div className="searchResult">
-        {chatHistory.map((chat_line, index) => (
-          <div key={index}>
-            {index >= 1 && (
-              <p>
-                {chat_line.role === "model" ? "Gary" : "Me"} :{" "}
-                {chat_line.parts[0].text}
-              </p>
-            )}
-          </div>
-        ))}
+      <div
+        className="chatbot"
+        style={{
+          height: "70vh",
+          width: "27vw",
+          border: "1px solid black",
+          backgroundColor: "white",
+          position: "fixed",
+          bottom: "-80px",
+          right: "-10px",
+        }}
+      >
+        <form onSubmit={getResponse}>
+          <input
+            type="text"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+          <button onClick={getResponse}>Ask</button>
+          <button onClick={clear}>Clear</button>
+        </form>
+        {error && <p>{error}</p>}
+        <button onClick={handleClick}>
+          <KeyboardArrowDownIcon />
+        </button>
+        <div className="searchResult">
+          {chatHistory.map((chat_line, index) => (
+            <div key={index}>
+              {index >= 1 && (
+                <p>
+                  {chat_line.role === "model" ? "Gary" : "Me"} :{" "}
+                  {chat_line.parts[0].text}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );

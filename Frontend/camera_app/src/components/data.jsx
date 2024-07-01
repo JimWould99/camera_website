@@ -3,7 +3,7 @@ import { json } from "react-router-dom";
 
 import Chatbot from "./chatbot";
 
-const Data = () => {
+const Data = ({ handleClick }) => {
   const [jsonData, setJsondData] = useState(null);
   useEffect(() => {
     const fetchCamera = async () => {
@@ -15,7 +15,13 @@ const Data = () => {
     };
     fetchCamera();
   }, []);
-  return <>{jsonData && <Chatbot jsonData={jsonData}></Chatbot>}</>;
+  return (
+    <>
+      {jsonData && (
+        <Chatbot jsonData={jsonData} handleClick={handleClick}></Chatbot>
+      )}
+    </>
+  );
 };
 
 export default Data;

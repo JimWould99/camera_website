@@ -11,7 +11,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import CameraTile from "./components/camera_tile";
 import Header from "./components/header";
-import Navbar from "./components/navBar";
 //import Carousel from "react-material-ui-carousel";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -33,7 +32,9 @@ import {
   Button,
   ButtonGroup,
   Container,
+  Popper,
 } from "@mui/material";
+import ChatPopper from "./components/chatbot_comps/popper";
 const HomeBox = styled(Box)(({ theme }) => ({
   height: "100px",
   display: "flex",
@@ -78,6 +79,7 @@ const HomePage = () => {
   return (
     <>
       <Header></Header>
+      <ChatPopper></ChatPopper>
       <Box className="imageSection">
         <Box className="homeImageLeft"></Box>
         <Box className="homeImageRight"></Box>
@@ -167,7 +169,7 @@ const HomePage = () => {
       </Box>
       <Box
         sx={{
-          backgroundColor: " #525FE1",
+          backgroundColor: "#525FE1",
           color: "#FFFDD0",
           height: "65px",
           display: "flex",
