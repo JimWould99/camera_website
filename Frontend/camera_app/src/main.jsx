@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./home_page";
 import SearchPage from "./SearchPage";
 import ShowCamera from "./ShowCamera";
-import Chatbot from "./components/chatbot";
+import Data from "./components/data";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/chatbot",
-    element: <Chatbot />,
+    element: <Data />,
   },
 ]);
 
