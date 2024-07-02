@@ -80,6 +80,7 @@ const HomePage = () => {
     <>
       <Header></Header>
       <ChatPopper></ChatPopper>
+
       <Box className="imageSection">
         <Box className="homeImageLeft"></Box>
         <Box className="homeImageRight"></Box>
