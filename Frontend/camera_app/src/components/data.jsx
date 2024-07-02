@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { json } from "react-router-dom";
-
 import Chatbot from "./chatbot";
-
 const Data = ({ handleClick }) => {
   const [jsonData, setJsondData] = useState(null);
   useEffect(() => {
@@ -23,5 +21,4 @@ const Data = ({ handleClick }) => {
     </>
   );
 };
-
 export default Data;

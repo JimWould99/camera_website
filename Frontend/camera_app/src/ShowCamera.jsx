@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Header from "./components/header";
+import ChatPopper from "./components/chatbot_comps/popper";
 
 function CameraLarger({ cameraDetails }) {
   return (
@@ -38,6 +40,8 @@ const ShowCamera = () => {
   console.log(cameraDetails);
   return (
     <>
+      <Header></Header>
+      <ChatPopper></ChatPopper>
       {cameraDetails && <CameraLarger cameraDetails={cameraDetails.camera} />}
     </>
   );

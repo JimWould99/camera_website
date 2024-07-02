@@ -6,7 +6,6 @@ import SearchPage from "./SearchPage";
 import ShowCamera from "./ShowCamera";
 import Data from "./components/data";
 import "./index.css";
-import { ChatContextProvider } from "./chatContext";
 
 const router = createBrowserRouter([
   {
@@ -29,8 +28,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ChatContextProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </ChatContextProvider>
+    <RouterProvider router={router}></RouterProvider>
   </React.StrictMode>
 );

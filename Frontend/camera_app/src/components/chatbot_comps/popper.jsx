@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import Data from "../data";
+import { useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -20,7 +21,22 @@ import {
 } from "@mui/material";
 
 export default function ChatPopper() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = React.useState(() => {
+    const popperData = localStorage.getItem("popperStatus");
+    console.log("popperData", popperData);
+    if (popperData === null) {
+      return null;
+    } else {
+      console.log("json");
+      return popperData;
+    }
+  });
+
+  console.log("anchor", anchorEl);
+
+  useEffect(() => {
+    localStorage.setItem("popperStatus", anchorEl);
+  }, [anchorEl]);
 
   const handleClick = (event) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
