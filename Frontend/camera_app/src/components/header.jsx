@@ -16,6 +16,7 @@ import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Rowing } from "@mui/icons-material";
 import Navbar from "./navBar";
+import { useState, Link, Redirect } from "react";
 
 const HeaderToolBar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
@@ -79,6 +80,11 @@ const HeaderTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const Header = () => {
+  const [query, setQuery] = useState("");
+
+  if (query) {
+    console.log("a query", query);
+  }
   return (
     <>
       <AppBarStyled position="sticky">
@@ -90,7 +96,11 @@ const Header = () => {
             </IconButton>
           </SideBox>
           <Search>
-            <InputBase placeholder="Search for cameras..." sx={{}}></InputBase>
+            <InputBase
+              placeholder="Search for cameras..."
+              sx={{ width: "100%" }}
+              onChange={(e) => setQuery(e.target.value)}
+            ></InputBase>
           </Search>
           <RightBox>
             <IconButton size="large">

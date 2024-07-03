@@ -27,7 +27,7 @@ const ShowCamera = () => {
 
   useEffect(() => {
     const fetchCamera = async () => {
-      console.log(`/api/product/${id}`);
+      //console.log(`/api/product/${id}`);
       const response = await fetch(`/api/product/${id}`);
       const json = await response.json();
 
@@ -37,7 +37,7 @@ const ShowCamera = () => {
     };
     fetchCamera();
   }, []);
-  console.log(cameraDetails);
+  //console.log(cameraDetails);
   return (
     <>
       <Header></Header>

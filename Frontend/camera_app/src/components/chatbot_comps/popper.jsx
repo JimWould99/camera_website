@@ -22,10 +22,10 @@ import {
 export default function ChatPopper() {
   const [anchorEl, setAnchorEl] = React.useState(() => {
     const popperData = localStorage.getItem("popperStatus");
-    console.log("popperData", popperData);
+    //console.log("popperData", popperData);
     return popperData === "true";
   });
-  console.log("anchor", anchorEl);
+  // console.log("anchor", anchorEl);
   useEffect(() => {
     localStorage.setItem("popperStatus", anchorEl.toString());
   }, [anchorEl]);
