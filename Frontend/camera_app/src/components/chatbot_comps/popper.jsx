@@ -19,32 +19,21 @@ import {
   ButtonGroup,
   Container,
 } from "@mui/material";
-
 export default function ChatPopper() {
   const [anchorEl, setAnchorEl] = React.useState(() => {
     const popperData = localStorage.getItem("popperStatus");
     console.log("popperData", popperData);
-    if (popperData === null) {
-      return null;
-    } else {
-      console.log("json");
-      return popperData;
-    }
+    return popperData === "true";
   });
-
   console.log("anchor", anchorEl);
-
   useEffect(() => {
-    localStorage.setItem("popperStatus", anchorEl);
+    localStorage.setItem("popperStatus", anchorEl.toString());
   }, [anchorEl]);
-
   const handleClick = (event) => {
-    setAnchorEl(anchorEl ? null : event.currentTarget);
+    setAnchorEl((prev) => !prev);
   };
-
-  const open = Boolean(anchorEl);
+  const open = anchorEl;
   const id = open ? "simple-popper" : undefined;
-
   return (
     <div>
       <Button

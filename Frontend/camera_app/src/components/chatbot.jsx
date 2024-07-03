@@ -30,16 +30,16 @@ const Chatbot = ({ jsonData, handleClick }) => {
   const [error, setError] = useState("");
   const [chatHistory, setChatHistory] = useState(() => {
     const historyData = localStorage.getItem("chatHistory");
-    console.log("historydata", historyData);
+    //console.log("historydata", historyData);
     if (historyData === null) {
-      console.log("this one");
+      //console.log("this one");
       return [firstPrompt, secondPrompt];
     } else {
-      console.log("json");
+      //console.log("json");
       return JSON.parse(historyData);
     }
   });
-  console.log(chatHistory);
+  //console.log(chatHistory);
   useEffect(() => {
     localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
   }, [chatHistory]);
@@ -68,7 +68,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
       const response = await fetch("/api/product/chatbot", options);
       const data = await response.text();
       //console.log("history", chatHistory[0].parts[0].text);
-      console.log(chatHistory);
+      //console.log(chatHistory);
       setChatHistory((oldChatHistory) => [
         ...oldChatHistory,
         {
@@ -101,8 +101,8 @@ const Chatbot = ({ jsonData, handleClick }) => {
           border: "1px solid black",
           backgroundColor: "white",
           position: "fixed",
-          bottom: "-80px",
-          right: "-10px",
+          bottom: "0px",
+          right: "20px",
         }}
       >
         <form onSubmit={getResponse}>
