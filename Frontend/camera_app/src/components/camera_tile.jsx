@@ -35,7 +35,16 @@ const CameraTile = ({ camera }) => {
               >
                 {camera.name}
               </Typography>
-              <Typography gutterBottom variant="body2">
+              <Typography
+                gutterBottom
+                variant="body2"
+                sx={{
+                  maxWidth: "200ch",
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 {camera.description} more example text to fill description.
                 lorum ipsum lorum ipsum
               </Typography>

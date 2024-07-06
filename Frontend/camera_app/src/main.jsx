@@ -13,7 +13,12 @@ const router = createBrowserRouter([
     element: <HomePage />,
   },
   {
-    path: "/search/:query",
+    path: "/search/:id",
+    element: <SearchPage />,
+  },
+
+  {
+    path: "/search/",
     element: <SearchPage />,
   },
   {

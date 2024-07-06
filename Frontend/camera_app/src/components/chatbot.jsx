@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { json } from "react-router-dom";
 import User_bubble from "./chatbot_comps/user_bubble";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import AutorenewTwoToneIcon from "@mui/icons-material/AutorenewTwoTone";
 import { Link, Button } from "@mui/material";
 const Chatbot = ({ jsonData, handleClick }) => {
   //console.log(jsonData);
@@ -129,7 +130,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
                 )}
               </div>
             ))}
-          {isLoading ? <p>...</p> : null}
+          {isLoading ? <AutorenewTwoToneIcon /> : null}
           <div ref={messagesEndRef}></div>
         </div>
         <div className="input_section">

@@ -13,6 +13,8 @@ import {
   Button,
   ButtonGroup,
 } from "@mui/material";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const NavBox = styled(Box)(({ theme }) => ({
   height: "45px",
@@ -37,20 +39,86 @@ const NavButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const Navbar = () => {
+const Navbar = ({ handleSubmit, setQueryCategory }) => {
+  /*const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("category") || "");
+  const navigate = useNavigate();
+  console.log("first", query);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setSearchParams({ category: query });
+    console.log("query here", encodeURIComponent(query));
+    navigate(`/search/?q=${encodeURIComponent(query)}&category`);
+    if (window.location.href.includes("search")) {
+      window.location.reload();
+    } 
+  };*/
   return (
     <>
-      <NavBox>
-        <NavButtonGroup variant="text" aria-label="Basic button group">
-          <NavButton>Mirrorless</NavButton>
-          <NavButton>DSLR</NavButton>
-          <NavButton>Instant cameras</NavButton>
-          <NavButton>Compact</NavButton>
-          <NavButton>Bridge cameras</NavButton>
-          <NavButton>Action cameras</NavButton>
-          <NavButton>Underwater cameras</NavButton>
-        </NavButtonGroup>
-      </NavBox>
+      <form action="" onSubmit={handleSubmit}>
+        <NavBox>
+          <NavButtonGroup variant="text" aria-label="Basic button group">
+            <NavButton
+              value="Mirrorless"
+              onClick={(e) => setQueryCategory(e.target.value)}
+              type="submit"
+            >
+              Mirrorless
+            </NavButton>
+            <NavButton
+              value="DSLR"
+              onClick={(e) => setQueryCategory(e.target.value)}
+              type="submit"
+            >
+              DSLR
+            </NavButton>
+            <NavButton
+              value="Instant"
+              onClick={(e) => setQueryCategory(e.target.value)}
+              type="submit"
+            >
+              Instant cameras
+            </NavButton>
+            <NavButton
+              value="Compact"
+              onClick={(e) => setQueryCategory(e.target.value)}
+              type="submit"
+            >
+              Compact
+            </NavButton>
+            <NavButton
+              value="Bridge"
+              onClick={(e) => setQueryCategory(e.target.value)}
+              type="submit"
+            >
+              Bridge cameras
+            </NavButton>
+            <NavButton
+              value="Action"
+              onClick={(e) => setQueryCategory(e.target.value)}
+              type="submit"
+            >
+              Action cameras
+            </NavButton>
+            <NavButton
+              value="Underwater"
+              onClick={(e) => setQueryCategory(e.target.value)}
+              type="submit"
+            >
+              Underwater cameras
+            </NavButton>
+            <NavButton
+              value=""
+              onClick={(e) => setQueryCategory(e.target.value)}
+              type="submit"
+            >
+              All categories
+            </NavButton>
+          </NavButtonGroup>
+        </NavBox>
+      </form>
     </>
   );
 };

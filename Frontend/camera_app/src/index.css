@@ -22,3 +22,10 @@ body {
   padding: 0px;
   margin: 0px;
 }
+
+.showCameraText h1,
+.showCameraText h2,
+.showCameraText h3 {
+  margin: 0px;
+  padding: 0px;
+}
