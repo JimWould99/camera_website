@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import Header from "./components/header";
 import ChatPopper from "./components/chatbot_comps/popper";
 import "./index.css";
+import { useContext } from "react";
+import { CartContext } from "./shopping_cart_context";
 
 import {
   AppBar,
@@ -31,7 +33,7 @@ const CameraButton = styled(Button)(({ theme }) => ({
   fontWeight: "bold",
 }));
 
-function CameraLarger({ cameraDetails }) {
+function CameraLarger({ cameraDetails, handleSubmit }) {
   const url = cameraDetails.image.url;
   return (
     <>
@@ -89,6 +91,7 @@ function CameraLarger({ cameraDetails }) {
             <CameraButton
               variant="contained"
               style={{ backgroundColor: "#525FE1", color: "white" }}
+              onClick={handleSubmit}
             >
               Add to cart
             </CameraButton>
@@ -104,6 +107,7 @@ function CameraLarger({ cameraDetails }) {
   );
 }
 const ShowCamera = () => {
+  const navigate = useNavigate();
   const [cameraDetails, setCameraDetails] = useState(null);
   const { id } = useParams();
   useEffect(() => {
@@ -118,11 +122,29 @@ const ShowCamera = () => {
     fetchCamera();
   }, []);
   //console.log(cameraDetails);
+  if (cameraDetails) {
+    console.log(cameraDetails.camera);
+  }
+
+  const { addToCart } = useContext(CartContext);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const cameraCart = cameraDetails.camera;
+    addToCart(cameraCart);
+    navigate("/cart");
+  };
+
   return (
     <>
       <Header></Header>
       <ChatPopper></ChatPopper>
-      {cameraDetails && <CameraLarger cameraDetails={cameraDetails.camera} />}
+      {cameraDetails && (
+        <CameraLarger
+          cameraDetails={cameraDetails.camera}
+          handleSubmit={handleSubmit}
+        />
+      )}
     </>
   );
 };

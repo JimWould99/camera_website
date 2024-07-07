@@ -127,9 +127,11 @@ const Header = () => {
             </form>
           </Search>
           <RightBox>
-            <Link href={"/"} underline="none">
+            <Link href={"/cart"} underline="none">
               <IconButton size="large">
-                <ShoppingCartIcon sx={{ color: "#FFFDD0" }}></ShoppingCartIcon>
+                <ShoppingCartIcon
+                  sx={{ color: "#FFFDD0", transform: "scale(1.3)" }}
+                ></ShoppingCartIcon>
               </IconButton>
             </Link>
             <Link href={"/"} underline="none">

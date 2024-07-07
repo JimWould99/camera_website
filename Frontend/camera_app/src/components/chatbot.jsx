@@ -1,9 +1,25 @@
 import { useEffect, useState, useRef } from "react";
 import { json } from "react-router-dom";
-import User_bubble from "./chatbot_comps/user_bubble";
+import Bubble from "./chatbot_comps/bubble";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AutorenewTwoToneIcon from "@mui/icons-material/AutorenewTwoTone";
 import { Link, Button } from "@mui/material";
+import {
+  AppBar,
+  Toolbar,
+  styled,
+  Typography,
+  Box,
+  InputBase,
+  Badge,
+  Avatar,
+  Menu,
+  MenuItem,
+  IconButton,
+  ButtonGroup,
+  Container,
+  Popper,
+} from "@mui/material";
 const Chatbot = ({ jsonData, handleClick }) => {
   //console.log(jsonData);
   // console.log("json of cameras", CamerasJSON);
@@ -104,7 +120,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
         className="chatbot"
         style={{
           height: "70vh",
-          width: "27vw",
+          width: "30vw",
           border: "1px solid black",
           backgroundColor: "white",
           position: "fixed",
@@ -112,24 +128,48 @@ const Chatbot = ({ jsonData, handleClick }) => {
           right: "20px",
         }}
       >
-        <button onClick={handleClick}>
-          <KeyboardArrowDownIcon />
-        </button>
+        <Box
+          className="header"
+          sx={{
+            display: "flex",
+            backgroundColor: "#525FE1",
+            justifyContent: "space-between",
+            padding: "10px 7%",
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: 800, color: "#FFFDD0" }}>
+            Camera Site
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#FFA41B", border: "none" }}
+            onClick={handleClick}
+          >
+            <KeyboardArrowDownIcon sx={{ transform: "scale(2)" }} />
+          </Button>
+        </Box>
         <div
-          style={{ overflowY: "scroll", height: "80%" }}
+          style={{
+            overflowY: "scroll",
+            height: "75%",
+            padding: "22px 5px 0px 5px",
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+          }}
           className="searchResult"
         >
           {chatHistory &&
-            chatHistory.map((chat_line, index) => (
-              <div key={index}>
-                {index >= 1 && (
-                  <p>
-                    {chat_line.role === "model" ? "Gary" : "Me"} :{" "}
-                    {chat_line.parts[0].text}
-                  </p>
-                )}
-              </div>
-            ))}
+            chatHistory.map(
+              (chat_line, index) =>
+                index > 0 && (
+                  <Bubble
+                    key={index}
+                    chatText={chat_line.parts[0].text}
+                    chatRole={chat_line.role}
+                  ></Bubble>
+                )
+            )}
           {isLoading ? <AutorenewTwoToneIcon /> : null}
           <div ref={messagesEndRef}></div>
         </div>
@@ -140,7 +180,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
-            <Button onClick={getResponse}>Ask</Button>
             <Button
               onClick={clear}
               component={Link}
