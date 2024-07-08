@@ -5,11 +5,19 @@ const router = express.Router();
 const product_display_controller = require("../controllers/product_display_controller");
 const product_delete_controller = require("../controllers/product_delete_controller");
 const product_add_controller = require("../controllers/product_add_controller");
+const chatbot_controller = require("../controllers/chatbot_controller");
 
 // general and display/read //
 
+//chatbot
+
+router.post("/chatbot", chatbot_controller.chatbot);
+
 //home page
 router.get("/", product_display_controller.home);
+
+// all cameras
+router.get("/allCameras", product_display_controller.allCameras);
 
 // search result
 router.get("/search", product_display_controller.search);

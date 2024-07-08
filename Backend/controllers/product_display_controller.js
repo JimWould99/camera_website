@@ -13,6 +13,11 @@ exports.home = async (req, res) => {
     .json({ recentlyAdded: recentlyAddedCameras, featured: featuredCameras });
 };
 
+exports.allCameras = async (req, res) => {
+  const allCameras = await Camera.find().exec();
+  res.status(200).json(allCameras);
+};
+
 exports.search = async (req, res) => {
   const searchTerm = req.query.q;
 

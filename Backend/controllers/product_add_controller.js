@@ -1,4 +1,6 @@
 const express = require("express");
+require("dotenv").config();
+
 const Camera = require("../models/CameraModel");
 //multer
 const multer = require("multer");
@@ -8,7 +10,7 @@ const upload = multer({ storage: storage, limits: { fileSize: 2000000 } });
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: "doczwegcp",
-  api_key: "613242454569789",
+  api_key: process.env.CLOUDINARY_KEY,
   api_secret: "4-iZdu0V6WY5DN0TjvhxuTYaoO8",
 });
 
