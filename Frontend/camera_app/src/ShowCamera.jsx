@@ -132,7 +132,7 @@ const ShowCamera = () => {
     e.preventDefault();
     const cameraCart = cameraDetails.camera;
     addToCart(cameraCart);
-    navigate("/cart");
+    //navigate("/cart");
   };
 
   return (

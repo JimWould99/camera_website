@@ -19,6 +19,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Navbar from "./navBar";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../shopping_cart_context";
 const HeaderToolBar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -102,6 +104,15 @@ const Header = () => {
     }
   };
 
+  let cartColor;
+  const { cartCameraList } = useContext(CartContext);
+  if (cartCameraList.length > 0) {
+    cartColor = "error";
+  } else {
+    cartColor = "none";
+  }
+  console.log("list length", cartCameraList.length);
+
   return (
     <>
       <AppBarStyled position="sticky">
@@ -129,9 +140,11 @@ const Header = () => {
           <RightBox>
             <Link href={"/cart"} underline="none">
               <IconButton size="large">
-                <ShoppingCartIcon
-                  sx={{ color: "#FFFDD0", transform: "scale(1.3)" }}
-                ></ShoppingCartIcon>
+                <Badge badgeContent={cartCameraList.length} color={cartColor}>
+                  <ShoppingCartIcon
+                    sx={{ color: "#FFFDD0", transform: "scale(1.4)" }}
+                  ></ShoppingCartIcon>
+                </Badge>
               </IconButton>
             </Link>
             <Link href={"/"} underline="none">
