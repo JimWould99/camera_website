@@ -34,6 +34,7 @@ import {
   Container,
   Popper,
   Link,
+  CardMedia,
 } from "@mui/material";
 import ChatPopper from "./components/chatbot_comps/popper";
 const HomeBox = styled(Box)(({ theme }) => ({
@@ -83,8 +84,20 @@ const HomePage = () => {
       <ChatPopper></ChatPopper>
 
       <Box className="imageSection">
-        <Box className="homeImageLeft"></Box>
-        <Box className="homeImageRight"></Box>
+        <CardMedia
+          component="img"
+          // height="190"
+          image="../images/alexander-wang-camera.jpg"
+          sx={{ height: "70vh", width: "50vw" }}
+          alt="camera"
+        />
+        <CardMedia
+          component="img"
+          // height="190"
+          image="../images/hunter-moranville-camera.jpg"
+          alt="camera"
+          sx={{ height: "70vh", width: "50vw" }}
+        />
       </Box>
       <HomeBox>
         <Typography

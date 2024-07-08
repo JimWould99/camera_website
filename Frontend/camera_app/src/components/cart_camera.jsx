@@ -56,7 +56,7 @@ const Cart_camera = ({ camera }) => {
           <Typography sx={{ fontWeight: "bold" }}>£{camera.price}</Typography>
           <Typography>{camera.condition}</Typography>
           <IconButton onClick={() => handleClick()} sx={{ width: "50px" }}>
-            <DeleteIcon></DeleteIcon>
+            <DeleteIcon sx={{ transform: "scale(1.4)" }}></DeleteIcon>
           </IconButton>
         </div>
         <div
