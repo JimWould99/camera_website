@@ -13,6 +13,7 @@ import {
   Button,
   Link,
 } from "@mui/material";
+import SmartToyIcon from "@mui/icons-material/SmartToy";
 
 const User = ({ chatText, chatRole }) => {
   return (
@@ -21,11 +22,14 @@ const User = ({ chatText, chatRole }) => {
         className="output"
         sx={{
           display: "flex",
-          padding: "0px 10px",
+          padding: "7px",
           alignSelf: "flex-end",
+          borderRadius: "10px",
+          backgroundColor: "#525FE1",
+          color: "white",
         }}
       >
-        <Typography> {chatText}</Typography>
+        <Typography sx={{ fontSize: "0.95rem" }}> {chatText}</Typography>
       </Box>
     </>
   );
@@ -37,17 +41,34 @@ const Chatbot = ({ chatText, chatRole }) => {
       <Box
         className="output"
         sx={{
-          display: "flex",
+          display: "grid",
+          gridTemplateColumns: "1fr 9fr",
+          gap: "5px",
           padding: "0px 10px",
-          alignSelf: "flex-start",
           width: "90%",
         }}
       >
-        <Box sx={{ width: "20%" }}>
-          <Typography>Gary</Typography>{" "}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            alignItems: "center",
+          }}
+        >
+          <Typography>Gary</Typography>
+          <SmartToyIcon
+            sx={{ transform: "scale(1.3)", marginBottom: "5px" }}
+          ></SmartToyIcon>
         </Box>
-        <Box>
-          <Typography>{chatText}</Typography>
+        <Box
+          sx={{
+            borderRadius: "10px",
+            padding: "7px",
+            backgroundColor: "#F5F5F5",
+          }}
+        >
+          <Typography sx={{ fontSize: "0.95rem" }}>{chatText}</Typography>
         </Box>
       </Box>
     </>

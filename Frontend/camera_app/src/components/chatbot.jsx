@@ -151,11 +151,11 @@ const Chatbot = ({ jsonData, handleClick }) => {
         <div
           style={{
             overflowY: "scroll",
-            height: "75%",
-            padding: "22px 5px 0px 5px",
+            height: "69%",
+            padding: "22px 10px 0px 5px",
             display: "flex",
             flexDirection: "column",
-            gap: "10px",
+            gap: "15px",
           }}
           className="searchResult"
         >
@@ -173,16 +173,44 @@ const Chatbot = ({ jsonData, handleClick }) => {
           {isLoading ? <AutorenewTwoToneIcon /> : null}
           <div ref={messagesEndRef}></div>
         </div>
-        <div className="input_section">
-          <form onSubmit={getResponse}>
+        <div
+          className="input_section"
+          style={{
+            display: "flex",
+            padding: "10px",
+          }}
+        >
+          <form
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-between",
+              paddingLeft: "10px",
+            }}
+            onSubmit={getResponse}
+          >
             <input
               type="text"
               value={value}
+              placeholder="Type a message"
+              style={{
+                height: "35px",
+                borderRadius: "25px",
+                width: "75%",
+                paddingLeft: "10px",
+                fontSize: "1rem",
+              }}
               onChange={(e) => setValue(e.target.value)}
             />
             <Button
               onClick={clear}
               component={Link}
+              variant="contained"
+              sx={{
+                backgroundColor: "#525FE1",
+                width: "20px",
+                borderRadius: "25px",
+              }}
               href={window.location.href}
             >
               Clear
