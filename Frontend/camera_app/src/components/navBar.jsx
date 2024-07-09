@@ -89,25 +89,11 @@ const Navbar = ({ handleSubmit, setQueryCategory }) => {
               Compact
             </NavButton>
             <NavButton
-              value="Bridge"
-              onClick={(e) => setQueryCategory(e.target.value)}
-              type="submit"
-            >
-              Bridge cameras
-            </NavButton>
-            <NavButton
               value="Action"
               onClick={(e) => setQueryCategory(e.target.value)}
               type="submit"
             >
               Action cameras
-            </NavButton>
-            <NavButton
-              value="Underwater"
-              onClick={(e) => setQueryCategory(e.target.value)}
-              type="submit"
-            >
-              Underwater cameras
             </NavButton>
             <NavButton
               value=""

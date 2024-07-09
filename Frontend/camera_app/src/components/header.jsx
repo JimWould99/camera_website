@@ -37,7 +37,7 @@ const Search = styled("div")(({ theme }) => ({
   border: "3px solid #FFA41B",
   paddingLeft: "20px",
   [theme.breakpoints.down("sm")]: {
-    width: "80%",
+    width: "100%",
   },
 }));
 const AppBarStyled = styled(AppBar)(({ theme }) => ({
@@ -53,9 +53,9 @@ const RightBox = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: "15px",
   marginRight: "10px",
-  [theme.breakpoints.down("sm")]: {
+  /*[theme.breakpoints.down("sm")]: {
     display: "none",
-  },
+  },*/
   textWrap: "nowrap",
 }));
 const HeaderButtons = styled(Button)(({ theme }) => ({
@@ -65,15 +65,19 @@ const HeaderButtons = styled(Button)(({ theme }) => ({
   "&:hover": {
     backgroundColor: "#D8D8D8",
   },
+  //display: { lg: "block", sm: "none" },
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
 }));
 const HeaderTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 800,
   color: "#FFFDD0",
   marginRight: 0.5,
   textWrap: "nowrap",
-  [theme.breakpoints.down("md")]: {
+  /*[theme.breakpoints.down("md")]: {
     display: "none",
-  },
+  },*/
 }));
 const Header = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -142,7 +146,10 @@ const Header = () => {
               <IconButton size="large">
                 <Badge badgeContent={cartCameraList.length} color={cartColor}>
                   <ShoppingCartIcon
-                    sx={{ color: "#FFFDD0", transform: "scale(1.4)" }}
+                    sx={{
+                      color: "#FFFDD0",
+                      transform: "scale(1.4)",
+                    }}
                   ></ShoppingCartIcon>
                 </Badge>
               </IconButton>
@@ -153,7 +160,6 @@ const Header = () => {
                 sx={{
                   backgroundColor: "#FFA41B",
                   color: "black",
-                  display: { lg: "block", sm: "none" },
                 }}
               >
                 Sell Now

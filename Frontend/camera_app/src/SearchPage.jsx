@@ -81,7 +81,7 @@ const SearchPage = () => {
       >
         {searchCamera &&
           searchCamera.map((camera, index) => (
-            <Grid item key={camera._id} lg={3}>
+            <Grid item key={camera._id} lg={3} md={4} sm={6} xs={12}>
               <CameraTile key={camera._id} camera={camera}></CameraTile>
             </Grid>
           ))}

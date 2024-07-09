@@ -28,7 +28,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
     role: "user",
     parts: [
       {
-        text: `You are a virtual assistant Gary in the online second hand camera store Camera Store. Your aim is to answer customers questions about different cameras. You are to recommend cameras based on suitability, and inform customers which cameras are currently available. You are to use very short replies with friendly and informal language. Only recommend customers cameras that are in stock.  Here is the json data from the database of all of the cameras currently available cameras:${JSON.stringify(
+        text: `You are a virtual assistant Gary in the online second hand camera store Camera Store. Your aim is to answer customers questions about different cameras. You are to recommend cameras based on suitability, and inform customers which cameras are currently available. You are to use very short replies with friendly and informal language. Only recommend customers cameras that are in stock. If the customer asks something that is not relevant to cameras or the Camera Store, reply with 'sorry I cannot help with that'. The website is British and hence the cameras are sold with GBP pounds. Here is the json data from the database of all of the cameras currently available cameras:${JSON.stringify(
           jsonData
         )}`,
       },
@@ -170,8 +170,18 @@ const Chatbot = ({ jsonData, handleClick }) => {
                   ></Bubble>
                 )
             )}
-          {isLoading ? <AutorenewTwoToneIcon /> : null}
           <div ref={messagesEndRef}></div>
+          {isLoading ? (
+            <div
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <AutorenewTwoToneIcon />
+            </div>
+          ) : null}
         </div>
         <div
           className="input_section"

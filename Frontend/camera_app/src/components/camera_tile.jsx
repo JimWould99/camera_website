@@ -31,7 +31,13 @@ const CameraTile = ({ camera }) => {
                 gutterBottom
                 variant="h6"
                 component="div"
-                sx={{ fontWeight: "bold" }}
+                sx={{
+                  fontWeight: "bold",
+                  maxWidth: "200ch",
+                  overflow: "hidden",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                }}
               >
                 {camera.name}
               </Typography>

@@ -23,6 +23,7 @@ import {
   Container,
   Popper,
   Grid,
+  CardMedia,
 } from "@mui/material";
 
 const CameraButton = styled(Button)(({ theme }) => ({
@@ -49,7 +50,12 @@ function CameraLarger({ cameraDetails, handleSubmit }) {
         }}
       >
         <div className="image" style={{ overflow: "hidden" }}>
-          <img src={url} alt="" style={{ backgroundSize: "5%" }} />
+          <CardMedia
+            component="img"
+            // height="190"
+            image={url}
+            alt="camera"
+          />
         </div>
         <div
           className="details"
