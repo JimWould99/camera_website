@@ -79,6 +79,14 @@ const HeaderTypography = styled(Typography)(({ theme }) => ({
     display: "none",
   },*/
 }));
+
+const HeaderCamera = styled(PhotoCameraIcon)(({ theme }) => ({
+  color: "white",
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
+
 const Header = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") || "");
@@ -127,7 +135,7 @@ const Header = () => {
             </Link>
             <Link href={"/"} underline="none">
               <IconButton size="large">
-                <PhotoCameraIcon sx={{ color: "#FFFDD0" }}></PhotoCameraIcon>
+                <HeaderCamera></HeaderCamera>
               </IconButton>
             </Link>
           </SideBox>

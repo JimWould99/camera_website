@@ -21,7 +21,10 @@ const NavBox = styled(Box)(({ theme }) => ({
   backgroundColor: "#525FE1",
   display: "flex",
   borderTop: "1px solid white",
-  //justifyContent: "center",
+
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
 }));
 
 const NavButtonGroup = styled(ButtonGroup)(({ theme }) => ({
@@ -58,7 +61,7 @@ const Navbar = ({ handleSubmit, setQueryCategory }) => {
   return (
     <>
       <form action="" onSubmit={handleSubmit}>
-        <NavBox>
+        <NavBox sx={{ textWrap: "nowrap" }}>
           <NavButtonGroup variant="text" aria-label="Basic button group">
             <NavButton
               value="Mirrorless"
