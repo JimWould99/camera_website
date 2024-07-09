@@ -81,7 +81,7 @@ const HeaderTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const HeaderCamera = styled(PhotoCameraIcon)(({ theme }) => ({
-  color: "white",
+  color: "#FFFDD0",
   [theme.breakpoints.down("md")]: {
     display: "none",
   },
