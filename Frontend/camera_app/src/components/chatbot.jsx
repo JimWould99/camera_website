@@ -20,6 +20,13 @@ import {
   Container,
   Popper,
 } from "@mui/material";
+
+const ChatbotBox = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    width: "70vw",
+  },
+}));
+
 const Chatbot = ({ jsonData, handleClick }) => {
   //console.log(jsonData);
   // console.log("json of cameras", CamerasJSON);
@@ -116,9 +123,9 @@ const Chatbot = ({ jsonData, handleClick }) => {
   };
   return (
     <>
-      <div
+      <ChatbotBox
         className="chatbot"
-        style={{
+        sx={{
           height: "70vh",
           width: "30vw",
           border: "1px solid black",
@@ -228,7 +235,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
           </form>
           {error && <p>{error}</p>}
         </div>
-      </div>
+      </ChatbotBox>
     </>
   );
 };

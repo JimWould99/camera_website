@@ -34,13 +34,15 @@ const Cart_camera = ({ camera }) => {
           boxShadow: "0px 0px 7px 0px black",
         }}
       >
-        <CardMedia
-          component="img"
-          height="120px"
-          width="100px"
-          image={camera.image.url}
-          alt="camera"
-        ></CardMedia>
+        <Link href={`/camera/${camera._id}`} underline="none">
+          <CardMedia
+            component="img"
+            height="120px"
+            width="100px"
+            image={camera.image.url}
+            alt="camera"
+          ></CardMedia>
+        </Link>
         <div
           className="details"
           style={{
@@ -84,6 +86,7 @@ const Cart_camera = ({ camera }) => {
             color: "black",
             gridColumn: "3/4",
             marginTop: "10px",
+            textWrap: "nowrap",
           }}
         >
           Checkout Item

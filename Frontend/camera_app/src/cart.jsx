@@ -16,12 +16,17 @@ import {
   IconButton,
   Button,
   Container,
+  styled,
 } from "@mui/material";
 
 const Cart = () => {
   const { cartCameraList } = useContext(CartContext);
 
-  console.log("all", cartCameraList);
+  const DisplayBox = styled(Box)(({ theme }) => ({
+    [theme.breakpoints.down("md")]: {
+      width: "98%",
+    },
+  }));
 
   return (
     <>
@@ -31,7 +36,7 @@ const Cart = () => {
       <Box
         sx={{ width: "100%", minHeight: "100vh", backgroundColor: "#525FE1" }}
       >
-        <Box
+        <DisplayBox
           sx={{
             margin: "0 auto",
             width: "60%",
@@ -59,7 +64,7 @@ const Cart = () => {
               Empty
             </Typography>
           )}
-        </Box>
+        </DisplayBox>
       </Box>
     </>
   );

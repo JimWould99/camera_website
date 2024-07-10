@@ -56,6 +56,49 @@ const BrandButton = styled(Button)(({ theme }) => ({
   "&:hover": {
     color: "white",
   },
+  [theme.breakpoints.down("md")]: {
+    width: "80%",
+  },
+}));
+
+const SellTypography = styled(Typography)(({ theme }) => ({
+  [theme.breakpoints.up("lg")]: {
+    fontSize: "2em",
+  },
+  [theme.breakpoints.down("md")]: {
+    fontSize: "1.5em",
+  },
+  [theme.breakpoints.down("sm")]: {
+    fontSize: "1.2em",
+  },
+}));
+
+const CameraBox = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    display: "grid",
+    gridTemplateRows: "1fr 1fr",
+  },
+}));
+
+const CameraMedia = styled(CardMedia)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    width: "100vw",
+    height: "35vh",
+  },
+  [theme.breakpoints.up("md")]: {
+    width: "50vw",
+    height: "70vh",
+  },
+}));
+
+const BrandBox = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    display: "grid",
+    gridTemplateRows: "1fr 1fr",
+    gridTemplateColumns: "1fr 1fr",
+    rowGap: "15%",
+    marginBotton: "20px",
+  },
 }));
 /*
 const HomeBody = styled(Box)(({ theme }) => ({
@@ -83,24 +126,32 @@ const HomePage = () => {
       <Header></Header>
       <ChatPopper></ChatPopper>
 
-      <Box className="imageSection">
-        <CardMedia
+      <CameraBox className="imageSection">
+        <CameraMedia
           component="img"
           // height="190"
           image="../images/alexander-wang-camera.jpg"
-          sx={{ height: "70vh", width: "50vw" }}
+          sx={{
+            //height: "70vh",
+            /*width: "50vw",*/ width: { sm: "100vw", md: "50vw", lg: "50vw" },
+            height: { sm: "20vh", md: "70vh", lg: "70vh" },
+          }}
           alt="camera"
         />
-        <CardMedia
+        <CameraMedia
           component="img"
           // height="190"
           image="../images/hunter-moranville-camera.jpg"
           alt="camera"
-          sx={{ height: "70vh", width: "50vw" }}
+          sx={{
+            //height: "70vh",
+            /*width: "50vw",*/ width: { sm: "100vw", md: "50vw", lg: "50vw" },
+            height: { sm: "20vh", md: "70vh", lg: "70vh" },
+          }}
         />
-      </Box>
+      </CameraBox>
       <HomeBox>
-        <Typography
+        <SellTypography
           variant="h4"
           sx={{
             margin: "0px",
@@ -110,7 +161,7 @@ const HomePage = () => {
           }}
         >
           Sell without charge. Or buy quality at a great price
-        </Typography>
+        </SellTypography>
       </HomeBox>
       <Box
         sx={{
@@ -137,7 +188,20 @@ const HomePage = () => {
           modules={[Navigation, Pagination, Scrollbar, A11y, Thumbs]}
           navigation
           spaceBetween={40}
-          slidesPerView={3.5}
+          //slidesPerView={3.5}
+          breakpoints={{
+            640: {
+              slidesPerView: 1.5,
+            },
+            768: {
+              slidesPerView: 2.5,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 3.5,
+              spaceBetween: 50,
+            },
+          }}
           mousewheel
           onSlideChange={() => console.log("slide change")}
           scrollbar={{ draggable: true }}
@@ -170,7 +234,7 @@ const HomePage = () => {
           Shop by brand
         </Typography>
       </Box>
-      <Box
+      <BrandBox
         sx={{
           padding: "0px 20px 40px 20px",
           display: "flex",
@@ -181,7 +245,7 @@ const HomePage = () => {
         <BrandButton variant="contained">Fuji</BrandButton>
         <BrandButton variant="contained">Nikon</BrandButton>
         <BrandButton variant="contained">Panasonic</BrandButton>
-      </Box>
+      </BrandBox>
       <Box
         sx={{
           backgroundColor: "#525FE1",
@@ -208,7 +272,20 @@ const HomePage = () => {
           modules={[Navigation, Pagination, Scrollbar, A11y, Thumbs]}
           navigation
           spaceBetween={40}
-          slidesPerView={3.5}
+          //slidesPerView={3.5}
+          breakpoints={{
+            640: {
+              slidesPerView: 1.5,
+            },
+            768: {
+              slidesPerView: 2.5,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 3.5,
+              spaceBetween: 50,
+            },
+          }}
           mousewheel
           onSlideChange={() => console.log("slide change")}
           scrollbar={{ draggable: true }}

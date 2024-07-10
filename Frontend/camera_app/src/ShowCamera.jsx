@@ -32,23 +32,40 @@ const CameraButton = styled(Button)(({ theme }) => ({
   fontSize: "1.4em",
   color: "black",
   fontWeight: "bold",
+  [theme.breakpoints.down("md")]: {
+    width: "90%",
+  },
+}));
+
+const DisplayBox = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.up("md")]: {
+    display: "grid",
+    gridTemplateColumns: "50% 50%",
+    gridTemplateRows: "1fr",
+    height: "80vh",
+    margin: "30px 20px",
+    gap: "20px",
+  },
+  [theme.breakpoints.down("md")]: {
+    display: "grid",
+    gridTemplateRows: "1fr 1fr",
+    height: "140vh",
+    margin: "30px 20px",
+    gap: "20px",
+  },
+}));
+
+const TextBox = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    gap: "5px",
+  },
 }));
 
 function CameraLarger({ cameraDetails, handleSubmit }) {
   const url = cameraDetails.image.url;
   return (
     <>
-      <div
-        className="grid"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "50% 50%",
-          gridTemplateRows: "1fr",
-          height: "80vh",
-          margin: "30px 20px",
-          gap: "20px",
-        }}
-      >
+      <DisplayBox>
         <div className="image" style={{ overflow: "hidden" }}>
           <CardMedia
             component="img"
@@ -61,9 +78,9 @@ function CameraLarger({ cameraDetails, handleSubmit }) {
           className="details"
           style={{ display: "flex", flexDirection: "column" }}
         >
-          <div
+          <TextBox
             className="showCameraText"
-            style={{
+            sx={{
               display: "flex",
               flexDirection: "column",
               height: "40%",
@@ -77,7 +94,7 @@ function CameraLarger({ cameraDetails, handleSubmit }) {
             </div>
             <h1>GBP £{cameraDetails.price}</h1>
             <h3>Condition: {cameraDetails.condition}</h3>
-          </div>
+          </TextBox>
 
           <div
             className="buttons"
@@ -90,20 +107,27 @@ function CameraLarger({ cameraDetails, handleSubmit }) {
           >
             <CameraButton
               variant="contained"
-              style={{ backgroundColor: "#FFA41B" }}
+              style={{
+                backgroundColor: "#FFA41B",
+                textWrap: "nowrap",
+              }}
             >
               Buy it now
             </CameraButton>
             <CameraButton
               variant="contained"
-              style={{ backgroundColor: "#525FE1", color: "white" }}
+              style={{
+                backgroundColor: "#525FE1",
+                color: "white",
+                textWrap: "nowrap",
+              }}
               onClick={handleSubmit}
             >
               Add to cart
             </CameraButton>
           </div>
         </div>
-      </div>
+      </DisplayBox>
       <div style={{ marginLeft: "20px" }}>
         <h1>Description</h1>
         <h3>{cameraDetails.description}</h3>
