@@ -11,7 +11,7 @@ const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: "doczwegcp",
   api_key: process.env.CLOUDINARY_KEY,
-  api_secret: "4-iZdu0V6WY5DN0TjvhxuTYaoO8",
+  api_secret: "PGC3fgjTkvUiUkDM4yZ_XrFw1AQ",
 });
 
 exports.create_product_get = async (req, res) => {
