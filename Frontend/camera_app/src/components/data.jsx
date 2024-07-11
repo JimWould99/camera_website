@@ -6,7 +6,7 @@ const Data = ({ handleClick }) => {
   useEffect(() => {
     const fetchCamera = async () => {
       const response = await fetch(
-        "http://localhost:2002/api/product/allCameras"
+        "https://camera-website-backend.onrender.com/api/product/allCameras"
       );
       const json = await response.json();
       if (response.ok) {

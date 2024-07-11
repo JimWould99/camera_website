@@ -143,7 +143,9 @@ const ShowCamera = () => {
   useEffect(() => {
     const fetchCamera = async () => {
       //console.log(`/api/product/${id}`);
-      const response = await fetch(`http://localhost:2002/api/product/${id}`);
+      const response = await fetch(
+        `https://camera-website-backend.onrender.com/api/product/${id}`
+      );
       const json = await response.json();
       if (response.ok) {
         setCameraDetails(json);
