@@ -1,17 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-//const cors = require("cors");
+const cors = require("cors");
 
 const indexRouter = require("./routes/index");
 const productRouter = require("./routes/product");
 
 const app = express();
 
+//app.use(express.static("dist"));
+
 app.use(express.json());
 
-app.use(express.static("dist"));
-//app.use(cors());
+app.use(
+  cors({
+    origin: "https://camera-website-frontend.onrender.com",
+  })
+);
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -26,6 +31,7 @@ mongoose
   });
 
 app.use("/", indexRouter);
+
 app.use("/api/product", productRouter);
 
 /*
