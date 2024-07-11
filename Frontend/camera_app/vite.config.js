@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://camera-website-backend.onrender.com",
+        target: "http://localhost:2002",
         changeOrigin: true,
         secure: false,
       },
