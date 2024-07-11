@@ -34,9 +34,9 @@ const SearchPage = () => {
   let array = Array.from(entries);
 
   if (array[1][1] === "") {
-    fetchURL = `https://camera-website-backend.onrender.com/api/product/search/?q=${array[0][1]}`;
+    fetchURL = `/api/product/search/?q=${array[0][1]}`;
   } else {
-    fetchURL = `https://camera-website-backend.onrender.com/api/product/search/?q=${array[0][1]}&category=${array[1][1]}`;
+    fetchURL = `/api/product/search/?q=${array[0][1]}&category=${array[1][1]}`;
   }
 
   console.log("array", array);

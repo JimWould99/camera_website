@@ -4,7 +4,7 @@ import basicSsl from "@vitejs/plugin-basic-ssl";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  /*server: {
+  server: {
     proxy: {
       "/api": {
         target: "http://localhost:2002",
@@ -12,7 +12,7 @@ export default defineConfig({
         secure: false,
       },
     },
-  },*/
+  },
   optimizeDeps: {
     include: ["@emotion/react", "@emotion/styled", "@mui/material/Tooltip"],
   },

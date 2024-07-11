@@ -112,9 +112,7 @@ const HomePage = () => {
   const [displayedCameras, setDisplayedCameras] = useState(null);
   useEffect(() => {
     const fetchDisplays = async () => {
-      const response = await fetch(
-        "https://camera-website-backend.onrender.com/api/product/"
-      );
+      const response = await fetch("/api/product");
       const json = await response.json();
       if (response.ok) {
         setDisplayedCameras(json);
@@ -122,6 +120,7 @@ const HomePage = () => {
     };
     fetchDisplays();
   }, []);
+  //  image="./images/alexander-wang-camera.jpg"
   return (
     <>
       <Header></Header>
@@ -131,7 +130,7 @@ const HomePage = () => {
         <CameraMedia
           component="img"
           // height="190"
-          image="./images/alexander-wang-camera.jpg"
+          image="..public/images/alexander-wang-camera.jpg"
           sx={{
             //height: "70vh",
             /*width: "50vw",*/ width: { sm: "100vw", md: "50vw", lg: "50vw" },
@@ -142,7 +141,8 @@ const HomePage = () => {
         <CameraMedia
           component="img"
           // height="190"
-          image="./images/hunter-moranville-camera.jpg"
+          image=".images/hunter-moranville-camera.jpg"
+          //image=".images/hunter-moranville-camera.jpg"
           alt="camera"
           sx={{
             //height: "70vh",

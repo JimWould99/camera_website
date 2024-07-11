@@ -12,11 +12,11 @@ const app = express();
 
 app.use(express.json());
 
-app.use(
+/*app.use(
   cors({
     origin: "https://camera-website-frontend.onrender.com",
   })
-);
+);*/
 
 mongoose
   .connect(process.env.MONGO_URI)
