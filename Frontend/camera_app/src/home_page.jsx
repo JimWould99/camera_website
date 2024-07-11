@@ -6,7 +6,6 @@ import {
   A11y,
   Thumbs,
 } from "swiper/modules";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import CameraTile from "./components/camera_tile";
@@ -130,7 +129,7 @@ const HomePage = () => {
         <CameraMedia
           component="img"
           // height="190"
-          image="../images/alexander-wang-camera.jpg"
+          image="../public/alexander-wang-camera.jpg"
           sx={{
             //height: "70vh",
             /*width: "50vw",*/ width: { sm: "100vw", md: "50vw", lg: "50vw" },
@@ -141,7 +140,7 @@ const HomePage = () => {
         <CameraMedia
           component="img"
           // height="190"
-          image="../images/hunter-moranville-camera.jpg"
+          image="../public/hunter-moranville-camera.jpg"
           alt="camera"
           sx={{
             //height: "70vh",
