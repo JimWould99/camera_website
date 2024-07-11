@@ -5,7 +5,9 @@ const Data = ({ handleClick }) => {
   const [jsonData, setJsondData] = useState(null);
   useEffect(() => {
     const fetchCamera = async () => {
-      const response = await fetch("/api/product/allCameras");
+      const response = await fetch(
+        "http://localhost:2002/api/product/allCameras"
+      );
       const json = await response.json();
       if (response.ok) {
         setJsondData(json);
