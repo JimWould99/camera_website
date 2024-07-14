@@ -27,6 +27,10 @@ const User = ({ chatText, chatRole }) => {
           borderRadius: "10px",
           backgroundColor: "#525FE1",
           color: "white",
+          wordWrap: "break-word",
+          whiteSpace: "pre-wrap",
+          wordBreak: "break-word",
+          maxWidth: "80%",
         }}
       >
         <Typography sx={{ fontSize: "0.95rem" }}> {chatText}</Typography>
@@ -36,6 +40,16 @@ const User = ({ chatText, chatRole }) => {
 };
 
 const Chatbot = ({ chatText, chatRole }) => {
+  let split = chatText.split(" ");
+  let linkExists = false;
+  let link;
+
+  for (let i = 0; i <= split.length - 1; i++) {
+    if (split[i].includes("http")) {
+      linkExists = true;
+      link = split[i];
+    }
+  }
   return (
     <>
       <Box
@@ -45,7 +59,7 @@ const Chatbot = ({ chatText, chatRole }) => {
           gridTemplateColumns: "1fr 9fr",
           gap: "5px",
           padding: "0px 10px",
-          width: "90%",
+          //width: "90%",
         }}
       >
         <Box
@@ -66,9 +80,16 @@ const Chatbot = ({ chatText, chatRole }) => {
             borderRadius: "10px",
             padding: "7px",
             backgroundColor: "#F5F5F5",
+            wordWrap: "break-word",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
           }}
         >
-          <Typography sx={{ fontSize: "0.95rem" }}>{chatText}</Typography>
+          <Typography sx={{ fontSize: "0.95rem" }}>
+            {chatText}
+
+            {link && <Link href={link}>Go to camera</Link>}
+          </Typography>
         </Box>
       </Box>
     </>

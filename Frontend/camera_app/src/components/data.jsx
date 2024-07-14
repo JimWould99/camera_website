@@ -9,6 +9,7 @@ const Data = ({ handleClick }) => {
       const json = await response.json();
       if (response.ok) {
         setJsondData(json);
+        console.log("json data", json);
       }
     };
     fetchCamera();

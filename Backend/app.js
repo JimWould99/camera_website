@@ -5,6 +5,7 @@ const cors = require("cors");
 
 const indexRouter = require("./routes/index");
 const productRouter = require("./routes/product");
+const userRouter = require("./routes/users");
 
 const app = express();
 
@@ -33,6 +34,8 @@ mongoose
 app.use("/", indexRouter);
 
 app.use("/api/product", productRouter);
+
+app.use("/api/users", userRouter);
 
 /*
 app.get("/api/product", (req, res) => {

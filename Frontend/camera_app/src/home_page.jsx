@@ -130,7 +130,7 @@ const HomePage = () => {
         <CameraMedia
           component="img"
           // height="190"
-          image="..public/images/alexander-wang-camera.jpg"
+          image="/alexander-wang-camera.jpg"
           sx={{
             //height: "70vh",
             /*width: "50vw",*/ width: { sm: "100vw", md: "50vw", lg: "50vw" },
@@ -141,7 +141,7 @@ const HomePage = () => {
         <CameraMedia
           component="img"
           // height="190"
-          image=".images/hunter-moranville-camera.jpg"
+          image="/hunter-moranville-camera.jpg"
           //image=".images/hunter-moranville-camera.jpg"
           alt="camera"
           sx={{
