@@ -1,9 +1,11 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { json } from "react-router-dom";
 import Bubble from "./chatbot_comps/bubble";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AutorenewTwoToneIcon from "@mui/icons-material/AutorenewTwoTone";
 import { Link, Button } from "@mui/material";
+import { AuthContext } from "../hooks/auth_context";
+
 import {
   AppBar,
   Toolbar,
@@ -28,6 +30,14 @@ const ChatbotBox = styled(Box)(({ theme }) => ({
 }));
 
 const Chatbot = ({ jsonData, handleClick }) => {
+  const { user } = useContext(AuthContext);
+  let chatUser;
+  if (user) {
+    chatUser = user.name;
+  } else {
+    chatUser = "";
+  }
+
   console.log("json", jsonData);
   // console.log("json of cameras", CamerasJSON);
   //note; need to set prompts within
@@ -35,7 +45,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
     role: "user",
     parts: [
       {
-        text: `You are a virtual assistant Gary in the online second hand camera store Camera Store. Your aim is to answer customers questions about different cameras. You are to recommend cameras based on suitability, and inform customers which cameras are currently available. You are to use very short replies with friendly and informal language. Only recommend customers cameras that are in stock. Never recomend a camera that exceeds the budget. For instance, the Nikon Z8 costs 2570 pounds, and therefore exceeds a customers potential budget of 2000. When recomending a camera, provide a link. Links to cameras follow the format of http://localhost:5173/camera/(id of camera). Ei. http://localhost:5173/camera/668d1820b5afcaac0df9c4af. Dont put brackets around the link. If the customer asks for a recomendation, first ask the customer- 'what do you intend to use the camera for?- ei. for street photography, family photos, landscapes'. Then ask a follow up question - 'what is your maximum budget?' (you are not allowed to recomend a camera whose price is more than this amount). Finally recomend a suitable camera. If the customer asks something that is not relevant to cameras or the Camera Store, reply with 'sorry I cannot help with that'. The website is British and hence the cameras are sold with GBP pounds. Here is the json data from the database of all of the cameras currently available cameras:${JSON.stringify(
+        text: `You are a virtual assistant Gary in the online second hand camera store Camera Store. Your aim is to answer customers questions about different cameras. You are to recommend cameras based on suitability, and inform customers which cameras are currently available. You are to use very short replies with friendly and informal language. Only recommend customers cameras that are in stock. Never recomend a camera that exceeds the budget. For instance, the Nikon Z8 costs 2570 pounds, and therefore exceeds a customers potential budget of 2000. When recomending a camera, provide a link. Links to cameras follow the format of http://localhost:5173/camera/(id of camera). Ei. http://localhost:5173/camera/668d1820b5afcaac0df9c4af. Dont put brackets around the link. If the customer asks for a recomendation, first ask the customer- 'what do you intend to use the camera for?- ei. for street photography, family photos, landscapes'. Then ask a follow up question - 'what is your maximum budget?' (you are not allowed to recomend a camera whose price is more than this amount). Finally recomend a suitable camera, describing its suitability and details in two to four sentences. If the customer asks something that is not relevant to cameras or the Camera Store, reply with 'sorry I cannot help with that'. The website is British and hence the cameras are sold with GBP pounds. Here is the json data from the database of all of the cameras currently available cameras:${JSON.stringify(
           jsonData
         )}`,
       },
@@ -46,7 +56,79 @@ const Chatbot = ({ jsonData, handleClick }) => {
     role: "model",
     parts: [
       {
-        text: "Hello. I'm Gary, your virtual assistant at the 'Camera Store'! What can I help you with today? 😊\n",
+        text: `Hello ${chatUser}, I'm Gary, your virtual assistant at the 'Camera Store'! What can I help you with today? 😊\n`,
+      },
+    ],
+  };
+
+  const thirdPrompt = {
+    role: "user",
+    parts: [
+      {
+        text: `Please recomend a camera`,
+      },
+    ],
+  };
+
+  const fourthPrompt = {
+    role: "model",
+    parts: [
+      {
+        text: `What do you intend to use the camera for? ei. street photography, landscapes, a family trip`,
+      },
+    ],
+  };
+
+  const fifthPrompt = {
+    role: "user",
+    parts: [
+      {
+        text: `Landscape photography`,
+      },
+    ],
+  };
+
+  const sixthPrompt = {
+    role: "model",
+    parts: [
+      {
+        text: `What is your budget?`,
+      },
+    ],
+  };
+
+  const seventhPrompt = {
+    role: "user",
+    parts: [
+      {
+        text: `350 pounds`,
+      },
+    ],
+  };
+
+  const eighthPrompt = {
+    role: "model",
+    parts: [
+      {
+        text: `The Canon EOS 4000D is a great camera for landscapes, with a high-resolution sensor and a good lens kit. It is a great option for beginners, especially if you're looking for a camera that is easy to use and produces good quality images.It's currently in stock for £309. http://localhost:5173/camera/668d0659f2815bcfe0d8f688`,
+      },
+    ],
+  };
+
+  const ninthPrompt = {
+    role: "user",
+    parts: [
+      {
+        text: `Thank you`,
+      },
+    ],
+  };
+
+  const tenthPrompt = {
+    role: "model",
+    parts: [
+      {
+        text: `Hello ${chatUser}, I'm Gary, your virtual assistant at the 'Camera Store'! What can I help you with today? 😊\n`,
       },
     ],
   };
@@ -60,7 +142,18 @@ const Chatbot = ({ jsonData, handleClick }) => {
     //console.log("historydata", historyData);
     if (historyData === null) {
       //console.log("this one");
-      return [firstPrompt, secondPrompt];
+      return [
+        firstPrompt,
+        secondPrompt,
+        thirdPrompt,
+        fourthPrompt,
+        fifthPrompt,
+        sixthPrompt,
+        seventhPrompt,
+        eighthPrompt,
+        ninthPrompt,
+        tenthPrompt,
+      ];
     } else {
       //console.log("json");
       return JSON.parse(historyData);
@@ -76,9 +169,9 @@ const Chatbot = ({ jsonData, handleClick }) => {
     setChatHistory(localStorage.getItem("chatHistory"));
   }, []); */
 
-  const getResponse = async (e) => {
+  const getResponse = async () => {
     setIsLoading(true);
-    e.preventDefault();
+    console.log("value in response", value);
     if (!value) {
       setError("type a question");
       return;
@@ -117,11 +210,25 @@ const Chatbot = ({ jsonData, handleClick }) => {
     }
     setIsLoading(false);
   };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    getResponse();
+  };
+
   const clear = () => {
     setValue("");
     setError("");
     localStorage.removeItem("chatHistory");
   };
+
+  const startButtons = (startValue) => {
+    setValue(startValue);
+    console.log("value in start", startValue);
+    getResponse();
+  };
+
+  console.log("historylen", chatHistory.length);
   return (
     <>
       <ChatbotBox
@@ -170,7 +277,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
           {chatHistory &&
             chatHistory.map(
               (chat_line, index) =>
-                index > 0 && (
+                index > 8 && (
                   <Bubble
                     key={index}
                     chatText={chat_line.parts[0].text}
@@ -178,6 +285,31 @@ const Chatbot = ({ jsonData, handleClick }) => {
                   ></Bubble>
                 )
             )}
+          {chatHistory.length < 11 && (
+            <Box
+              sx={{
+                padding: "0px 10px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "5px",
+              }}
+            >
+              <Button
+                value="Recommend me a camera"
+                onClick={(e) => startButtons(e.target.value)}
+                sx={{ border: "2px solid #525FE1", color: "#525FE1" }}
+              >
+                Recommend me a camera
+              </Button>
+              <Button
+                value="Give a review summary for the Nikon Z8"
+                onClick={(e) => startButtons(e.target.value)}
+                sx={{ border: "2px solid #525FE1", color: "#525FE1" }}
+              >
+                Give a review summary for the Nikon Z8
+              </Button>
+            </Box>
+          )}
           <div ref={messagesEndRef}></div>
           {isLoading ? (
             <div
@@ -205,7 +337,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
               justifyContent: "space-between",
               paddingLeft: "10px",
             }}
-            onSubmit={getResponse}
+            onSubmit={handleSubmit}
           >
             <input
               type="text"

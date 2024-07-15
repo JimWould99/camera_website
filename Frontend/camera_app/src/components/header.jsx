@@ -18,7 +18,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 //import { Rowing } from "@mui/icons-material";
 import Navbar from "./navBar";
 import { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../hooks/shopping_cart_context";
 import { AuthContext } from "../hooks/auth_context";
@@ -131,6 +131,8 @@ const Header = () => {
   const logOutClick = () => {
     logout();
     localStorage.removeItem("user");
+    localStorage.removeItem("chatHistory");
+    navigate("/");
   };
 
   return (

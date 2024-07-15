@@ -50,6 +50,7 @@ const Chatbot = ({ chatText, chatRole }) => {
       link = split[i];
     }
   }
+  chatText = chatText.replace(link, "");
   return (
     <>
       <Box
@@ -87,7 +88,6 @@ const Chatbot = ({ chatText, chatRole }) => {
         >
           <Typography sx={{ fontSize: "0.95rem" }}>
             {chatText}
-
             {link && <Link href={link}>Go to camera</Link>}
           </Typography>
         </Box>
