@@ -169,9 +169,9 @@ const Chatbot = ({ jsonData, handleClick }) => {
     setChatHistory(localStorage.getItem("chatHistory"));
   }, []); */
 
-  const getResponse = async () => {
+  const getResponse = async (e) => {
     setIsLoading(true);
-    console.log("value in response", value);
+    e.preventDefault();
     if (!value) {
       setError("type a question");
       return;
@@ -211,21 +211,10 @@ const Chatbot = ({ jsonData, handleClick }) => {
     setIsLoading(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    getResponse();
-  };
-
   const clear = () => {
     setValue("");
     setError("");
     localStorage.removeItem("chatHistory");
-  };
-
-  const startButtons = (startValue) => {
-    setValue(startValue);
-    console.log("value in start", startValue);
-    getResponse();
   };
 
   console.log("historylen", chatHistory.length);
@@ -295,15 +284,15 @@ const Chatbot = ({ jsonData, handleClick }) => {
               }}
             >
               <Button
-                value="Recommend me a camera"
-                onClick={(e) => startButtons(e.target.value)}
+                value=" Recommend me a camera"
+                onClick={(e) => setValue(e.target.value)}
                 sx={{ border: "2px solid #525FE1", color: "#525FE1" }}
               >
                 Recommend me a camera
               </Button>
               <Button
                 value="Give a review summary for the Nikon Z8"
-                onClick={(e) => startButtons(e.target.value)}
+                onClick={(e) => setValue(e.target.value)}
                 sx={{ border: "2px solid #525FE1", color: "#525FE1" }}
               >
                 Give a review summary for the Nikon Z8
@@ -337,7 +326,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
               justifyContent: "space-between",
               paddingLeft: "10px",
             }}
-            onSubmit={handleSubmit}
+            onSubmit={getResponse}
           >
             <input
               type="text"
