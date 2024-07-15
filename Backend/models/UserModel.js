@@ -10,7 +10,7 @@ const userSchema = new Schema({
     required: true,
     unique: true,
   },
-  username: {
+  name: {
     type: String,
     required: true,
   },
@@ -20,8 +20,8 @@ const userSchema = new Schema({
   },
 });
 
-userSchema.statics.signup = async function (email, username, password) {
-  if (!email || !username || !password) {
+userSchema.statics.signup = async function (email, name, password) {
+  if (!email || !name || !password) {
     throw Error("Fill in all inputs");
   }
 
@@ -29,9 +29,9 @@ userSchema.statics.signup = async function (email, username, password) {
     throw Error("invalid email");
   }
 
-  if (!validator.isStrongPassword(password)) {
+  /*if (!validator.isStrongPassword(password)) {
     throw Error("Password is not strong enough");
-  }
+  }*/
 
   const checkEmail = await this.findOne({ email });
 
@@ -42,7 +42,26 @@ userSchema.statics.signup = async function (email, username, password) {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  const user = await this.create({ email, username, password: hash });
+  const user = await this.create({ email, name, password: hash });
+
+  return user;
+};
+
+userSchema.statics.login = async function (email, password) {
+  if (!email || !password) {
+    throw Error("Fill in all inputs");
+  }
+
+  const user = await this.findOne({ email });
+
+  if (!user) {
+    throw Error("incorrect email");
+  }
+
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) {
+    throw Error("incorrect password");
+  }
 
   return user;
 };

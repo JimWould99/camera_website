@@ -20,7 +20,9 @@ import Navbar from "./navBar";
 import { useState, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useContext } from "react";
-import { CartContext } from "../shopping_cart_context";
+import { CartContext } from "../hooks/shopping_cart_context";
+import { AuthContext } from "../hooks/auth_context";
+
 const HeaderToolBar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -123,7 +125,13 @@ const Header = () => {
   } else {
     cartColor = "none";
   }
-  console.log("list length", cartCameraList.length);
+
+  const { user, login, logout } = useContext(AuthContext);
+
+  const logOutClick = () => {
+    logout();
+    localStorage.removeItem("user");
+  };
 
   return (
     <>
@@ -173,16 +181,41 @@ const Header = () => {
                 Sell Now
               </HeaderButtons>
             </Link>
-            <Link href={"/"} underline="none">
+            {!user && (
+              <Link href={"/sign_up"} underline="none">
+                <HeaderButtons
+                  sx={{ backgroundColor: "#FFFDD0", color: "black" }}
+                  variant="contained"
+                >
+                  Sign Up
+                </HeaderButtons>
+              </Link>
+            )}
+            {!user && (
+              <Link href={"/login"} underline="none">
+                <HeaderButtons
+                  sx={{
+                    color: "#FFFDD0",
+                    "&:hover": {
+                      backgroundColor: "#002244",
+                    },
+                  }}
+                >
+                  Log In
+                </HeaderButtons>
+              </Link>
+            )}
+            {user && (
               <HeaderButtons
                 sx={{ backgroundColor: "#FFFDD0", color: "black" }}
                 variant="contained"
               >
-                Sign Up
+                {user.name}
               </HeaderButtons>
-            </Link>
-            <Link href={"/"} underline="none">
+            )}
+            {user && (
               <HeaderButtons
+                onClick={logOutClick}
                 sx={{
                   color: "#FFFDD0",
                   "&:hover": {
@@ -190,9 +223,9 @@ const Header = () => {
                   },
                 }}
               >
-                Log In
+                Log out
               </HeaderButtons>
-            </Link>
+            )}
           </RightBox>
         </HeaderToolBar>
         <Navbar

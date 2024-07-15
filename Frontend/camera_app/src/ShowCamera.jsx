@@ -4,7 +4,7 @@ import Header from "./components/header";
 import ChatPopper from "./components/chatbot_comps/popper";
 import "./index.css";
 import { useContext } from "react";
-import { CartContext } from "./shopping_cart_context";
+import { CartContext } from "./hooks/shopping_cart_context";
 
 import {
   AppBar,

@@ -7,7 +7,11 @@ import SearchPage from "./SearchPage";
 import ShowCamera from "./ShowCamera";
 import Data from "./components/data";
 import Cart from "./cart.jsx";
-import { CartContextProvider } from "./shopping_cart_context";
+import Login from "./login.jsx";
+import Sign_up from "./sign_up.jsx";
+
+import { CartContextProvider } from "./hooks/shopping_cart_context.jsx";
+import { AuthContextProvider } from "./hooks/auth_context.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -36,12 +40,22 @@ const router = createBrowserRouter([
     path: "/cart",
     element: <Cart />,
   },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/sign_up",
+    element: <Sign_up />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <CartContextProvider>
-      <RouterProvider router={router}></RouterProvider>
-    </CartContextProvider>
+    <AuthContextProvider>
+      <CartContextProvider>
+        <RouterProvider router={router}></RouterProvider>
+      </CartContextProvider>
+    </AuthContextProvider>
   </React.StrictMode>
 );

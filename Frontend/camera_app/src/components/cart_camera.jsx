@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useContext, useState } from "react";
-import { CartContext } from "../shopping_cart_context";
+import { CartContext } from "../hooks/shopping_cart_context";
 
 const Cart_camera = ({ camera }) => {
   const { deleteFromCart } = useContext(CartContext);
