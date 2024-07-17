@@ -8,7 +8,7 @@ const generationConfig = {
   temperature: 1,
   topP: 0.95,
   topK: 64,
-  maxOutputTokens: 300,
+  maxOutputTokens: 250,
   responseMimeType: "text/plain",
 };
 
@@ -21,6 +21,7 @@ exports.chatbot = async (req, res) => {
     history: req.body.history,
   });
 
+  console.log("request carried out");
   const msg = req.body.message;
   const result = await chat.sendMessage(msg);
   const response = await result.response.text();

@@ -5,7 +5,6 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import AutorenewTwoToneIcon from "@mui/icons-material/AutorenewTwoTone";
 import { Link, Button } from "@mui/material";
 import { AuthContext } from "../hooks/auth_context";
-
 import {
   AppBar,
   Toolbar,
@@ -22,13 +21,11 @@ import {
   Container,
   Popper,
 } from "@mui/material";
-
 const ChatbotBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     width: "70vw",
   },
 }));
-
 const Chatbot = ({ jsonData, handleClick }) => {
   const { user } = useContext(AuthContext);
   let chatUser;
@@ -37,7 +34,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
   } else {
     chatUser = "";
   }
-
   console.log("json", jsonData);
   // console.log("json of cameras", CamerasJSON);
   //note; need to set prompts within
@@ -60,7 +56,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
       },
     ],
   };
-
   const thirdPrompt = {
     role: "user",
     parts: [
@@ -69,7 +64,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
       },
     ],
   };
-
   const fourthPrompt = {
     role: "model",
     parts: [
@@ -78,7 +72,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
       },
     ],
   };
-
   const fifthPrompt = {
     role: "user",
     parts: [
@@ -87,7 +80,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
       },
     ],
   };
-
   const sixthPrompt = {
     role: "model",
     parts: [
@@ -96,7 +88,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
       },
     ],
   };
-
   const seventhPrompt = {
     role: "user",
     parts: [
@@ -105,7 +96,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
       },
     ],
   };
-
   const eighthPrompt = {
     role: "model",
     parts: [
@@ -114,7 +104,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
       },
     ],
   };
-
   const ninthPrompt = {
     role: "user",
     parts: [
@@ -123,7 +112,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
       },
     ],
   };
-
   const tenthPrompt = {
     role: "model",
     parts: [
@@ -132,7 +120,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
       },
     ],
   };
-
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -164,11 +151,9 @@ const Chatbot = ({ jsonData, handleClick }) => {
     localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
     messagesEndRef.current?.scrollIntoView();
   }, [chatHistory]);
-
   /*useEffect(() => {
     setChatHistory(localStorage.getItem("chatHistory"));
   }, []); */
-
   const getResponse = async (e) => {
     setIsLoading(true);
     e.preventDefault();
@@ -188,7 +173,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
         },
       };
       const response = await fetch("/api/product/chatbot", options);
-
       const data = await response.text();
       //console.log("history", chatHistory[0].parts[0].text);
       //console.log(chatHistory);
@@ -210,13 +194,11 @@ const Chatbot = ({ jsonData, handleClick }) => {
     }
     setIsLoading(false);
   };
-
   const clear = () => {
     setValue("");
     setError("");
     localStorage.removeItem("chatHistory");
   };
-
   console.log("historylen", chatHistory.length);
   return (
     <>
@@ -275,29 +257,33 @@ const Chatbot = ({ jsonData, handleClick }) => {
                 )
             )}
           {chatHistory.length < 11 && (
-            <Box
-              sx={{
-                padding: "0px 10px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "5px",
-              }}
-            >
-              <Button
-                value=" Recommend me a camera"
-                onClick={(e) => setValue(e.target.value)}
-                sx={{ border: "2px solid #525FE1", color: "#525FE1" }}
+            <form action="" onSubmit={getResponse}>
+              <Box
+                sx={{
+                  padding: "0px 10px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "5px",
+                }}
               >
-                Recommend me a camera
-              </Button>
-              <Button
-                value="Give a review summary for the Nikon Z8"
-                onClick={(e) => setValue(e.target.value)}
-                sx={{ border: "2px solid #525FE1", color: "#525FE1" }}
-              >
-                Give a review summary for the Nikon Z8
-              </Button>
-            </Box>
+                <Button
+                  type="submit"
+                  value=" Recommend me a camera"
+                  onClick={(e) => setValue(e.target.value)}
+                  sx={{ border: "2px solid #525FE1", color: "#525FE1" }}
+                >
+                  Recommend me a camera
+                </Button>
+                <Button
+                  type="submit"
+                  value="Give a review summary for the Nikon Z8"
+                  onClick={(e) => setValue(e.target.value)}
+                  sx={{ border: "2px solid #525FE1", color: "#525FE1" }}
+                >
+                  Give a review summary for the Nikon Z8
+                </Button>
+              </Box>
+            </form>
           )}
           <div ref={messagesEndRef}></div>
           {isLoading ? (

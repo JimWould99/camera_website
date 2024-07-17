@@ -1,17 +1,24 @@
 const express = require("express");
-
 const router = express.Router();
+const { rateLimit } = require("express-rate-limit");
 
 const product_display_controller = require("../controllers/product_display_controller");
 const product_delete_controller = require("../controllers/product_delete_controller");
 const product_add_controller = require("../controllers/product_add_controller");
 const chatbot_controller = require("../controllers/chatbot_controller");
 
+const limiter = rateLimit({
+  windowMs: 1440 * 60 * 1000,
+  limit: 15,
+  standardHeaders: "draft-7",
+  legacyHeaders: false,
+});
+
 // general and display/read //
 
 //chatbot
 
-router.post("/chatbot", chatbot_controller.chatbot);
+router.post("/chatbot", limiter, chatbot_controller.chatbot);
 
 //home page
 router.get("/", product_display_controller.home);
