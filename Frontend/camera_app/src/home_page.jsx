@@ -7,6 +7,7 @@ import {
   Thumbs,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useNavigate, useSearchParams, Navigate } from "react-router-dom";
 
 import CameraTile from "./components/camera_tile";
 import Header from "./components/header";
@@ -120,7 +121,20 @@ const HomePage = () => {
     };
     fetchDisplays();
   }, []);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [brandQuery, setBrandQuery] = useState(searchParams.get("brand") || "");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSearchParams({ brand: brandQuery });
+    navigate(`/search/?q=&category=&brand=${encodeURIComponent(brandQuery)}`);
+    if (window.location.href.includes("search")) {
+      window.location.reload();
+    }
+  };
   //  image="./images/alexander-wang-camera.jpg"
+
   return (
     <>
       <Header></Header>
@@ -235,18 +249,49 @@ const HomePage = () => {
           Shop by brand
         </Typography>
       </Box>
-      <BrandBox
-        sx={{
-          padding: "0px 20px 40px 20px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <BrandButton variant="contained">Canon</BrandButton>
-        <BrandButton variant="contained">Fuji</BrandButton>
-        <BrandButton variant="contained">Nikon</BrandButton>
-        <BrandButton variant="contained">Panasonic</BrandButton>
-      </BrandBox>
+      <form onSubmit={handleSubmit}>
+        <BrandBox
+          sx={{
+            padding: "0px 20px 40px 20px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <BrandButton
+            onClick={(e) => setBrandQuery(e.target.value)}
+            variant="contained"
+            value="Canon"
+            type="submit"
+          >
+            Canon
+          </BrandButton>
+          <BrandButton
+            onClick={(e) => setBrandQuery(e.target.value)}
+            variant="contained"
+            value="Fujifilm"
+            type="submit"
+          >
+            Fuji
+          </BrandButton>
+          <BrandButton
+            onClick={(e) => setBrandQuery(e.target.value)}
+            variant="contained"
+            value="Nikon"
+            type="submit"
+          >
+            Nikon
+          </BrandButton>
+          <BrandButton
+            onClick={(e) => setBrandQuery(e.target.value)}
+            variant="contained"
+            value="Panasonic"
+            type="submit"
+          >
+            Panasonic
+          </BrandButton>
+        </BrandBox>
+      </form>
+
       <Box
         sx={{
           backgroundColor: "#525FE1",

@@ -12,6 +12,7 @@ import Sign_up from "./sign_up.jsx";
 
 import { CartContextProvider } from "./hooks/shopping_cart_context.jsx";
 import { AuthContextProvider } from "./hooks/auth_context.jsx";
+import { SearchContextProvider } from "./hooks/search_context.jsx";
 import "./index.css";
 
 const router = createBrowserRouter([

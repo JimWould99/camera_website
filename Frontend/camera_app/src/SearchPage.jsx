@@ -32,8 +32,11 @@ const SearchPage = () => {
   let searchParams = new URL(url).searchParams;
   let entries = new URLSearchParams(searchParams).entries();
   let array = Array.from(entries);
+  console.log("array", array);
 
-  if (array[1][1] === "") {
+  if (array.length === 3) {
+    fetchURL = `/api/product/search/?brand=${array[2][1]}`;
+  } else if (array[1][1] === "") {
     fetchURL = `/api/product/search/?q=${array[0][1]}`;
   } else {
     fetchURL = `/api/product/search/?q=${array[0][1]}&category=${array[1][1]}`;
@@ -73,10 +76,15 @@ const SearchPage = () => {
           <Typography variant="h4">Showing: {array[1][1]} Cameras</Typography>
         )}
       </Box>
+      {array.length === 3 && (
+        <Typography variant="h5" sx={{ margin: "30px 0px 0px 20px" }}>
+          {array[2][1]}
+        </Typography>
+      )}
       <Grid
         container
         rowSpacing={8}
-        sx={{ margin: "10px 0px 0px 20px" }}
+        sx={{ margin: "10px 0px 30px 20px" }}
         //gridtemplateColumns="repeat(10, 1fr)"
       >
         {searchCamera &&
