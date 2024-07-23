@@ -24,7 +24,7 @@ router.post("/openai_chatbot", openai_chatbot_controller.openai_chatbot);
 
 //chatbot test
 
-router.get("/chatbot_test", chatbot_test_controller.chatbot_test);
+router.post("/chatbot_test", chatbot_test_controller.chatbot_test);
 
 //chatbot
 

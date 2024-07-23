@@ -9,6 +9,7 @@ import Data from "./components/data";
 import Cart from "./cart.jsx";
 import Login from "./login.jsx";
 import Sign_up from "./sign_up.jsx";
+import Openai_chatbot from "./components/second_chatbot.jsx";
 
 import { CartContextProvider } from "./hooks/shopping_cart_context.jsx";
 import { AuthContextProvider } from "./hooks/auth_context.jsx";
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/sign_up",
     element: <Sign_up />,
+  },
+  {
+    path: "/openai",
+    element: <Openai_chatbot />,
   },
 ]);
 
