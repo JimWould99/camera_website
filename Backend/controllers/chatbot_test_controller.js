@@ -6,11 +6,18 @@ const pipeline = require("@xenova/transformers");*/
 const { HfInference } = require("@huggingface/inference");
 const hf = new HfInference(process.env.TEST_KEY);
 const client = new MongoClient(process.env.MONGO_URI);
-
 TransformersApi = Function('return import("@xenova/transformers")')();
 const Camera = require("../models/CameraModel");
 const EmbeddingModel = require("../models/EmbeddingModel");
-//const Embedding = require("../models/EmbeddingModel");
+const Embedding = require("../models/EmbeddingModel");
+
+const { ChatOpenAI } = require("@langchain/openai");
+const { ChatPromptTemplate } = require("@langchain/core/prompts");
+const {
+  HumanMessage,
+  BaseMessage,
+  AIMessage,
+} = require("@langchain/core/messages");
 
 function dotProduct(a, b) {
   if (a.length !== b.length) {
@@ -33,51 +40,61 @@ const generateEmbedding = async (textToConvert) => {
   });
   return output;
 };
-exports.chatbot_test = async (req, res) => {
-  /*const allCameras = await Camera.find().exec();
-  for (let i = 0; i <= allCameras.length - 1; i++) {
-    const newEmbedding = await generateEmbedding(allCameras[i].description);
-    allCameras[i].embedded_name = await newEmbedding;
-    console.log("embedding", newEmbedding);
-    await allCameras[i].save();
-  } */
-  const query = await generateEmbedding(
-    "a dark camera that does not work well"
-  );
 
-  /*const output2 = await hf.featureExtraction({
-    model: "sentence-transformers/all-MiniLM-L6-v2",
-    inputs: "cat",
-  });*/
-
-  // const similarity = dotProduct(query, output2);
-
-  //console.log(query);
+const getMatches = async (userQuery) => {
+  let query = await generateEmbedding(userQuery);
   await client.connect();
   const db = client.db("camera_site");
-  const coll = db.collection("products");
+  const coll = db.collection("embeddings");
   const result = coll.aggregate([
     {
       $vectorSearch: {
-        index: "search_vector2",
-        path: "embedded_name",
+        index: "search",
+        path: "embeddings",
         queryVector: query,
         numCandidates: 150,
-        limit: 5,
+        limit: 3,
       },
     },
   ]);
-  //console.log(result);
   documents = [];
   await result.forEach((doc) =>
     documents.push(
-      JSON.stringify(`${doc.name}, ${doc.description}, ${doc.price}`)
+      JSON.stringify(
+        `${doc.name}, ${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, ${doc.condition}, id: ${doc._id}`
+      )
     )
   );
-  // console.dir(JSON.stringify(doc.name)));
-  console.log(documents);
+  await result.forEach((doc) => console.dir(JSON.stringify(doc)));
+  //console.dir(JSON.stringify(doc.name));
   await client.close();
-  res.json({ mssg: result });
+  return documents;
+};
 
-  // res.json({ mssg: query });
+exports.chatbot_test = async (req, res) => {
+  query = req.body.question;
+  const documents = async (query) => await getMatches(query);
+  console.log(await documents(query));
+
+  const model = new ChatOpenAI({
+    apiKey: process.env.OPEN_AI_KEY,
+    model: "gpt-4o-mini",
+    temperature: 0,
+    maxTokens: 80,
+  });
+
+  const standaloneQueryTemplate =
+    "Given a camera query, convert it to a standalone camera query. query: {query} standalone query:";
+
+  const standaloneQueryPrompt = ChatPromptTemplate.fromTemplate(
+    standaloneQueryTemplate
+  );
+
+  const chain = standaloneQueryPrompt.pipe(model).pipe(documents);
+
+  const response = await chain.invoke({
+    query: "I want a camera. I want to find it now",
+  });
+
+  res.json({ mssg: response.content });
 };

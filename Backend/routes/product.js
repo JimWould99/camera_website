@@ -7,6 +7,7 @@ const product_delete_controller = require("../controllers/product_delete_control
 const product_add_controller = require("../controllers/product_add_controller");
 const chatbot_controller = require("../controllers/chatbot_controller");
 const chatbot_test_controller = require("../controllers/chatbot_test_controller");
+const openai_chatbot_controller = require("../controllers/openai_chatbot");
 
 const limiter = rateLimit({
   windowMs: 1440 * 60 * 1000,
@@ -16,6 +17,10 @@ const limiter = rateLimit({
 });
 
 // general and display/read //
+
+// open_ai chatbot
+
+router.post("/openai_chatbot", openai_chatbot_controller.openai_chatbot);
 
 //chatbot test
 
