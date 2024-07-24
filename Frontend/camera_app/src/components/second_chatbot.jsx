@@ -10,11 +10,6 @@ const Openai_chatbot = () => {
       content:
         "You are a helpful assistant on a camera website called Gary. Your role is to recomend cameras",
     },
-    { role: "user", content: "Hello" },
-    {
-      role: "assistant",
-      content: "The Los Angeles Dodgers won the World Series in 2020.",
-    },
   ]);
 
   const getResponse = async () => {
@@ -35,9 +30,9 @@ const Openai_chatbot = () => {
       };
       const response = await fetch("/api/product/chatbot_test", options);
       const data = await response.text();
-      console.log("before", chatHistory);
-      console.log("value", value);
-      console.log("data", data);
+      //console.log("before", chatHistory);
+      //console.log("value", value);
+      //  console.log("data", data);
       setChatHistory((oldChatHistory) => [
         ...oldChatHistory,
         {

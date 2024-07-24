@@ -41,7 +41,7 @@ const getMatches = async (userQuery) => {
         path: "embeddings",
         queryVector: query,
         numCandidates: 150,
-        limit: 4,
+        limit: 3,
       },
     },
   ]);
@@ -60,20 +60,35 @@ const getMatches = async (userQuery) => {
 };
 
 exports.chatbot_test = async (req, res) => {
-  query = req.body.question;
+  query = req.body.message;
   //const documents = await getMatches(query);
-  async function documents(input) {
+  /*async function documents(input) {
     const result = await getMatches(input);
     return result;
-  }
+  }*/
+
+  const cameraMatch = await getMatches(query);
+
+  let systemPrompt = {
+    role: "system",
+    content: `You are a helpful assistant on a camera website called Gary. Your role is to recomend cameras. The available cameras are: ${cameraMatch}`,
+  };
+
+  //console.log(systemPrompt);
+
   const openai = new OpenAI({ apiKey: process.env.OPEN_AI_KEY });
 
   let history = req.body.history;
+
+  console.log("history before", history);
+
   const message = { role: "user", content: req.body.message };
 
   history.push(message);
 
-  //console.log(history);
+  history.shift();
+  history.unshift(systemPrompt);
+  console.log("history after", history);
 
   const completion = await openai.chat.completions.create({
     messages: history,
@@ -95,7 +110,7 @@ exports.chatbot_test = async (req, res) => {
   },
   ];*/
 
-  console.log("completion", completion.choices[0].message.content);
+  // console.log("completion", completion.choices[0].message.content);
 
   res.send(completion.choices[0].message.content);
 };
