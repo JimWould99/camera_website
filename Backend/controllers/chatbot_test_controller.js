@@ -41,7 +41,7 @@ const getMatches = async (userQuery) => {
         path: "embeddings",
         queryVector: query,
         numCandidates: 150,
-        limit: 3,
+        limit: 2,
       },
     },
   ]);
@@ -49,7 +49,7 @@ const getMatches = async (userQuery) => {
   await result.forEach((doc) =>
     documents.push(
       JSON.stringify(
-        `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: product/apu/${doc._id}`
+        `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: https://localhost/api/product/${doc._id}`
       )
     )
   );
@@ -57,6 +57,32 @@ const getMatches = async (userQuery) => {
   //console.dir(JSON.stringify(doc.name));
   await client.close();
   return documents;
+};
+
+exports.populate_database = async (req, res) => {
+  const allCameras = await Camera.find().exec();
+  for (let i = 0; i <= allCameras.length - 1; i++) {
+    let testString =
+      allCameras[i].name +
+      allCameras[i].description +
+      allCameras[i].brand +
+      allCameras[i].category +
+      allCameras[i].model;
+    const newEmbedding = await generateEmbedding(testString);
+    // console.log(testString);
+    const embedded_camera = await Embedding.create({
+      embeddings: newEmbedding,
+      name: allCameras[i].name,
+      description: allCameras[i].description,
+      brand: allCameras[i].brand,
+      category: allCameras[i].category,
+      model: allCameras[i].model,
+      condition: allCameras[i].condition,
+      price: allCameras[i].price,
+      max_res: allCameras[i].max_res,
+      image: allCameras[i].image,
+    });
+  }
 };
 
 exports.chatbot_test = async (req, res) => {
@@ -71,7 +97,7 @@ exports.chatbot_test = async (req, res) => {
 
   let systemPrompt = {
     role: "system",
-    content: `You are a helpful assistant on a camera website called Gary. Your role is to recomend cameras. The available cameras are: ${cameraMatch}`,
+    content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to recomend cameras. If someone asks for a camera recomendation, ask them what type of camera they are looking for before giving a recomendation. Provide the url with the recomendation, dont put the url in brackets. The available cameras are: ${cameraMatch}`,
   };
 
   //console.log(systemPrompt);
@@ -93,6 +119,7 @@ exports.chatbot_test = async (req, res) => {
   const completion = await openai.chat.completions.create({
     messages: history,
     model: "gpt-4o-mini",
+    max_tokens: 150,
   });
 
   const result = await completion.choices[0];

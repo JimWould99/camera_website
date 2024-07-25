@@ -2,7 +2,9 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Popper from "@mui/material/Popper";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
-import Data from "../data";
+//import Data from "../data";
+import Chatbot from "../chatbot";
+
 import { useEffect } from "react";
 import {
   AppBar,
@@ -67,7 +69,7 @@ export default function ChatPopper() {
         }}
         // transition
       >
-        <Data handleClick={handleClick}></Data>
+        <Chatbot handleClick={handleClick}></Chatbot>
         {/*<Box sx={{ border: 1, p: 1, bgcolor: "background.paper" }}>
           The content of the Popper.
         </Box> */}

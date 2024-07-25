@@ -26,7 +26,7 @@ const ChatbotBox = styled(Box)(({ theme }) => ({
     width: "70vw",
   },
 }));
-const Chatbot = ({ jsonData, handleClick }) => {
+const Chatbot = ({ handleClick }) => {
   const { user } = useContext(AuthContext);
   let chatUser;
   if (user) {
@@ -34,92 +34,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
   } else {
     chatUser = "";
   }
-  console.log("json", jsonData);
-  // console.log("json of cameras", CamerasJSON);
-  //note; need to set prompts within
-  const firstPrompt = {
-    role: "user",
-    parts: [
-      {
-        text: `You are a virtual assistant Gary in the online second hand camera store Camera Store. Your aim is to answer customers questions about different cameras. You are to recommend cameras based on suitability, and inform customers which cameras are currently available. You are to use very short replies with friendly and informal language. Only recommend customers cameras that are in stock. Never recomend a camera that exceeds the budget. For instance, the Nikon Z8 costs 2570 pounds, and therefore exceeds a customers potential budget of 2000. When recomending a camera, provide a link. Links to cameras follow the format of http://localhost:5173/camera/(id of camera). Ei. http://localhost:5173/camera/668d1820b5afcaac0df9c4af. Dont put brackets around the link. If the customer asks for a recomendation, first ask the customer- 'what do you intend to use the camera for?- ei. for street photography, family photos, landscapes'. Then ask a follow up question - 'what is your maximum budget?' (you are not allowed to recomend a camera whose price is more than this amount). Finally recomend a suitable camera, describing its suitability and details in two to four sentences. If the customer asks something that is not relevant to cameras or the Camera Store, reply with 'sorry I cannot help with that'. The website is British and hence the cameras are sold with GBP pounds. Here is the json data from the database of all of the cameras currently available cameras:${JSON.stringify(
-          jsonData
-        )}`,
-      },
-    ],
-  };
-  //console.log("first prompt", firstPrompt.parts[0].text);
-  const secondPrompt = {
-    role: "model",
-    parts: [
-      {
-        text: `Hello ${chatUser}, I'm Gary, your virtual assistant at the 'Camera Store'! What can I help you with today? 😊\n`,
-      },
-    ],
-  };
-  const thirdPrompt = {
-    role: "user",
-    parts: [
-      {
-        text: `Please recomend a camera`,
-      },
-    ],
-  };
-  const fourthPrompt = {
-    role: "model",
-    parts: [
-      {
-        text: `What do you intend to use the camera for? ei. street photography, landscapes, a family trip`,
-      },
-    ],
-  };
-  const fifthPrompt = {
-    role: "user",
-    parts: [
-      {
-        text: `Landscape photography`,
-      },
-    ],
-  };
-  const sixthPrompt = {
-    role: "model",
-    parts: [
-      {
-        text: `What is your budget?`,
-      },
-    ],
-  };
-  const seventhPrompt = {
-    role: "user",
-    parts: [
-      {
-        text: `350 pounds`,
-      },
-    ],
-  };
-  const eighthPrompt = {
-    role: "model",
-    parts: [
-      {
-        text: `The Canon EOS 4000D is a great camera for landscapes, with a high-resolution sensor and a good lens kit. It is a great option for beginners, especially if you're looking for a camera that is easy to use and produces good quality images.It's currently in stock for £309. http://localhost:5173/camera/668d0659f2815bcfe0d8f688`,
-      },
-    ],
-  };
-  const ninthPrompt = {
-    role: "user",
-    parts: [
-      {
-        text: `Thank you`,
-      },
-    ],
-  };
-  const tenthPrompt = {
-    role: "model",
-    parts: [
-      {
-        text: `Hello ${chatUser}, I'm Gary, your virtual assistant at the 'Camera Store'! What can I help you with today? 😊\n`,
-      },
-    ],
-  };
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -130,16 +44,16 @@ const Chatbot = ({ jsonData, handleClick }) => {
     if (historyData === null) {
       //console.log("this one");
       return [
-        firstPrompt,
-        secondPrompt,
-        thirdPrompt,
-        fourthPrompt,
-        fifthPrompt,
-        sixthPrompt,
-        seventhPrompt,
-        eighthPrompt,
-        ninthPrompt,
-        tenthPrompt,
+        {
+          role: "system",
+          content:
+            "You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to recomend cameras. The available cameras are:",
+        },
+        {
+          role: "assistant",
+          content:
+            "Hello , I'm Gary, your virtual assistant at the 'Camera Store'! What can I help you with today? 😊",
+        },
       ];
     } else {
       //console.log("json");
@@ -172,7 +86,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
           "Content-Type": "application/json",
         },
       };
-      const response = await fetch("/api/product/chatbot", options);
+      const response = await fetch("/api/product/chatbot_test", options);
       const data = await response.text();
       //console.log("history", chatHistory[0].parts[0].text);
       //console.log(chatHistory);
@@ -180,11 +94,11 @@ const Chatbot = ({ jsonData, handleClick }) => {
         ...oldChatHistory,
         {
           role: "user",
-          parts: [{ text: value }],
+          content: value,
         },
         {
-          role: "model",
-          parts: [{ text: data }],
+          role: "assistant",
+          content: data,
         },
       ]);
       setValue("");
@@ -248,15 +162,15 @@ const Chatbot = ({ jsonData, handleClick }) => {
           {chatHistory &&
             chatHistory.map(
               (chat_line, index) =>
-                index > 8 && (
+                index > 0 && (
                   <Bubble
                     key={index}
-                    chatText={chat_line.parts[0].text}
+                    chatText={chat_line.content}
                     chatRole={chat_line.role}
                   ></Bubble>
                 )
             )}
-          {chatHistory.length < 11 && (
+          {chatHistory.length < 3 && (
             <form action="" onSubmit={getResponse}>
               <Box
                 sx={{

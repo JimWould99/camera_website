@@ -88,6 +88,7 @@ const Chatbot = ({ chatText, chatRole }) => {
         >
           <Typography sx={{ fontSize: "0.95rem" }}>
             {chatText}
+            {console.log("link", link)}
             {link && <Link href={link}>Go to camera</Link>}
           </Typography>
         </Box>
@@ -100,7 +101,7 @@ const Bubble = ({ chatText, chatRole }) => {
   const example_text = "Hi, this is example text of a chatbot";
   return (
     <>
-      {chatRole === "model" ? (
+      {chatRole === "assistant" ? (
         <Chatbot chatText={chatText} />
       ) : (
         <User chatText={chatText} />
