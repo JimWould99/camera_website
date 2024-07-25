@@ -130,11 +130,7 @@ const HomePage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setSearchParams({ brand: brandQuery });
-    navigate(
-      `https://camera-website-frontend.onrender.com/search/?q=&category=&brand=${encodeURIComponent(
-        brandQuery
-      )}`
-    );
+    navigate(`/search/?q=&category=&brand=${encodeURIComponent(brandQuery)}`);
     if (window.location.href.includes("search")) {
       window.location.reload();
     }
