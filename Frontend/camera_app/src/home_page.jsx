@@ -131,7 +131,7 @@ const HomePage = () => {
     e.preventDefault();
     setSearchParams({ brand: brandQuery });
     navigate(
-      `https://camera-website-backend.onrender.com/search/?q=&category=&brand=${encodeURIComponent(
+      `https://camera-website-frontend.onrender.com/search/?q=&category=&brand=${encodeURIComponent(
         brandQuery
       )}`
     );
