@@ -203,6 +203,8 @@ const Chatbot = ({ jsonData, handleClick }) => {
     localStorage.removeItem("chatHistory");
   };
   console.log("historylen", chatHistory.length);
+  console.log("history", chatHistory);
+
   return (
     <>
       <ChatbotBox
