@@ -35,11 +35,11 @@ const SearchPage = () => {
   console.log("array", array);
 
   if (array.length === 3) {
-    fetchURL = `/api/product/search/?brand=${array[2][1]}`;
+    fetchURL = `https://camera-website-backend.onrender.com/api/product/search/?brand=${array[2][1]}`;
   } else if (array[1][1] === "") {
-    fetchURL = `/api/product/search/?q=${array[0][1]}`;
+    fetchURL = `https://camera-website-backend.onrender.com/api/product/search/?q=${array[0][1]}`;
   } else {
-    fetchURL = `/api/product/search/?q=${array[0][1]}&category=${array[1][1]}`;
+    fetchURL = `https://camera-website-backend.onrender.com/api/product/search/?q=${array[0][1]}&category=${array[1][1]}`;
   }
 
   console.log("array", array);

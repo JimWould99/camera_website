@@ -113,7 +113,9 @@ const HomePage = () => {
   const [displayedCameras, setDisplayedCameras] = useState(null);
   useEffect(() => {
     const fetchDisplays = async () => {
-      const response = await fetch("/api/product");
+      const response = await fetch(
+        "https://camera-website-backend.onrender.com/api/product"
+      );
       const json = await response.json();
       if (response.ok) {
         setDisplayedCameras(json);
