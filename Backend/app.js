@@ -11,11 +11,12 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(
+app.use(cors());
+/*app.use(
   cors({
     origin: "https://camera-website-frontend.onrender.com",
   })
-);
+); */
 
 //app.use(express.static("dist"));
 
