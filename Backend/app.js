@@ -2,7 +2,11 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
-
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 const indexRouter = require("./routes/index");
 const productRouter = require("./routes/product");
 const userRouter = require("./routes/users");
@@ -13,7 +17,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors());
+//app.use(cors());
 
 /*app.use(
   cors({
