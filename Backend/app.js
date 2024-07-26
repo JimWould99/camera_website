@@ -20,7 +20,9 @@ app.use(express.json());
 //app.use(setCorsHeaders);
 app.use(
   cors({
-    origin: "https://camera-website-frontend.onrender.com",
+    origin: "https://camera-website-frontend.onrender.com/api/product",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
