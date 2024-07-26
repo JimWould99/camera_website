@@ -49,7 +49,7 @@ const getMatches = async (userQuery) => {
   await result.forEach((doc) =>
     documents.push(
       JSON.stringify(
-        `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: https://localhost/api/product/${doc._id}`
+        `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: http://127.0.0.1:5173/camera/${doc._id}`
       )
     )
   );
@@ -97,7 +97,7 @@ exports.chatbot_test = async (req, res) => {
 
   let systemPrompt = {
     role: "system",
-    content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to recomend cameras. If someone asks for a camera recomendation, ask them what type of camera they are looking for before giving a recomendation. Provide the url with the recomendation, dont put the url in brackets. The available cameras are: ${cameraMatch}`,
+    content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to recomend cameras. If someone asks for a camera recomendation, ask them what type of camera they are looking for before giving a recomendation. Provide the url with the recomendation, put the url on its own line. The available cameras are: ${cameraMatch}`,
   };
 
   //console.log(systemPrompt);
