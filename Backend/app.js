@@ -4,9 +4,14 @@ require("dotenv").config();
 const cors = require("cors");
 app.use(
   cors({
-    origin: "*",
+    origin: "https://camera-website-frontend.onrender.com",
   })
 );
+/*app.use(
+  cors({
+    origin: "*",
+  })
+);*/
 const indexRouter = require("./routes/index");
 const productRouter = require("./routes/product");
 const userRouter = require("./routes/users");
