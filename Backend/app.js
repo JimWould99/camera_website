@@ -8,9 +8,6 @@ const cors = require("cors");
     origin: "*",
   })
 );*/
-const indexRouter = require("./routes/index");
-const productRouter = require("./routes/product");
-const userRouter = require("./routes/users");
 
 const app = express();
 
@@ -38,6 +35,10 @@ app.use(setCorsHeaders);
     origin: "https://camera-website-frontend.onrender.com",
   })
 );*/
+
+const indexRouter = require("./routes/index");
+const productRouter = require("./routes/product");
+const userRouter = require("./routes/users");
 
 mongoose
   .connect(process.env.MONGO_URI)
