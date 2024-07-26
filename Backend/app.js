@@ -20,11 +20,12 @@ app.use(express.json());
 
 //app.use(cors());
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+const corsOptions = {
+  origin: "*",
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
 /*app.use(
   cors({
     origin: "https://camera-website-frontend.onrender.com",
