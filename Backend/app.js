@@ -22,9 +22,14 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://camera-website-frontend.onrender.com",
+    origin: "*",
   })
 );
+/*app.use(
+  cors({
+    origin: "https://camera-website-frontend.onrender.com",
+  })
+);*/
 
 mongoose
   .connect(process.env.MONGO_URI)
