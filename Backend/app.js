@@ -9,13 +9,13 @@ const cors = require("cors");
   })
 );*/
 
+const app = express();
+
 app.use(
   cors({
     origin: "https://camera-website-frontend.onrender.com",
   })
 );
-
-const app = express();
 
 //app.use(express.static("dist"));
 
