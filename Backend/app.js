@@ -9,6 +9,12 @@ const cors = require("cors");
   })
 );*/
 
+app.use(
+  cors({
+    origin: "https://camera-website-frontend.onrender.com",
+  })
+);
+
 const app = express();
 
 //app.use(express.static("dist"));
@@ -16,15 +22,6 @@ const app = express();
 app.use(express.json());
 
 //app.use(cors());
-
-//app.use(setCorsHeaders);
-app.use(
-  cors({
-    origin: "https://camera-website-frontend.onrender.com/api/product",
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
 
 const indexRouter = require("./routes/index");
 const productRouter = require("./routes/product");
