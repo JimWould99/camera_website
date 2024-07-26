@@ -3,9 +3,11 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
 
-const indexRouter = require("./routes/index");
-const productRouter = require("./routes/product");
-const userRouter = require("./routes/users");
+/*app.use(
+  cors({
+    origin: "*",
+  })
+);*/
 
 const app = express();
 
@@ -13,11 +15,18 @@ const app = express();
 
 app.use(express.json());
 
+//app.use(cors());
+
+//app.use(setCorsHeaders);
 app.use(
   cors({
     origin: "https://camera-website-frontend.onrender.com",
   })
 );
+
+const indexRouter = require("./routes/index");
+const productRouter = require("./routes/product");
+const userRouter = require("./routes/users");
 
 mongoose
   .connect(process.env.MONGO_URI)
