@@ -2,11 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const cors = require("cors");
-app.use(
-  cors({
-    origin: "https://camera-website-frontend.onrender.com",
-  })
-);
+
 /*app.use(
   cors({
     origin: "*",
@@ -24,11 +20,11 @@ app.use(express.json());
 
 //app.use(cors());
 
-/*app.use(
+app.use(
   cors({
     origin: "https://camera-website-frontend.onrender.com",
   })
-);*/
+);
 
 mongoose
   .connect(process.env.MONGO_URI)
