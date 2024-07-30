@@ -47,7 +47,7 @@ const Chatbot = ({ handleClick }) => {
         {
           role: "system",
           content:
-            "You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to recomend cameras. The available cameras are:",
+            "You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to help with cameras. The available cameras are:",
         },
         {
           role: "assistant",
