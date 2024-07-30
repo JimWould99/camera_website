@@ -43,7 +43,7 @@ const Chatbot = ({ chatText, chatRole }) => {
   let split = chatText.split(" ");
   let linkExists = false;
   let link;
-
+   
   for (let i = 0; i <= split.length - 1; i++) {
     if (split[i].includes("http")) {
       linkExists = true;

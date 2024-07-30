@@ -34,7 +34,7 @@ const Chatbot = ({ jsonData, handleClick }) => {
   } else {
     chatUser = "";
   }
-  console.log("json", jsonData);
+  //console.log("json", jsonData);
   // console.log("json of cameras", CamerasJSON);
   //note; need to set prompts within
   const firstPrompt = {
@@ -199,7 +199,6 @@ const Chatbot = ({ jsonData, handleClick }) => {
     setError("");
     localStorage.removeItem("chatHistory");
   };
-  console.log("historylen", chatHistory.length);
   return (
     <>
       <ChatbotBox
