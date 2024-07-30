@@ -40,6 +40,7 @@ const User = ({ chatText, chatRole }) => {
 };
 
 const Chatbot = ({ chatText, chatRole }) => {
+  console.log('chattext', chatText)
   let split = chatText.split(" ");
   let linkExists = false;
   let link;

@@ -11,7 +11,6 @@ const Camera = require("../models/CameraModel");
 const EmbeddingModel = require("../models/EmbeddingModel");
 const Embedding = require("../models/EmbeddingModel");
 const { OpenAI } = require("openai");
-
 function dotProduct(a, b) {
   if (a.length !== b.length) {
     throw new Error("Both arguments must have the same length");
@@ -28,35 +27,6 @@ const generateEmbedding = async (textToConvert) => {
     inputs: textToConvert,
   });
   return output;
-};
-const getMatches = async (userQuery) => {
-  let query = await generateEmbedding(userQuery);
-  await client.connect();
-  const db = client.db("camera_site");
-  const coll = db.collection("embeddings");
-  const result = coll.aggregate([
-    {
-      $vectorSearch: {
-        index: "search",
-        path: "embeddings",
-        queryVector: query,
-        numCandidates: 150,
-        limit: 2,
-      },
-    },
-  ]);
-  documents = [];
-  await result.forEach((doc) =>
-    documents.push(
-      JSON.stringify(
-        `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: http://127.0.0.1:5173/camera/${doc._id}`
-      )
-    )
-  );
-  await result.forEach((doc) => console.dir(JSON.stringify(doc)));
-  //console.dir(JSON.stringify(doc.name));
-  await client.close();
-  return documents;
 };
 
 exports.populate_database = async (req, res) => {
@@ -85,6 +55,41 @@ exports.populate_database = async (req, res) => {
   }
 };
 
+const getMatches = async (userQuery, noMatches, budget) => {
+  let query = await generateEmbedding(userQuery);
+  await client.connect();
+  const db = client.db("camera_site");
+  const coll = db.collection("embeddings");
+  const result = coll.aggregate([
+    {
+      $vectorSearch: {
+        index: "search",
+        path: "embeddings",
+        queryVector: query,
+        numCandidates: 150,
+        limit: noMatches,
+      },
+    },
+  ]);
+  documents = [];
+  
+  await result.forEach((doc) => {
+    //console.log(doc.price)
+    if (doc.price < budget){
+      documents.push(
+        JSON.stringify(
+          `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: http://localhost:5173/camera/${doc.cam_id}`
+        )
+      )
+    }
+    
+});
+  await result.forEach((doc) => console.dir(JSON.stringify(doc)));
+  //console.dir(JSON.stringify(doc.name));
+  await client.close();
+  return documents;
+};
+
 exports.chatbot_test = async (req, res) => {
   query = req.body.message;
   //const documents = await getMatches(query);
@@ -93,51 +98,52 @@ exports.chatbot_test = async (req, res) => {
     return result;
   }*/
 
-  const cameraMatch = await getMatches(query);
+    let history = req.body.history;
 
+    let cameraMatch
+  if (!isNaN(query)){
+    console.log('budget one')
+     secondQuery = history[history.length-2]
+     cameraMatch = await getMatches(secondQuery.content, 5, query);
+  } else {
+     cameraMatch = await getMatches(query, 2, 100000);
+  }
+//  console.log('camera match',cameraMatch)
+
+  
   let systemPrompt = {
     role: "system",
-    content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to recomend cameras. If someone asks for a camera recomendation, ask them what type of camera they are looking for before giving a recomendation. Provide the url with the recomendation, put the url on its own line. The available cameras are: ${cameraMatch}`,
+    content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to recomend cameras. If someone asks for a camera recomendation, follow these steps. 1. ask: 'What type of camera are you looking for (eg. a camera for the beach, landscapes or street photography)' 2. user reponse 3. ask: 'What is your budget in £? (Please only type a number)' 4. user provides budget 5. Provide recomendation. Provide the url with the recomendation, put the url on its own line. Also mention the price. The currency is pounds £. The available cameras are: ${cameraMatch}`,
   };
-
   //console.log(systemPrompt);
-
   const openai = new OpenAI({ apiKey: process.env.OPEN_AI_KEY });
-
-  let history = req.body.history;
-
-  console.log("history before", history);
-
+  //console.log('last', history[history.length-2] )
+ // console.log("history before", history);
   const message = { role: "user", content: req.body.message };
-
   history.push(message);
-
+  
   history.shift();
   history.unshift(systemPrompt);
   console.log("history after", history);
-
   const completion = await openai.chat.completions.create({
     messages: history,
     model: "gpt-4o-mini",
     max_tokens: 150,
   });
-
   const result = await completion.choices[0];
-
   /* [
     {
       role: "system",
       content:
         "You are a helpful assistant on a camera website called Gary. Your role is to recomend cameras",
     },
-    { role: "user", content: "Hello" },
+    { role: "user", content: "recomend me a camera" },
     {
     role: "assistant",
-    content: "The Los Angeles Dodgers won the World Series in 2020.",
+    content: "What type of camera are you looking for? eg. a camera for vacations, street photography, landscapes?",
+    
   },
   ];*/
-
   // console.log("completion", completion.choices[0].message.content);
-
   res.send(completion.choices[0].message.content);
 };
