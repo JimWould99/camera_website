@@ -113,7 +113,7 @@ exports.chatbot_test = async (req, res) => {
   
   let systemPrompt = {
     role: "system",
-    content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to recomend cameras. If someone asks for a camera recomendation, follow these steps. 1. ask: 'What type of camera are you looking for (eg. a camera for the beach, landscapes or street photography)' 2. user reponse 3. ask: 'What is your budget in £? (Please only type a number)' 4. user provides budget 5. Provide recomendation. Provide the url with the recomendation, put the url on its own line. Also mention the price. The currency is pounds £. The available cameras are: ${cameraMatch}`,
+    content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to help with cameras. Only if someone asks for a camera recomendation, follow these steps. 1. ask: 'What type of camera are you looking for (eg. a camera for the beach, landscapes or street photography)' 2. user reponse 3. ask: 'What is your budget in £? (Please only type a number)' 4. user provides budget 5. Provide recomendation. Provide the url with the recomendation, dont put the url in brackets,  put spaces either side, and dont say anything after it. Also mention the price. The currency is pounds £. The available cameras are: ${cameraMatch}`,
   };
   //console.log(systemPrompt);
   const openai = new OpenAI({ apiKey: process.env.OPEN_AI_KEY });
@@ -128,7 +128,7 @@ exports.chatbot_test = async (req, res) => {
   const completion = await openai.chat.completions.create({
     messages: history,
     model: "gpt-4o-mini",
-    max_tokens: 150,
+    max_tokens: 400,
   });
   const result = await completion.choices[0];
   /* [
