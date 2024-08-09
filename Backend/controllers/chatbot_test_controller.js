@@ -72,22 +72,41 @@ const getMatches = async (userQuery, noMatches, budget) => {
     },
   ]);
   documents = [];
-  
+
   await result.forEach((doc) => {
     //console.log(doc.price)
-    if (doc.price < budget){
+    if (doc.price < budget) {
       documents.push(
         JSON.stringify(
           `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: http://localhost:5173/camera/${doc.cam_id}`
         )
-      )
+      );
     }
-    
-});
+  });
   await result.forEach((doc) => console.dir(JSON.stringify(doc)));
   //console.dir(JSON.stringify(doc.name));
   await client.close();
   return documents;
+};
+
+const refineQuery = async (query) => {
+  const openai = new OpenAI({ apiKey: process.env.OPEN_AI_KEY });
+  console.log("initial query", query);
+  const completion = await openai.chat.completions.create({
+    messages: [
+      {
+        role: "system",
+        content:
+          "Given a camera query for a camera recomendation, convert it into a standalone camera query. Add some synonyms in the query for semantic search.",
+      },
+      { role: "user", content: query },
+    ],
+    model: "gpt-4o-mini",
+    max_tokens: 200,
+  });
+  const result = await completion.choices[0].message.content;
+  console.log(result);
+  return result;
 };
 
 exports.chatbot_test = async (req, res) => {
@@ -98,19 +117,20 @@ exports.chatbot_test = async (req, res) => {
     return result;
   }*/
 
-    let history = req.body.history;
+  let history = req.body.history;
 
-    let cameraMatch
-  if (!isNaN(query)){
-    console.log('budget one')
-     secondQuery = history[history.length-2]
-     cameraMatch = await getMatches(secondQuery.content, 5, query);
+  let cameraMatch;
+  if (!isNaN(query)) {
+    // console.log("budget one");
+    secondQuery = history[history.length - 2];
+    let refinedQuery = await refineQuery(secondQuery.content);
+
+    cameraMatch = await getMatches(refinedQuery, 6, query);
   } else {
-     cameraMatch = await getMatches(query, 2, 100000);
+    cameraMatch = await getMatches(query, 2, 100000);
   }
-//  console.log('camera match',cameraMatch)
+  //  console.log('camera match',cameraMatch)
 
-  
   let systemPrompt = {
     role: "system",
     content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to help with cameras. Only if someone asks for a camera recomendation, follow these steps. 1. ask: 'What type of camera are you looking for (eg. a camera for the beach, landscapes or street photography)' 2. user reponse 3. ask: 'What is your budget in £? (Please only type a number)' 4. user provides budget 5. Provide recomendation. Provide the url with the recomendation, dont put the url in brackets,  put spaces either side, and dont say anything after it. Also mention the price. The currency is pounds £. The available cameras are: ${cameraMatch}`,
@@ -118,13 +138,13 @@ exports.chatbot_test = async (req, res) => {
   //console.log(systemPrompt);
   const openai = new OpenAI({ apiKey: process.env.OPEN_AI_KEY });
   //console.log('last', history[history.length-2] )
- // console.log("history before", history);
+  // console.log("history before", history);
   const message = { role: "user", content: req.body.message };
   history.push(message);
-  
+
   history.shift();
   history.unshift(systemPrompt);
-  console.log("history after", history);
+  // console.log("history after", history);
   const completion = await openai.chat.completions.create({
     messages: history,
     model: "gpt-4o-mini",

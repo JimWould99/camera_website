@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
-
 const EmbeddingSchema = new Schema(
   {
     embeddings: { type: Array },
@@ -18,9 +16,7 @@ const EmbeddingSchema = new Schema(
   },
   { timestamps: true }
 );
-
 EmbeddingSchema.virtual("url").get(function () {
   return "api/product/" + this.cam_id;
 });
-
 module.exports = mongoose.model("embedding", EmbeddingSchema);

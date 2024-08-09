@@ -14,6 +14,7 @@ import {
   Link,
 } from "@mui/material";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 
 const User = ({ chatText, chatRole }) => {
   return (
@@ -40,7 +41,7 @@ const User = ({ chatText, chatRole }) => {
 };
 
 const Chatbot = ({ chatText, chatRole }) => {
-  console.log('chattext', chatText)
+  console.log("chattext", chatText);
   let split = chatText.split(" ");
   let linkExists = false;
   let link;
@@ -73,9 +74,9 @@ const Chatbot = ({ chatText, chatRole }) => {
           }}
         >
           <Typography>Gary</Typography>
-          <SmartToyIcon
+          <SupportAgentIcon
             sx={{ transform: "scale(1.3)", marginBottom: "5px" }}
-          ></SmartToyIcon>
+          ></SupportAgentIcon>
         </Box>
         <Box
           sx={{

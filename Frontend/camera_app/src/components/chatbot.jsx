@@ -199,18 +199,19 @@ const Chatbot = ({ handleClick }) => {
               </Box>
             </form>
           )}
+
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              color: !isLoading ? "white" : "black",
+            }}
+          >
+            <AutorenewTwoToneIcon />
+          </div>
+
           <div ref={messagesEndRef}></div>
-          {isLoading ? (
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <AutorenewTwoToneIcon />
-            </div>
-          ) : null}
         </div>
         <div
           className="input_section"
@@ -228,19 +229,35 @@ const Chatbot = ({ handleClick }) => {
             }}
             onSubmit={getResponse}
           >
-            <input
-              type="text"
-              value={value}
-              placeholder="Type a message"
-              style={{
-                height: "35px",
-                borderRadius: "25px",
-                width: "75%",
-                paddingLeft: "10px",
-                fontSize: "1rem",
-              }}
-              onChange={(e) => setValue(e.target.value)}
-            />
+            {!isLoading && (
+              <input
+                type="text"
+                value={value}
+                placeholder="Type a message"
+                style={{
+                  height: "35px",
+                  borderRadius: "25px",
+                  width: "75%",
+                  paddingLeft: "10px",
+                  fontSize: "1rem",
+                }}
+                onChange={(e) => setValue(e.target.value)}
+              />
+            )}
+            {isLoading && (
+              <input
+                type="text"
+                value={value}
+                placeholder="Type a message"
+                style={{
+                  height: "35px",
+                  borderRadius: "25px",
+                  width: "75%",
+                  paddingLeft: "10px",
+                  fontSize: "1rem",
+                }}
+              />
+            )}
             <Button
               onClick={clear}
               component={Link}
