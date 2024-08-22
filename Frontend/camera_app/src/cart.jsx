@@ -24,7 +24,7 @@ const Cart = () => {
 
   const DisplayBox = styled(Box)(({ theme }) => ({
     [theme.breakpoints.down("md")]: {
-      width: "98%",
+      width: "80%",
     },
   }));
 
@@ -39,7 +39,7 @@ const Cart = () => {
         <DisplayBox
           sx={{
             margin: "0 auto",
-            width: "60%",
+            width: "80%",
             display: "flex",
             flexDirection: "column",
             gap: "50px",

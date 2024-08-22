@@ -23,6 +23,16 @@ import {
   Slider,
 } from "@mui/material";
 
+const InfoBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  gap: "10%",
+  alignItems: "center",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    marginRight: 30,
+  },
+}));
+
 const SearchPage = () => {
   const [loading, setLoading] = useState(true);
   const [empty, setEmpty] = useState(false);
@@ -78,9 +88,9 @@ const SearchPage = () => {
       <Header></Header>
       <ChatPopper></ChatPopper>
       {loading && <h1>Loading..</h1>}
-      <div
+      <InfoBox
         className="start"
-        style={{
+        sx={{
           display: "flex",
           gap: "10%",
           alignItems: "center",
@@ -116,7 +126,7 @@ const SearchPage = () => {
           />
         </Box>
         {console.log(value)}
-      </div>
+      </InfoBox>
       {array.length === 3 && (
         <Typography variant="h5" sx={{ margin: "30px 0px 0px 20px" }}>
           {array[2][1]}

@@ -5,7 +5,6 @@ import ChatPopper from "./components/chatbot_comps/popper";
 import "./index.css";
 import { useContext } from "react";
 import { CartContext } from "./hooks/shopping_cart_context";
-
 import {
   AppBar,
   Toolbar,
@@ -25,7 +24,6 @@ import {
   Grid,
   CardMedia,
 } from "@mui/material";
-
 const CameraButton = styled(Button)(({ theme }) => ({
   width: "70%",
   height: "50px",
@@ -36,7 +34,6 @@ const CameraButton = styled(Button)(({ theme }) => ({
     width: "90%",
   },
 }));
-
 const DisplayBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.up("md")]: {
     display: "grid",
@@ -49,18 +46,15 @@ const DisplayBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     display: "grid",
     gridTemplateRows: "1fr 1fr",
-    height: "140vh",
-    margin: "30px 20px",
+    margin: "0px 20px",
     gap: "20px",
   },
 }));
-
 const TextBox = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {
     gap: "5px",
   },
 }));
-
 function CameraLarger({ cameraDetails, handleSubmit }) {
   const url = cameraDetails.image.url;
   return (
@@ -76,7 +70,11 @@ function CameraLarger({ cameraDetails, handleSubmit }) {
         </div>
         <div
           className="details"
-          style={{ display: "flex", flexDirection: "column" }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 20,
+          }}
         >
           <TextBox
             className="showCameraText"
@@ -95,7 +93,6 @@ function CameraLarger({ cameraDetails, handleSubmit }) {
             <h1>GBP £{cameraDetails.price}</h1>
             <h3>Condition: {cameraDetails.condition}</h3>
           </TextBox>
-
           <div
             className="buttons"
             style={{
@@ -155,16 +152,13 @@ const ShowCamera = () => {
   if (cameraDetails) {
     console.log(cameraDetails.camera);
   }
-
   const { addToCart } = useContext(CartContext);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const cameraCart = cameraDetails.camera;
     addToCart(cameraCart);
     //navigate("/cart");
   };
-
   return (
     <>
       <Header></Header>

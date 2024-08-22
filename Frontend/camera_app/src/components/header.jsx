@@ -77,16 +77,16 @@ const HeaderTypography = styled(Typography)(({ theme }) => ({
   color: "#FFFDD0",
   marginRight: 0.5,
   textWrap: "nowrap",
-  /*[theme.breakpoints.down("md")]: {
+  [theme.breakpoints.down("md")]: {
     display: "none",
-  },*/
+  },
 }));
 
 const HeaderCamera = styled(PhotoCameraIcon)(({ theme }) => ({
   color: "#FFFDD0",
-  [theme.breakpoints.down("md")]: {
+  /*[theme.breakpoints.down("md")]: {
     display: "none",
-  },
+  },*/
 }));
 
 const Header = () => {
@@ -141,7 +141,9 @@ const Header = () => {
         <HeaderToolBar sx={{ height: "67px" }}>
           <SideBox>
             <Link href={"/"} underline="none">
-              <HeaderTypography variant="h6">Camera Site</HeaderTypography>
+              <HeaderTypography sx={{ fontSize: { xs: 15, sm: 20, lg: 20 } }}>
+                Camera Site
+              </HeaderTypography>
             </Link>
             <Link href={"/"} underline="none">
               <IconButton size="large">
@@ -172,7 +174,7 @@ const Header = () => {
                 </Badge>
               </IconButton>
             </Link>
-            <Link href={"/"} underline="none">
+            <Link href={"/list_camera"} underline="none">
               <HeaderButtons
                 variant="contained"
                 sx={{
@@ -233,6 +235,7 @@ const Header = () => {
         <Navbar
           handleSubmit={handleSubmit}
           setQueryCategory={setQueryCategory}
+          queryCategory={queryCategory}
         ></Navbar>
       </AppBarStyled>
     </>

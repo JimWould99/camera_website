@@ -58,6 +58,7 @@ const BrandButton = styled(Button)(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     width: "80%",
+    fontSize: 25,
   },
 }));
 
@@ -70,6 +71,8 @@ const SellTypography = styled(Typography)(({ theme }) => ({
   },
   [theme.breakpoints.down("sm")]: {
     fontSize: "1.2em",
+    marginLeft: 20,
+    marginRight: 20,
   },
 }));
 
@@ -96,8 +99,9 @@ const BrandBox = styled(Box)(({ theme }) => ({
     display: "grid",
     gridTemplateRows: "1fr 1fr",
     gridTemplateColumns: "1fr 1fr",
-    rowGap: "15%",
-    marginBotton: "20px",
+    rowGap: "10%",
+    marginBottom: "10px",
+    padding: "0px 0px 40px 20px",
   },
 }));
 /*
@@ -206,7 +210,7 @@ const HomePage = () => {
           //slidesPerView={3.5}
           breakpoints={{
             640: {
-              slidesPerView: 1.5,
+              slidesPerView: 1,
             },
             768: {
               slidesPerView: 2.5,

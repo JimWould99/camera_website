@@ -1,6 +1,11 @@
 import React from "react";
+import { useContext } from "react";
 import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Navigate,
+} from "react-router-dom";
 
 import HomePage from "./home_page";
 import SearchPage from "./SearchPage";
@@ -10,9 +15,10 @@ import Cart from "./cart.jsx";
 import Login from "./login.jsx";
 import Sign_up from "./sign_up.jsx";
 import Openai_chatbot from "./components/second_chatbot.jsx";
+import List_item from "./list_item.jsx";
 
 import { CartContextProvider } from "./hooks/shopping_cart_context.jsx";
-import { AuthContextProvider } from "./hooks/auth_context.jsx";
+import { AuthContextProvider, AuthContext } from "./hooks/auth_context.jsx";
 import { SearchContextProvider } from "./hooks/search_context.jsx";
 import "./index.css";
 
@@ -53,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/openai",
     element: <Openai_chatbot />,
+  },
+  {
+    path: "/list_camera",
+    element: <List_item />,
   },
 ]);
 

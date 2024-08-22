@@ -29,3 +29,38 @@ body {
   margin: 0px;
   padding: 0px;
 }
+
+.selected {
+  background-color: gray;
+}
+
+.item_input {
+  width: 500px;
+  height: 35px;
+  font-size: 1.1rem;
+}
+
+.select_input {
+  width: 510px;
+  height: 35px;
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .item_input {
+    width: 300px;
+    height: 35px;
+    font-size: 1.1rem;
+  }
+
+  .select_input {
+    width: 310px;
+    height: 35px;
+    font-size: 1rem;
+  }
+}
+
+.item_input:focus,
+.select_input:focus {
+  outline: 2px solid #525fe1;
+}

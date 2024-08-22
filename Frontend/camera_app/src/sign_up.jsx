@@ -2,27 +2,32 @@ import { useContext, useState } from "react";
 import { AuthContext } from "./hooks/auth_context";
 import { ExecuteSignup } from "./hooks/sign_up_hook";
 import { Navigate, useNavigate } from "react-router-dom";
+import AutorenewTwoToneIcon from "@mui/icons-material/AutorenewTwoTone";
+
 import Header from "./components/header";
-import { Button, CardMedia } from "@mui/material";
+import { Button, CardMedia, Typography } from "@mui/material";
 const Sign_up = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const { sign_up_request, loading, error } = ExecuteSignup();
+  const { user, login, logout } = useContext(AuthContext);
+  if (user) {
+    navigate("/");
+  }
   const handleSubmission = async (e) => {
     e.preventDefault();
     console.log("handlesub");
     await sign_up_request(email, name, password);
     await localStorage.removeItem("chatHistory");
-    await navigate("/");
   };
 
   function handleSubmitButton() {
     console.log("handlesub");
     sign_up_request(email, name, password);
     localStorage.removeItem("chatHistory");
-    navigate("/");
+    console.log("error", error);
   }
   return (
     <>
@@ -46,6 +51,7 @@ const Sign_up = () => {
             flexDirection: "column",
             alignSelf: "center",
             justifySelf: "center",
+            justifyContent: "center",
             gap: "20px",
             width: "55%",
           }}
@@ -72,7 +78,11 @@ const Sign_up = () => {
             placeholder="Password"
             style={{ height: "60px", fontSize: "1.2em", paddingLeft: "20px" }}
           />
-          {!loading && (
+          {loading ? (
+            <AutorenewTwoToneIcon
+              sx={{ margin: "0 auto", transform: "scale(1.5)" }}
+            ></AutorenewTwoToneIcon>
+          ) : (
             <Button
               sx={{
                 height: "50px",
@@ -88,7 +98,11 @@ const Sign_up = () => {
             </Button>
           )}
           <button style={{ display: "none" }}></button>
-          {error}
+          {error && (
+            <Typography variant="h6" sx={{ color: "#d32f2f" }}>
+              {error}
+            </Typography>
+          )}
         </form>
       </div>
     </>

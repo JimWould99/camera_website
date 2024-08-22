@@ -21,9 +21,8 @@ const NavBox = styled(Box)(({ theme }) => ({
   backgroundColor: "#525FE1",
   display: "flex",
   borderTop: "1px solid white",
-
   [theme.breakpoints.down("md")]: {
-    display: "none",
+    height: "120px",
   },
 }));
 
@@ -32,6 +31,12 @@ const NavButtonGroup = styled(ButtonGroup)(({ theme }) => ({
   backgroundColor: "white",
   borderRadius: 1,
   // border: "1px solid #525FE1",
+  [theme.breakpoints.down("md")]: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 1fr",
+    fontSize: 1,
+    width: `100%`,
+  },
 }));
 
 const NavButton = styled(Button)(({ theme }) => ({
@@ -40,24 +45,14 @@ const NavButton = styled(Button)(({ theme }) => ({
   "&:hover": {
     backgroundColor: "#D8D8D8",
   },
+  [theme.breakpoints.down("md")]: {
+    fontSize: 12,
+    textWrap: "wrap",
+    border: "1px solid blue",
+  },
 }));
 
-const Navbar = ({ handleSubmit, setQueryCategory }) => {
-  /*const [searchParams, setSearchParams] = useSearchParams();
-  const [query, setQuery] = useState(searchParams.get("category") || "");
-  const navigate = useNavigate();
-  console.log("first", query);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    setSearchParams({ category: query });
-    console.log("query here", encodeURIComponent(query));
-    navigate(`/search/?q=${encodeURIComponent(query)}&category`);
-    if (window.location.href.includes("search")) {
-      window.location.reload();
-    } 
-  };*/
+const Navbar = ({ handleSubmit, setQueryCategory, queryCategory }) => {
   return (
     <>
       <form action="" onSubmit={handleSubmit}>
@@ -67,6 +62,10 @@ const Navbar = ({ handleSubmit, setQueryCategory }) => {
               value="Mirrorless"
               onClick={(e) => setQueryCategory(e.target.value)}
               type="submit"
+              sx={{
+                backgroundColor:
+                  queryCategory === "Mirrorless" ? "#FFA41B" : "",
+              }}
             >
               Mirrorless
             </NavButton>
@@ -74,6 +73,9 @@ const Navbar = ({ handleSubmit, setQueryCategory }) => {
               value="DSLR"
               onClick={(e) => setQueryCategory(e.target.value)}
               type="submit"
+              sx={{
+                backgroundColor: queryCategory === "DSLR" ? "#FFA41B" : "",
+              }}
             >
               DSLR
             </NavButton>
@@ -81,6 +83,9 @@ const Navbar = ({ handleSubmit, setQueryCategory }) => {
               value="Instant"
               onClick={(e) => setQueryCategory(e.target.value)}
               type="submit"
+              sx={{
+                backgroundColor: queryCategory === "Instant" ? "#FFA41B" : "",
+              }}
             >
               Instant cameras
             </NavButton>
@@ -88,6 +93,9 @@ const Navbar = ({ handleSubmit, setQueryCategory }) => {
               value="Compact"
               onClick={(e) => setQueryCategory(e.target.value)}
               type="submit"
+              sx={{
+                backgroundColor: queryCategory === "Compact" ? "#FFA41B" : "",
+              }}
             >
               Compact
             </NavButton>
@@ -95,6 +103,9 @@ const Navbar = ({ handleSubmit, setQueryCategory }) => {
               value="Action"
               onClick={(e) => setQueryCategory(e.target.value)}
               type="submit"
+              sx={{
+                backgroundColor: queryCategory === "Action" ? "#FFA41B" : "",
+              }}
             >
               Action cameras
             </NavButton>
@@ -102,6 +113,9 @@ const Navbar = ({ handleSubmit, setQueryCategory }) => {
               value=""
               onClick={(e) => setQueryCategory(e.target.value)}
               type="submit"
+              sx={{
+                backgroundColor: queryCategory === "" ? "" : "",
+              }}
             >
               All categories
             </NavButton>

@@ -25,6 +25,10 @@ userSchema.statics.signup = async function (email, name, password) {
     throw Error("Fill in all inputs");
   }
 
+  if (!validator.isStrongPassword(password)) {
+    throw Error("Password must be stronger");
+  }
+
   if (!validator.isEmail(email)) {
     throw Error("invalid email");
   }
@@ -60,7 +64,7 @@ userSchema.statics.login = async function (email, password) {
 
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
-    throw Error("incorrect password");
+    throw Error("incorrect username or password");
   }
 
   return user;

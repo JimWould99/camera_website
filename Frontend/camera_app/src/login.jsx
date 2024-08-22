@@ -3,25 +3,28 @@ import { AuthContext } from "./hooks/auth_context";
 import { ExecuteLogin } from "./hooks/login_hook";
 import { Navigate, useNavigate } from "react-router-dom";
 import Header from "./components/header";
-import { Button, CardMedia } from "@mui/material";
+import { Button, CardMedia, Typography } from "@mui/material";
+import AutorenewTwoToneIcon from "@mui/icons-material/AutorenewTwoTone";
 
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { sign_up_request, loading, error } = ExecuteLogin();
+  const { user, login, logout } = useContext(AuthContext);
+  if (user) {
+    navigate("/");
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await sign_up_request(email, password);
     await localStorage.removeItem("chatHistory");
-    await navigate("/");
   };
 
   function handleSubmissionButton() {
     sign_up_request(email, password);
     localStorage.removeItem("chatHistory");
-    navigate("/");
   }
 
   return (
@@ -60,7 +63,11 @@ const Login = () => {
             placeholder="Password"
             style={{ height: "60px", fontSize: "1.2em", paddingLeft: "20px" }}
           />
-          {!loading && (
+          {loading ? (
+            <AutorenewTwoToneIcon
+              sx={{ margin: "0 auto", transform: "scale(1.5)" }}
+            ></AutorenewTwoToneIcon>
+          ) : (
             <Button
               sx={{
                 height: "50px",
@@ -72,11 +79,15 @@ const Login = () => {
               variant="contained"
               onClick={handleSubmissionButton}
             >
-              Login
+              Log in
             </Button>
           )}
           <button style={{ display: "none" }}></button>
-          {error}
+          {error && (
+            <Typography variant="h6" sx={{ color: "#d32f2f" }}>
+              {error}
+            </Typography>
+          )}
         </form>
         <CardMedia
           component="img"
