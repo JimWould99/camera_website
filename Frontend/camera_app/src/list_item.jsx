@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   AppBar,
   Toolbar,
@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import ChatPopper from "./components/chatbot_comps/popper";
 import Header from "./components/header";
+import { AuthContext } from "./hooks/auth_context";
 
 const Main = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -49,8 +50,36 @@ const FinalBox = styled(Box)(({ theme }) => ({
 }));
 
 const List_item = () => {
+  const { user, login, logout } = useContext(AuthContext);
+
+  const addListing = async () => {
+    let formData = new FormData();
+    formData.append("image", photo);
+    formData.append("name", name);
+    formData.append("description", desc);
+    formData.append("brand", brand);
+    formData.append("category", category);
+    formData.append("model", model);
+    formData.append("condition", condition);
+    formData.append("featured", false);
+    formData.append("price", price);
+    formData.append("max_res", res);
+
+    await fetch("api/product/update", {
+      method: "POST",
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) {
+      return;
+    }
+    console.log(photo);
     switch ("") {
       case name:
         setError("error");
@@ -63,7 +92,6 @@ const List_item = () => {
         break;
       case brand:
         setError("error");
-        console.log("brand");
         break;
       case category:
         setError("error");
@@ -79,6 +107,7 @@ const List_item = () => {
         break;
       default:
         setError("");
+        addListing();
     }
   };
 
@@ -99,14 +128,17 @@ const List_item = () => {
     <>
       <Header></Header>
       <Main>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <Form_Box>
             <Typography variant="h4">List camera</Typography>
             <InfoBox>
               <Typography sx={{ fontSize: "1.2rem", fontWeight: 700 }}>
                 Photo
               </Typography>
-              <input type="file" onChange={(e) => setPhoto(e.target.value)} />
+              <input
+                type="file"
+                onChange={(e) => setPhoto(e.target.files[0])}
+              />
             </InfoBox>
             <InfoBox>
               <Typography sx={{ fontSize: "1.2rem", fontWeight: 700 }}>

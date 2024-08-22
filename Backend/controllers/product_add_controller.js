@@ -1,5 +1,7 @@
 const express = require("express");
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
+const User = require("../models/UserModel");
 
 const Camera = require("../models/CameraModel");
 //multer
@@ -23,9 +25,22 @@ exports.create_product_post = async (req, res) => {
 exports.update_product_get = async (req, res) => {
   res.json({ mssg: "Not yet implemented" });
 };
+
 exports.update_product_post = [
   upload.single("image"),
   async (req, res) => {
+    const { authorization } = req.headers;
+
+    if (!authorization) {
+      return res.status(401).json({ error: "need auth token" });
+    }
+    const token = authorization.split(" ")[1];
+
+    console.log("id attempt", jwt.verify(token, process.env.WEB_TOKEN_KEY));
+    const { _id } = jwt.verify(token, process.env.WEB_TOKEN_KEY);
+
+    req.user = await User.findOne({ _id }).select("_id");
+    console.log("id", req.user);
     const {
       name,
       description,
@@ -37,6 +52,7 @@ exports.update_product_post = [
       price,
       max_res,
     } = req.body;
+    //console.log("image", req.file);
     const image = req.file.buffer.toString("base64");
     const imageType = req.file.mimetype;
 
