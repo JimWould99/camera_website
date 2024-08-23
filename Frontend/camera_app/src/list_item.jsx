@@ -42,10 +42,14 @@ const FinalBox = styled(Box)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
   alignItems: "center",
+  gap: 30,
+  width: 510,
+  //testWrap: "wrap",
   [theme.breakpoints.down("md")]: {
     gridTemplateColumns: "1fr",
     gridTemplateRows: "1fr 1fr",
     gap: 10,
+    width: 300,
   },
 }));
 
@@ -77,33 +81,34 @@ const List_item = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!user) {
+      setError("Must have an account to list cameras");
       return;
     }
     console.log(photo);
     switch ("") {
       case name:
-        setError("error");
+        setError("Please fill all fields");
         break;
       case desc:
-        setError("error");
+        setError("Please fill all fields");
         break;
       case model:
-        setError("error");
+        setError("Please fill all fields");
         break;
       case brand:
-        setError("error");
+        setError("Please fill all fields");
         break;
       case category:
-        setError("error");
+        setError("Please fill all fields");
         break;
       case condition:
-        setError("error");
+        setError("Please fill all fields");
         break;
       case price:
-        setError("error");
+        setError("Please fill all fields");
         break;
       case res:
-        setError("error");
+        setError("Please fill all fields");
         break;
       default:
         setError("");
@@ -260,8 +265,11 @@ const List_item = () => {
                 </Typography>
               </Button>
               {error && (
-                <Typography variant="h5" sx={{ color: "#d32f2f" }}>
-                  Please fill all fields
+                <Typography
+                  variant="h5"
+                  sx={{ color: "#d32f2f", maxWidth: 250 }}
+                >
+                  {error}
                 </Typography>
               )}
             </FinalBox>

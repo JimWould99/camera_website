@@ -21,6 +21,7 @@ import { CartContextProvider } from "./hooks/shopping_cart_context.jsx";
 import { AuthContextProvider, AuthContext } from "./hooks/auth_context.jsx";
 import { SearchContextProvider } from "./hooks/search_context.jsx";
 import "./index.css";
+import Profile from "./profile_page.jsx";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
   {
     path: "/list_camera",
     element: <List_item />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
 

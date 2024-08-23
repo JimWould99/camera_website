@@ -17,6 +17,10 @@ const limiter = rateLimit({
 
 // general and display/read //
 
+// specific users cameras
+
+router.get("/user_cameras", product_display_controller.user_cameras);
+
 //chatbot test
 
 router.post("/chatbot_test", chatbot_test_controller.chatbot_test);

@@ -22,11 +22,16 @@ import { useNavigate, useSearchParams, Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "../hooks/shopping_cart_context";
 import { AuthContext } from "../hooks/auth_context";
+import BasicMenu from "./dropdown_menu";
 
 const HeaderToolBar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
+  [theme.breakpoints.down("md")]: {
+    display: "grid",
+    gridTemplateColumns: "1fr 4fr 2fr",
+  },
 }));
 const Search = styled("div")(({ theme }) => ({
   backgroundColor: "white",
@@ -38,7 +43,7 @@ const Search = styled("div")(({ theme }) => ({
   },
   border: "3px solid #FFA41B",
   paddingLeft: "20px",
-  [theme.breakpoints.down("sm")]: {
+  [theme.breakpoints.down("md")]: {
     width: "100%",
   },
 }));
@@ -138,7 +143,13 @@ const Header = () => {
   return (
     <>
       <AppBarStyled position="sticky">
-        <HeaderToolBar sx={{ height: "67px" }}>
+        <HeaderToolBar
+          sx={{
+            height: "67px",
+            paddingLeft: { xs: 0, sm: 3, md: 3, lg: 3 },
+            paddingRight: { xs: 0, sm: 3, md: 3, lg: 3 },
+          }}
+        >
           <SideBox>
             <Link href={"/"} underline="none">
               <HeaderTypography sx={{ fontSize: { xs: 15, sm: 20, lg: 20 } }}>
@@ -163,7 +174,12 @@ const Header = () => {
           </Search>
           <RightBox>
             <Link href={"/cart"} underline="none">
-              <IconButton size="large">
+              <IconButton
+                size="large"
+                sx={{
+                  display: { xs: "none", sm: "none", md: "block", lg: "block" },
+                }}
+              >
                 <Badge badgeContent={cartCameraList.length} color={cartColor}>
                   <ShoppingCartIcon
                     sx={{
@@ -209,14 +225,7 @@ const Header = () => {
                 </HeaderButtons>
               </Link>
             )}
-            {user && (
-              <HeaderButtons
-                sx={{ backgroundColor: "#FFFDD0", color: "black" }}
-                variant="contained"
-              >
-                {user.name}
-              </HeaderButtons>
-            )}
+            {user && <BasicMenu>{user.name}</BasicMenu>}
             {user && (
               <HeaderButtons
                 onClick={logOutClick}

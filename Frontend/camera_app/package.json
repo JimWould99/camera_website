@@ -10,11 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@fontsource/roboto": "^5.0.13",
-    "@mui/icons-material": "^5.15.20",
-    "@mui/material": "^5.15.20",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/material": "^5.16.7",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
     "embla-carousel": "^8.1.5",
     "embla-carousel-react": "^8.1.5",

@@ -30,17 +30,15 @@ exports.update_product_post = [
   upload.single("image"),
   async (req, res) => {
     const { authorization } = req.headers;
-
+    console.log("headers", req.headers);
     if (!authorization) {
       return res.status(401).json({ error: "need auth token" });
     }
     const token = authorization.split(" ")[1];
-
-    console.log("id attempt", jwt.verify(token, process.env.WEB_TOKEN_KEY));
-    const { _id } = jwt.verify(token, process.env.WEB_TOKEN_KEY);
-
-    req.user = await User.findOne({ _id }).select("_id");
-    console.log("id", req.user);
+    const { user_id } = jwt.verify(token, process.env.WEB_TOKEN_KEY);
+    //console.log("user__id", user_id);
+    const currentUser = await User.findOne({ _id: user_id }).select("_id");
+    //console.log("selected user", currentUser);
     const {
       name,
       description,
@@ -74,6 +72,7 @@ exports.update_product_post = [
         price,
         max_res,
         image: { public_id: result.public_id, url: result.secure_url },
+        user: currentUser,
       });
       res.status(200).json(camera);
     } catch (error) {

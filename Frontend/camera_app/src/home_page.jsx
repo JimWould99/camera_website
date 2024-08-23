@@ -77,6 +77,8 @@ const SellTypography = styled(Typography)(({ theme }) => ({
 }));
 
 const CameraBox = styled(Box)(({ theme }) => ({
+  maxWidth: "100vw",
+  overflowX: "hidden",
   [theme.breakpoints.down("md")]: {
     display: "grid",
     gridTemplateRows: "1fr 1fr",
@@ -84,14 +86,14 @@ const CameraBox = styled(Box)(({ theme }) => ({
 }));
 
 const CameraMedia = styled(CardMedia)(({ theme }) => ({
-  [theme.breakpoints.down("md")]: {
-    width: "100vw",
+  /*[theme.breakpoints.down("md")]: {
+    width: "100%",
     height: "35vh",
   },
   [theme.breakpoints.up("md")]: {
     width: "50vw",
     height: "70vh",
-  },
+  },*/
 }));
 
 const BrandBox = styled(Box)(({ theme }) => ({
@@ -115,6 +117,7 @@ const Margin = styled(Box)(({ theme }) => ({
 })); */
 const HomePage = () => {
   const [displayedCameras, setDisplayedCameras] = useState(null);
+  console.log("home cameras", displayedCameras);
   useEffect(() => {
     const fetchDisplays = async () => {
       const response = await fetch("/api/product");
@@ -153,6 +156,7 @@ const HomePage = () => {
             //height: "70vh",
             /*width: "50vw",*/ width: { sm: "100vw", md: "50vw", lg: "50vw" },
             height: { sm: "20vh", md: "70vh", lg: "70vh" },
+            overflow: "hidden",
           }}
           alt="camera"
         />
@@ -166,6 +170,7 @@ const HomePage = () => {
             //height: "70vh",
             /*width: "50vw",*/ width: { sm: "100vw", md: "50vw", lg: "50vw" },
             height: { sm: "20vh", md: "70vh", lg: "70vh" },
+            overflow: "hidden",
           }}
         />
       </CameraBox>
