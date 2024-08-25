@@ -3,8 +3,25 @@ import { AuthContext } from "./hooks/auth_context";
 import { ExecuteLogin } from "./hooks/login_hook";
 import { Navigate, useNavigate } from "react-router-dom";
 import Header from "./components/header";
-import { Button, CardMedia, Typography } from "@mui/material";
+import { Button, CardMedia, Typography, styled, Box } from "@mui/material";
 import AutorenewTwoToneIcon from "@mui/icons-material/AutorenewTwoTone";
+import Footer from "./components/footer";
+
+const DisplayBox = styled(Box)(({ theme }) => ({
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  maxHeight: "100vh",
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 50,
+  },
+}));
+const CardMediaC = styled(CardMedia)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
 
 const Login = () => {
   const navigate = useNavigate();
@@ -30,13 +47,7 @@ const Login = () => {
   return (
     <>
       <Header></Header>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          maxHeight: "100vh",
-        }}
-      >
+      <DisplayBox>
         <form
           style={{
             display: "flex",
@@ -89,13 +100,13 @@ const Login = () => {
             </Typography>
           )}
         </form>
-        <CardMedia
+        <CardMediaC
           component="img"
           image="/conor-luddy-IVaKksEZmZA-unsplash.jpg"
           alt="sony camera"
           style={{ height: "100vh" }}
-        ></CardMedia>
-      </div>
+        ></CardMediaC>
+      </DisplayBox>
     </>
   );
 };

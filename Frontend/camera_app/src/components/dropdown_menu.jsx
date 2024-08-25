@@ -5,6 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { styled, Link } from "@mui/material";
 import { useContext } from "react";
 import { AuthContext } from "../hooks/auth_context";
+import { useNavigate, useSearchParams, Navigate } from "react-router-dom";
 
 /* 
 Code from Material UI dropdown Menu
@@ -43,13 +44,13 @@ const MenuItemTwo = styled(MenuItem)(({ theme }) => ({
 }));
 
 const CustomButton = styled(Button)(({ theme }) => ({
-  [theme.breakpoints.down("sm")]: {
+  /*[theme.breakpoints.down("sm")]: {
     textWrap: "wrap",
     fontSize: 14,
     width: 80,
     paddingTop: 10,
     paddingBottom: 10,
-  },
+  },*/
 }));
 
 export default function BasicMenu() {
@@ -62,6 +63,15 @@ export default function BasicMenu() {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const navigate = useNavigate();
+
+  const logOutClick = () => {
+    handleClose();
+    logout();
+    localStorage.removeItem("user");
+    localStorage.removeItem("chatHistory");
+    navigate("/");
   };
 
   return (
@@ -99,19 +109,19 @@ export default function BasicMenu() {
         <Link href={"/profile"} underline="none">
           <MenuItemOne onClick={handleClose}>Profile</MenuItemOne>
         </Link>
-        <Link href={"/"} underline="none">
+        <Link href={"/list_camera"} underline="none">
           <MenuItemOne onClick={handleClose}>My selling hub</MenuItemOne>
         </Link>
-        <Link href={"/"} underline="none">
+        <Link href={"/cart"} underline="none">
           <MenuItemTwo classList="small_menu" onClick={handleClose}>
             My Cart
           </MenuItemTwo>
         </Link>
-        <Link href={"/"} underline="none">
+        <Link href={"/settings"} underline="none">
           <MenuItemOne onClick={handleClose}>Settings</MenuItemOne>
         </Link>
         <Link href={"/"} underline="none">
-          <MenuItemTwo onClick={handleClose}>Logout</MenuItemTwo>
+          <MenuItemTwo onClick={logOutClick}>Logout</MenuItemTwo>
         </Link>
       </Menu>
     </div>

@@ -6,7 +6,7 @@ const product_display_controller = require("../controllers/product_display_contr
 const product_delete_controller = require("../controllers/product_delete_controller");
 const product_add_controller = require("../controllers/product_add_controller");
 const chatbot_controller = require("../controllers/chatbot_controller");
-const chatbot_test_controller = require("../controllers/chatbot_test_controller");
+const chatbot_main_controller = require("../controllers/chatbot_main_controller");
 
 const limiter = rateLimit({
   windowMs: 1440 * 60 * 1000,
@@ -23,7 +23,7 @@ router.get("/user_cameras", product_display_controller.user_cameras);
 
 //chatbot test
 
-router.post("/chatbot_test", chatbot_test_controller.chatbot_test);
+router.post("/chatbot_test", chatbot_main_controller.chatbot_main);
 
 //chatbot
 

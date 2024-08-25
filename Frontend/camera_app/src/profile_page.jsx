@@ -18,20 +18,59 @@ import {
   styled,
 } from "@mui/material";
 import { AuthContext } from "./hooks/auth_context";
-const InfoBox = styled(Box)(({ theme }) => ({}));
+import { CartContext } from "./hooks/shopping_cart_context";
+import Footer from "./components/footer";
+
+const InfoBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  gap: 25,
+  alignItems: "flex-start",
+  justifyContent: "flex-start",
+  margin: "40px 0px 40px 15px",
+}));
 const MainBox = styled(Box)(({ theme }) => ({}));
+const SubBox = styled(Box)(({ theme }) => ({}));
+const Content = styled(Box)(({ theme }) => ({
+  marginBottom: 100,
+}));
+
 const Bar = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: 10,
+  // marginBottom: 50,
 }));
+const DisplayBox = styled(Grid)(({ theme }) => ({
+  gap: 30,
+}));
+const Body = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  /*justifyContent: "center",
+  alignItems: "center",*/
+  marginLeft: "10vw",
+}));
+const CamTile = styled(Grid)(({ theme }) => ({
+  //boxShadow: "0px 0px 7px 0px black",
+  height: 150,
+  width: 150,
+  display: "flex",
+  flexDirection: "column",
+}));
+
+const CamMedia = styled(CardMedia)(({ theme }) => ({
+  objectFit: "cover",
+  maxHeight: 130,
+}));
+
 const BarButton = styled(Button)(({ theme }) => ({
   color: "#525FE1",
   fontSize: 16,
+  paddingLeft: 0,
 }));
-
 const Profile = () => {
-  let test = "test";
   const { user, login, logout } = useContext(AuthContext);
+  const { cartCameraList } = useContext(CartContext);
+
   // console.log(user.email);
   const [selected, setSelected] = useState("selling");
   //
@@ -49,61 +88,96 @@ const Profile = () => {
       }
     };
     fetchDisplays();
-  }, []);
+  }, [user]);
+  console.log("disp", displayedCameras);
+
   return (
     <>
       <Header></Header>
       <ChatPopper></ChatPopper>
-      <InfoBox>
-        <AccountCircleIcon></AccountCircleIcon>
-        {user && <Typography>{user.email}</Typography>}
-        <Typography>Reviews: (No reviews yet)</Typography>
-      </InfoBox>
-      {user && <Typography>{user.name}`s Profile</Typography>}
-      <MainBox>
-        <Bar>
-          <BarButton
-            onClick={(e) => setSelected("selling")}
-            sx={{ fontWeight: selected === "selling" && 800 }}
-          >
-            Selling
-          </BarButton>
-          <BarButton
-            onClick={(e) => setSelected("sold")}
-            sx={{ fontWeight: selected === "sold" && 800 }}
-          >
-            Sold
-          </BarButton>
-          <BarButton
-            onClick={(e) => setSelected("liked")}
-            sx={{ fontWeight: selected === "liked" && 800 }}
-          >
-            Liked
-          </BarButton>
-          <BarButton
-            onClick={(e) => setSelected("cart")}
-            sx={{ fontWeight: selected === "cart" && 800 }}
-          >
-            In Cart
-          </BarButton>
-        </Bar>
-        {
-          selected === "cart" &&
-            displayedCameras &&
-            console.log(displayedCameras) /*(
-          <Box>
-            {displayedCameras.map(
-              (camera) => console.log("console", camera)
-               <CardMedia
-                key={camera._id}
-                component="img"
-                image={camera.url}
-              ></CardMedia>
+      <Body sx={{ minHeight: "100vh" }}>
+        <Content>
+          <SubBox>
+            <InfoBox>
+              <AccountCircleIcon
+                sx={{ transform: `scale(3)`, paddingTop: 1.3 }}
+              ></AccountCircleIcon>
+              {user && <Typography variant="h5">{user.email}</Typography>}
+            </InfoBox>
+            <Typography variant="h6" sx={{ marginBottom: 1.5 }}>
+              Reviews: (No reviews yet)
+            </Typography>
+            {user && (
+              <Typography variant="h6" sx={{ marginBottom: 3 }}>
+                {user.name}`s Profile
+              </Typography>
             )}
-          </Box>
-        ) */
-        }
-      </MainBox>
+          </SubBox>
+          <MainBox>
+            <Bar sx={{ marginBottom: selected === "selling" ? 2 : 8 }}>
+              <BarButton
+                onClick={(e) => setSelected("selling")}
+                sx={{ fontWeight: selected === "selling" && 800 }}
+              >
+                Selling
+              </BarButton>
+              <BarButton
+                onClick={(e) => setSelected("sold")}
+                sx={{ fontWeight: selected === "sold" && 800 }}
+              >
+                Sold
+              </BarButton>
+              <BarButton
+                onClick={(e) => setSelected("liked")}
+                sx={{ fontWeight: selected === "liked" && 800 }}
+              >
+                Liked
+              </BarButton>
+              <BarButton
+                onClick={(e) => setSelected("cart")}
+                sx={{ fontWeight: selected === "cart" && 800 }}
+              >
+                In Cart
+              </BarButton>
+            </Bar>
+            <DisplayBox container rowSpacing={6}>
+              {selected === "selling" &&
+                displayedCameras &&
+                /*console.log("cam", displayedCameras.userCameras[0].name) &&*/
+                displayedCameras.userCameras.map((camera) => (
+                  <CamTile item lg={2} md={3} sm={4} xs={6} key={camera._id}>
+                    <Link href={`/camera/${camera._id}`} underline="none">
+                      <CamMedia
+                        key={camera._id}
+                        component="img"
+                        image={camera.image.url}
+                      ></CamMedia>
+                      <Typography>£{camera.price}</Typography>
+                    </Link>
+                  </CamTile>
+                ))}
+            </DisplayBox>
+            <DisplayBox container rowSpacing={6}>
+              {selected === "cart" &&
+                cartCameraList !== null &&
+                cartCameraList.length &&
+                cartCameraList.map((camera) => (
+                  <CamTile item lg={2} md={3} sm={4} xs={6} key={camera._id}>
+                    <Link href={`/camera/${camera._id}`} underline="none">
+                      <CamMedia
+                        key={camera._id}
+                        component="img"
+                        image={camera.image.url}
+                      ></CamMedia>
+                      <Typography>£{camera.price}</Typography>
+                    </Link>
+                  </CamTile>
+                ))}
+            </DisplayBox>
+          </MainBox>
+        </Content>
+      </Body>
+      <Footer></Footer>
     </>
   );
 };

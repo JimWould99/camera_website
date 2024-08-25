@@ -18,6 +18,7 @@ import {
   Container,
   styled,
 } from "@mui/material";
+import Footer from "./components/footer";
 
 const Cart = () => {
   const { cartCameraList } = useContext(CartContext);
@@ -66,6 +67,7 @@ const Cart = () => {
           )}
         </DisplayBox>
       </Box>
+      <Footer></Footer>
     </>
   );
 };

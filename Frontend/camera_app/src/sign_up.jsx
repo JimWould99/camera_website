@@ -5,7 +5,22 @@ import { Navigate, useNavigate } from "react-router-dom";
 import AutorenewTwoToneIcon from "@mui/icons-material/AutorenewTwoTone";
 
 import Header from "./components/header";
-import { Button, CardMedia, Typography } from "@mui/material";
+import { Button, CardMedia, Typography, Box, styled } from "@mui/material";
+const DisplayBox = styled(Box)(({ theme }) => ({
+  display: "grid",
+  gridTemplateColumns: "1fr 1fr",
+  maxHeight: "100vh",
+  [theme.breakpoints.down("md")]: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: 50,
+  },
+}));
+const CardMediaC = styled(CardMedia)(({ theme }) => ({
+  [theme.breakpoints.down("md")]: {
+    display: "none",
+  },
+}));
 const Sign_up = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -32,19 +47,15 @@ const Sign_up = () => {
   return (
     <>
       <Header></Header>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          maxHeight: "100vh",
-        }}
-      >
-        <CardMedia
+      <DisplayBox>
+        <CardMediaC
           component="img"
           image="/conor-luddy-IVaKksEZmZA-unsplash.jpg"
           alt="sony camera"
-          style={{ height: "100vh" }}
-        ></CardMedia>
+          style={{
+            height: "100vh",
+          }}
+        ></CardMediaC>
         <form
           style={{
             display: "flex",
@@ -104,7 +115,7 @@ const Sign_up = () => {
             </Typography>
           )}
         </form>
-      </div>
+      </DisplayBox>
     </>
   );
 };

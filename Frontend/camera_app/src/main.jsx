@@ -16,12 +16,13 @@ import Login from "./login.jsx";
 import Sign_up from "./sign_up.jsx";
 import Openai_chatbot from "./components/second_chatbot.jsx";
 import List_item from "./list_item.jsx";
+import Profile from "./profile_page.jsx";
+import Settings from "./settings_page.jsx";
 
 import { CartContextProvider } from "./hooks/shopping_cart_context.jsx";
 import { AuthContextProvider, AuthContext } from "./hooks/auth_context.jsx";
 import { SearchContextProvider } from "./hooks/search_context.jsx";
 import "./index.css";
-import Profile from "./profile_page.jsx";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/settings",
+    element: <Settings />,
   },
 ]);
 

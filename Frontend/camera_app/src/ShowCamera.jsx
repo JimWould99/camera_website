@@ -5,6 +5,7 @@ import ChatPopper from "./components/chatbot_comps/popper";
 import "./index.css";
 import { useContext } from "react";
 import { CartContext } from "./hooks/shopping_cart_context";
+import Footer from "./components/footer";
 import {
   AppBar,
   Toolbar,
@@ -45,8 +46,9 @@ const DisplayBox = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.down("md")]: {
     display: "grid",
-    gridTemplateRows: "1fr 1fr",
-    margin: "0px 20px",
+    gridTemplateRows: "1fr 1fr 1fr",
+    gridTemplateColumns: "1fr ",
+    margin: "40px 20px 0px 20px",
     gap: "20px",
   },
 }));
@@ -55,12 +57,29 @@ const TextBox = styled(Box)(({ theme }) => ({
     gap: "5px",
   },
 }));
+
+const ButtonBox = styled(Box)(({ theme }) => ({
+  marginTop: "15%",
+  display: "flex",
+  flexDirection: "column",
+  gap: "20px",
+  gridColumnStart: 2,
+  marginBottom: 10,
+  [theme.breakpoints.down("md")]: {
+    gap: "15px",
+    gridColumnStart: 1,
+    justifyContent: "space-between",
+  },
+}));
 function CameraLarger({ cameraDetails, handleSubmit }) {
   const url = cameraDetails.image.url;
   return (
     <>
       <DisplayBox>
-        <div className="image" style={{ overflow: "hidden" }}>
+        <div
+          className="image"
+          style={{ overflow: "hidden", gridRowStart: 1, gridRowEnd: 3 }}
+        >
           <CardMedia
             component="img"
             // height="190"
@@ -68,62 +87,46 @@ function CameraLarger({ cameraDetails, handleSubmit }) {
             alt="camera"
           />
         </div>
-        <div
-          className="details"
-          style={{
+
+        <TextBox
+          className="showCameraText"
+          sx={{
             display: "flex",
             flexDirection: "column",
-            gap: 20,
+            //height: "40%",
+            justifyContent: "space-between",
           }}
         >
-          <TextBox
-            className="showCameraText"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              height: "40%",
-              justifyContent: "space-between",
-            }}
-          >
-            <h1>{cameraDetails.brand}</h1>
-            <div>
-              <h2>{cameraDetails.name}</h2>
-              <h2>{cameraDetails.category} camera</h2>
-            </div>
-            <h1>GBP £{cameraDetails.price}</h1>
-            <h3>Condition: {cameraDetails.condition}</h3>
-          </TextBox>
-          <div
-            className="buttons"
-            style={{
-              marginTop: "15%",
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-            }}
-          >
-            <CameraButton
-              variant="contained"
-              style={{
-                backgroundColor: "#FFA41B",
-                textWrap: "nowrap",
-              }}
-            >
-              Buy it now
-            </CameraButton>
-            <CameraButton
-              variant="contained"
-              style={{
-                backgroundColor: "#525FE1",
-                color: "white",
-                textWrap: "nowrap",
-              }}
-              onClick={handleSubmit}
-            >
-              Add to cart
-            </CameraButton>
+          <h1>{cameraDetails.brand}</h1>
+          <div>
+            <h2>{cameraDetails.name}</h2>
+            <h2>{cameraDetails.category} camera</h2>
           </div>
-        </div>
+          <h1>GBP £{cameraDetails.price}</h1>
+          <h3>Condition: {cameraDetails.condition}</h3>
+        </TextBox>
+        <ButtonBox className="buttons">
+          <CameraButton
+            variant="contained"
+            style={{
+              backgroundColor: "#FFA41B",
+              textWrap: "nowrap",
+            }}
+          >
+            Buy it now
+          </CameraButton>
+          <CameraButton
+            variant="contained"
+            style={{
+              backgroundColor: "#525FE1",
+              color: "white",
+              textWrap: "nowrap",
+            }}
+            onClick={handleSubmit}
+          >
+            Add to cart
+          </CameraButton>
+        </ButtonBox>
       </DisplayBox>
       <div style={{ marginLeft: "20px" }}>
         <h1>Description</h1>
@@ -169,6 +172,7 @@ const ShowCamera = () => {
           handleSubmit={handleSubmit}
         />
       )}
+      <Footer></Footer>
     </>
   );
 };

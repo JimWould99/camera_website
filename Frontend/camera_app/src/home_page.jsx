@@ -37,6 +37,7 @@ import {
   CardMedia,
 } from "@mui/material";
 import ChatPopper from "./components/chatbot_comps/popper";
+import Footer from "./components/footer";
 const HomeBox = styled(Box)(({ theme }) => ({
   height: "100px",
   display: "flex",
@@ -94,6 +95,7 @@ const CameraMedia = styled(CardMedia)(({ theme }) => ({
     width: "50vw",
     height: "70vh",
   },*/
+  boxShadow: "0px 0px 7px 0px black",
 }));
 
 const BrandBox = styled(Box)(({ theme }) => ({
@@ -354,6 +356,7 @@ const HomePage = () => {
             ))}
         </Swiper>
       </Box>
+      <Footer></Footer>
     </>
   );
 };

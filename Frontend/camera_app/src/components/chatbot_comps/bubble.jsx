@@ -41,17 +41,20 @@ const User = ({ chatText, chatRole }) => {
 };
 
 const Chatbot = ({ chatText, chatRole }) => {
-  console.log("chattext", chatText);
   let split = chatText.split(" ");
+  console.log("chattext:", chatText);
+  console.log("split:", split);
   let linkExists = false;
   let link;
 
   for (let i = 0; i <= split.length - 1; i++) {
     if (split[i].includes("http")) {
       linkExists = true;
-      link = split[i];
+      link = split[i].slice(0, 53);
     }
   }
+  //link = link.slice(0, 54);
+  console.log("link:", link);
   chatText = chatText.replace(link, "");
   return (
     <>

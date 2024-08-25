@@ -73,9 +73,9 @@ const HeaderButtons = styled(Button)(({ theme }) => ({
     backgroundColor: "#D8D8D8",
   },
   //display: { lg: "block", sm: "none" },
-  [theme.breakpoints.down("md")]: {
+  /* [theme.breakpoints.down("md")]: {
     display: "none",
-  },
+  },*/
 }));
 const HeaderTypography = styled(Typography)(({ theme }) => ({
   fontWeight: 800,
@@ -196,6 +196,12 @@ const Header = () => {
                 sx={{
                   backgroundColor: "#FFA41B",
                   color: "black",
+                  display: {
+                    xs: "none",
+                    sm: "none",
+                    md: "block",
+                    lg: "block",
+                  },
                 }}
               >
                 Sell Now
@@ -204,7 +210,11 @@ const Header = () => {
             {!user && (
               <Link href={"/sign_up"} underline="none">
                 <HeaderButtons
-                  sx={{ backgroundColor: "#FFFDD0", color: "black" }}
+                  sx={{
+                    backgroundColor: "#FFFDD0",
+                    color: "black",
+                    display: { sm: "block", xm: "block" },
+                  }}
                   variant="contained"
                 >
                   Sign Up
@@ -218,6 +228,12 @@ const Header = () => {
                     color: "#FFFDD0",
                     "&:hover": {
                       backgroundColor: "#002244",
+                    },
+                    display: {
+                      xs: "none",
+                      sm: "none",
+                      md: "block",
+                      lg: "block",
                     },
                   }}
                 >
@@ -233,6 +249,12 @@ const Header = () => {
                   color: "#FFFDD0",
                   "&:hover": {
                     backgroundColor: "#002244",
+                  },
+                  display: {
+                    xs: "none",
+                    sm: "none",
+                    md: "block",
+                    lg: "block",
                   },
                 }}
               >

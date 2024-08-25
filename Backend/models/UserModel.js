@@ -26,7 +26,9 @@ userSchema.statics.signup = async function (email, name, password) {
   }
 
   if (!validator.isStrongPassword(password)) {
-    throw Error("Password must be stronger");
+    throw Error(
+      "Password must be stronger (min. 8 characters, 1 capital, 1 special, 1 number"
+    );
   }
 
   if (!validator.isEmail(email)) {

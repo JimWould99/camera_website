@@ -1,8 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const { MongoClient } = require("mongodb");
-/*import { pipeline } from "@xenova/transformers";
-const pipeline = require("@xenova/transformers");*/
+
 const { HfInference } = require("@huggingface/inference");
 const hf = new HfInference(process.env.TEST_KEY);
 const client = new MongoClient(process.env.MONGO_URI);
@@ -11,16 +10,7 @@ const Camera = require("../models/CameraModel");
 const EmbeddingModel = require("../models/EmbeddingModel");
 const Embedding = require("../models/EmbeddingModel");
 const { OpenAI } = require("openai");
-function dotProduct(a, b) {
-  if (a.length !== b.length) {
-    throw new Error("Both arguments must have the same length");
-  }
-  let result = 0;
-  for (let i = 0; i < a.length; i++) {
-    result += a[i] * b[i];
-  }
-  return result;
-}
+
 const generateEmbedding = async (textToConvert) => {
   const output = await hf.featureExtraction({
     model: "sentence-transformers/all-MiniLM-L6-v2",
@@ -78,7 +68,7 @@ const getMatches = async (userQuery, noMatches, budget) => {
     if (doc.price < budget) {
       documents.push(
         JSON.stringify(
-          `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: http://localhost:5173/camera/${doc.cam_id}`
+          `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: http://localhost:5174/camera/${doc.cam_id}`
         )
       );
     }
@@ -91,7 +81,7 @@ const getMatches = async (userQuery, noMatches, budget) => {
 
 const refineQuery = async (query) => {
   const openai = new OpenAI({ apiKey: process.env.OPEN_AI_KEY });
-  console.log("initial query", query);
+  // console.log("initial query", query);
   const completion = await openai.chat.completions.create({
     messages: [
       {
@@ -105,11 +95,11 @@ const refineQuery = async (query) => {
     max_tokens: 200,
   });
   const result = await completion.choices[0].message.content;
-  console.log(result);
+  // console.log(result);
   return result;
 };
 
-exports.chatbot_test = async (req, res) => {
+exports.chatbot_main = async (req, res) => {
   query = req.body.message;
   //const documents = await getMatches(query);
   /*async function documents(input) {
@@ -120,20 +110,38 @@ exports.chatbot_test = async (req, res) => {
   let history = req.body.history;
 
   let cameraMatch;
-  if (!isNaN(query)) {
-    // console.log("budget one");
+
+  let chatbot_message = history[history.length - 1].content;
+  if (chatbot_message.search("budget") > 1) {
+    let queryArray = query.split(" ");
+    let budget;
+    for (let i = 0; i <= queryArray.length - 1; i++) {
+      if (parseInt(queryArray[i])) {
+        budget = queryArray[i];
+      }
+    }
+    console.log("budget", budget);
+    secondQuery = history[history.length - 2];
+    let refinedQuery = await refineQuery(secondQuery.content);
+    cameraMatch = await getMatches(refinedQuery, 8, budget);
+  } else {
+    cameraMatch = await getMatches(query, 2, 100000);
+  }
+
+  /*if (!isNaN(query)) {
+     console.log("budget one");
     secondQuery = history[history.length - 2];
     let refinedQuery = await refineQuery(secondQuery.content);
 
     cameraMatch = await getMatches(refinedQuery, 6, query);
   } else {
     cameraMatch = await getMatches(query, 2, 100000);
-  }
+  }*/
   //  console.log('camera match',cameraMatch)
 
   let systemPrompt = {
     role: "system",
-    content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to help with cameras. Only if someone asks for a camera recomendation, follow these steps. 1. ask: 'What type of camera are you looking for (eg. a camera for the beach, landscapes or street photography)' 2. user reponse 3. ask: 'What is your budget in £? (Please only type a number)' 4. user provides budget 5. Provide recomendation. Provide the url with the recomendation, dont put the url in brackets,  put spaces either side, and dont say anything after it. Also mention the price. The currency is pounds £. The available cameras are: ${cameraMatch}`,
+    content: `You are a helpful assistant on a camera website called Gary. You are to use friendly and informal language. Your role is to help with cameras. Only if someone asks for a camera recomendation, follow these steps. 1. ask: 'What type of camera are you looking for (eg. a camera for the beach, landscapes or street photography)' 2. user reponse 3. ask: 'What is your budget in £?' 4. user provides budget 5. Provide recomendation. Provide the url with the recomendation, dont put the url in brackets,  put spaces either side, and dont say anything after it. Also mention the price. The currency is pounds £. If the question is unrelated to cameras or the camera website, respond 'Sorry, I can only help with cameras and the Camera Site'. The available cameras are: ${cameraMatch}`,
   };
   //console.log(systemPrompt);
   const openai = new OpenAI({ apiKey: process.env.OPEN_AI_KEY });
@@ -151,19 +159,6 @@ exports.chatbot_test = async (req, res) => {
     max_tokens: 400,
   });
   const result = await completion.choices[0];
-  /* [
-    {
-      role: "system",
-      content:
-        "You are a helpful assistant on a camera website called Gary. Your role is to recomend cameras",
-    },
-    { role: "user", content: "recomend me a camera" },
-    {
-    role: "assistant",
-    content: "What type of camera are you looking for? eg. a camera for vacations, street photography, landscapes?",
-    
-  },
-  ];*/
-  // console.log("completion", completion.choices[0].message.content);
+
   res.send(completion.choices[0].message.content);
 };

@@ -21,6 +21,7 @@ import {
 import ChatPopper from "./components/chatbot_comps/popper";
 import Header from "./components/header";
 import { AuthContext } from "./hooks/auth_context";
+import Footer from "./components/footer";
 
 const Main = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -277,6 +278,7 @@ const List_item = () => {
         </form>
       </Main>
       <ChatPopper></ChatPopper>
+      <Footer></Footer>
     </>
   );
 };
