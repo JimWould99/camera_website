@@ -20,6 +20,32 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.statics.changePassword = async function (
+  email,
+  name,
+  password,
+  userId
+) {
+  if (!email || !name || !password || !userId) {
+    throw Error("Fill in all inputs");
+  }
+
+  if (!validator.isStrongPassword(password)) {
+    throw Error(
+      "Password must be stronger (min. 8 characters, 1 capital, 1 special, 1 number"
+    );
+  }
+
+  await this.findByIdAndDelete(userId);
+
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(password, salt);
+
+  const user = await this.create({ email, name, password: hash, _id: userId });
+
+  return user;
+};
+
 userSchema.statics.signup = async function (email, name, password) {
   if (!email || !name || !password) {
     throw Error("Fill in all inputs");

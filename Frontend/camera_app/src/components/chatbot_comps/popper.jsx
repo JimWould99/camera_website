@@ -21,6 +21,10 @@ import {
   ButtonGroup,
   Container,
 } from "@mui/material";
+
+// Popper code from Material UI
+// https://mui.com/material-ui/react-popper/
+
 export default function ChatPopper() {
   const [anchorEl, setAnchorEl] = React.useState(() => {
     const popperData = localStorage.getItem("popperStatus");

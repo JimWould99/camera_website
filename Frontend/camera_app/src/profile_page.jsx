@@ -19,6 +19,9 @@ import {
 } from "@mui/material";
 import { AuthContext } from "./hooks/auth_context";
 import { CartContext } from "./hooks/shopping_cart_context";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AlertDialog from "./components/dialog";
+
 import Footer from "./components/footer";
 
 const InfoBox = styled(Box)(({ theme }) => ({
@@ -73,6 +76,10 @@ const Profile = () => {
 
   // console.log(user.email);
   const [selected, setSelected] = useState("selling");
+
+  const [showDialog, setShowDialog] = useState("");
+  const [currentId, setCurrentId] = useState("");
+
   //
   const [displayedCameras, setDisplayedCameras] = useState(null);
   useEffect(() => {
@@ -89,12 +96,21 @@ const Profile = () => {
     };
     fetchDisplays();
   }, [user]);
-  console.log("disp", displayedCameras);
+
+  const deleteCamera = (id) => {
+    console.log("deleting");
+    console.log("dialog", showDialog);
+    setCurrentId(id);
+    setShowDialog("show");
+  };
 
   return (
     <>
       <Header></Header>
       <ChatPopper></ChatPopper>
+      {showDialog === "show" && (
+        <AlertDialog id={currentId} setShowDialog={setShowDialog}></AlertDialog>
+      )}
       <Body sx={{ minHeight: "100vh" }}>
         <Content>
           <SubBox>
@@ -152,8 +168,19 @@ const Profile = () => {
                         component="img"
                         image={camera.image.url}
                       ></CamMedia>
-                      <Typography>£{camera.price}</Typography>
                     </Link>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        width: "90%",
+                      }}
+                    >
+                      <Typography>£{camera.price}</Typography>
+                      <Link onClick={(e) => deleteCamera(camera._id)}>
+                        <DeleteIcon></DeleteIcon>
+                      </Link>
+                    </Box>
                   </CamTile>
                 ))}
             </DisplayBox>

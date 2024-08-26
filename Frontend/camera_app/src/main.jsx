@@ -18,6 +18,8 @@ import Openai_chatbot from "./components/second_chatbot.jsx";
 import List_item from "./list_item.jsx";
 import Profile from "./profile_page.jsx";
 import Settings from "./settings_page.jsx";
+import Delete from "./delete_account.jsx";
+import ChangePassword from "./change_password.jsx";
 
 import { CartContextProvider } from "./hooks/shopping_cart_context.jsx";
 import { AuthContextProvider, AuthContext } from "./hooks/auth_context.jsx";
@@ -73,6 +75,14 @@ const router = createBrowserRouter([
   {
     path: "/settings",
     element: <Settings />,
+  },
+  {
+    path: "/delete",
+    element: <Delete />,
+  },
+  {
+    path: "/change_password",
+    element: <ChangePassword />,
   },
 ]);
 

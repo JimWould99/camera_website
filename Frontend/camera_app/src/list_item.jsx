@@ -21,6 +21,8 @@ import {
 import ChatPopper from "./components/chatbot_comps/popper";
 import Header from "./components/header";
 import { AuthContext } from "./hooks/auth_context";
+import { useNavigate, useSearchParams, Navigate } from "react-router-dom";
+
 import Footer from "./components/footer";
 
 const Main = styled(Box)(({ theme }) => ({
@@ -56,6 +58,7 @@ const FinalBox = styled(Box)(({ theme }) => ({
 
 const List_item = () => {
   const { user, login, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const addListing = async () => {
     let formData = new FormData();
@@ -77,6 +80,8 @@ const List_item = () => {
         Authorization: `Bearer ${user.token}`,
       },
     });
+
+    navigate("/");
   };
 
   const handleSubmit = async (e) => {

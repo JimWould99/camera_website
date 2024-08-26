@@ -28,6 +28,12 @@ const DisplayBox = styled(Box)(({ theme }) => ({
   gap: "10%",
   margin: `70px 0px 0px 0px`,
   minHeight: "100vh",
+  [theme.breakpoints.down("md")]: {
+    flexDirection: "column",
+    minHeight: "50vh",
+    gap: 70,
+    margin: `70px 20px 70px 20px`,
+  },
 }));
 const Personal = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -48,26 +54,23 @@ const Settings = () => {
       <DisplayBox>
         <Personal>
           <Typography variant="h5">Personal Infomation</Typography>
-          <Link>
-            <Typography variant="h6">Address</Typography>
+          <Link href={`/`} underline="none">
+            <Typography variant="h6">Address (Not implemented)</Typography>
           </Link>
-          <Link>
-            <Typography variant="h6">Sign in</Typography>
+          <Link href={`/`} underline="none">
+            <Typography variant="h6">Sign in (Not implemented)</Typography>
           </Link>
-          <Link>
-            <Typography variant="h6">Details</Typography>
+          <Link href={`/`} underline="none">
+            <Typography variant="h6">Details (Not implemented)</Typography>
           </Link>
         </Personal>
         <Account>
           <Typography variant="h5">Account Preferences</Typography>
-          <Link>
+          <Link href={`/delete`} underline="none">
             <Typography variant="h6">Delete Account</Typography>
           </Link>
-          <Link>
+          <Link href={`/change_password`} underline="none">
             <Typography variant="h6">Change password</Typography>
-          </Link>
-          <Link>
-            <Typography variant="h6">Payment</Typography>
           </Link>
         </Account>
       </DisplayBox>
