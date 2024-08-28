@@ -21,10 +21,6 @@ const limiter = rateLimit({
 
 router.get("/user_cameras", product_display_controller.user_cameras);
 
-//chatbot test
-
-router.post("/chatbot_test", chatbot_main_controller.chatbot_main);
-
 //chatbot
 
 router.post("/chatbot", limiter, chatbot_controller.chatbot);
@@ -56,5 +52,11 @@ router.post("/update", product_add_controller.update_product_post);
 router.get("/delete", product_delete_controller.delete_product_get);
 
 router.post("/delete", product_delete_controller.delete_product_post);
+
+//chatbot test
+
+router.post("/chatbot_test", chatbot_main_controller.chatbot_main);
+
+//
 
 module.exports = router;
