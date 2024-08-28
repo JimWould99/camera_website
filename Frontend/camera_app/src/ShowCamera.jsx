@@ -78,7 +78,11 @@ function CameraLarger({ cameraDetails, handleSubmit }) {
       <DisplayBox>
         <div
           className="image"
-          style={{ overflow: "hidden", gridRowStart: 1, gridRowEnd: 3 }}
+          style={{
+            overflow: "hidden",
+            gridRowStart: 1,
+            gridRowEnd: 3,
+          }}
         >
           <CardMedia
             component="img"
@@ -166,12 +170,14 @@ const ShowCamera = () => {
     <>
       <Header></Header>
       <ChatPopper></ChatPopper>
-      {cameraDetails && (
-        <CameraLarger
-          cameraDetails={cameraDetails.camera}
-          handleSubmit={handleSubmit}
-        />
-      )}
+      <Box sx={{ minHeight: "100vh" }}>
+        {cameraDetails && (
+          <CameraLarger
+            cameraDetails={cameraDetails.camera}
+            handleSubmit={handleSubmit}
+          />
+        )}
+      </Box>
       <Footer></Footer>
     </>
   );
