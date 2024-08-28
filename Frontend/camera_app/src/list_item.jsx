@@ -73,15 +73,18 @@ const List_item = () => {
     formData.append("price", price);
     formData.append("max_res", res);
 
-    await fetch("api/product/update", {
-      method: "POST",
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    await fetch(
+      "https://camera-website-backend.onrender.com/api/product/update",
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
-    navigate("/");
+    navigate("https://camera-website-frontend.onrender.com");
   };
 
   const handleSubmit = async (e) => {

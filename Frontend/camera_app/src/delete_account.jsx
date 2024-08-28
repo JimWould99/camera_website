@@ -45,7 +45,7 @@ const Delete = () => {
     logout();
     localStorage.removeItem("user");
     localStorage.removeItem("chatHistory");
-    navigate("/");
+    navigate("https://camera-website-frontend.onrender.com");
   };
 
   const handleSubmit = async (e) => {
@@ -61,13 +61,16 @@ const Delete = () => {
 
     console.log("done part one");
 
-    let response = await fetch("api/users/delete", {
-      method: "POST",
-      body: { password: password },
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    let response = await fetch(
+      "https://camera-website-backend.onrender.com/api/users/delete",
+      {
+        method: "POST",
+        body: { password: password },
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (!response.ok) {

@@ -84,11 +84,14 @@ const Profile = () => {
   const [displayedCameras, setDisplayedCameras] = useState(null);
   useEffect(() => {
     const fetchDisplays = async () => {
-      const response = await fetch("/api/product/user_cameras", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://camera-website-backend.onrender.com/api/product/user_cameras",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
       if (response.ok) {
         setDisplayedCameras(json);
@@ -165,7 +168,10 @@ const Profile = () => {
                 /*console.log("cam", displayedCameras.userCameras[0].name) &&*/
                 displayedCameras.userCameras.map((camera) => (
                   <CamTile item lg={2} md={3} sm={4} xs={6} key={camera._id}>
-                    <Link href={`/camera/${camera._id}`} underline="none">
+                    <Link
+                      href={`https://camera-website-frontend.onrender.com/camera/${camera._id}`}
+                      underline="none"
+                    >
                       <CamMedia
                         key={camera._id}
                         component="img"
@@ -193,7 +199,10 @@ const Profile = () => {
                 cartCameraList.length &&
                 cartCameraList.map((camera) => (
                   <CamTile item lg={2} md={3} sm={4} xs={6} key={camera._id}>
-                    <Link href={`/camera/${camera._id}`} underline="none">
+                    <Link
+                      href={`https://camera-website-frontend.onrender.com/camera/${camera._id}`}
+                      underline="none"
+                    >
                       <CamMedia
                         key={camera._id}
                         component="img"

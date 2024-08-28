@@ -16,13 +16,16 @@ export default function AlertDialog({ id, setShowDialog }) {
   const navigate = useNavigate();
 
   const deleteCamera = async (e) => {
-    await fetch("api/product/delete", {
-      method: "POST",
-      body: JSON.stringify({ id }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await fetch(
+      "https://camera-website-backend.onrender.com/api/product/delete",
+      {
+        method: "POST",
+        body: JSON.stringify({ id }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     setShowDialog("");
     deleteCamera();
     handleClose();

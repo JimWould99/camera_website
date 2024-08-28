@@ -11,7 +11,10 @@ import {
 const CameraTile = ({ camera }) => {
   return (
     <>
-      <Link href={`/camera/${camera._id}`} underline="none">
+      <Link
+        href={`https://camera-website-frontend.onrender.com/camera/${camera._id}`}
+        underline="none"
+      >
         <Card
           sx={{
             maxWidth: 280,

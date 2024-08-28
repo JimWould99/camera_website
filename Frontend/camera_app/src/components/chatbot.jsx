@@ -88,7 +88,10 @@ const Chatbot = ({ handleClick }) => {
           "Content-Type": "application/json",
         },
       };
-      const response = await fetch("/api/product/chatbot_test", options);
+      const response = await fetch(
+        "https://camera-website-backend.onrender.com/api/product/chatbot_test",
+        options
+      );
       const data = await response.text();
       //console.log("history", chatHistory[0].parts[0].text);
       //console.log(chatHistory);

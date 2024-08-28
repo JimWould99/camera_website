@@ -55,22 +55,37 @@ const Settings = () => {
         <DisplayBox>
           <Personal>
             <Typography variant="h5">Personal Infomation</Typography>
-            <Link href={`/`} underline="none">
+            <Link
+              href={`https://camera-website-frontend.onrender.com`}
+              underline="none"
+            >
               <Typography variant="h6">Address (Not implemented)</Typography>
             </Link>
-            <Link href={`/`} underline="none">
+            <Link
+              href={`https://camera-website-frontend.onrender.com`}
+              underline="none"
+            >
               <Typography variant="h6">Sign in (Not implemented)</Typography>
             </Link>
-            <Link href={`/`} underline="none">
+            <Link
+              href={`https://camera-website-frontend.onrender.com`}
+              underline="none"
+            >
               <Typography variant="h6">Details (Not implemented)</Typography>
             </Link>
           </Personal>
           <Account>
             <Typography variant="h5">Account Preferences</Typography>
-            <Link href={`/delete`} underline="none">
+            <Link
+              href={`https://camera-website-frontend.onrender.com/delete`}
+              underline="none"
+            >
               <Typography variant="h6">Delete Account</Typography>
             </Link>
-            <Link href={`/change_password`} underline="none">
+            <Link
+              href={`https://camera-website-frontend.onrender.com/change_password`}
+              underline="none"
+            >
               <Typography variant="h6">Change password</Typography>
             </Link>
           </Account>

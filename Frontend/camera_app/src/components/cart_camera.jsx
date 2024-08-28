@@ -73,7 +73,10 @@ const Cart_camera = ({ camera }) => {
   return (
     <>
       <ShowCamera className="card">
-        <Link href={`/camera/${camera._id}`} underline="none">
+        <Link
+          href={`https://camera-website-frontend.onrender.com/camera/${camera._id}`}
+          underline="none"
+        >
           <CardMedia
             component="img"
             height="120px"

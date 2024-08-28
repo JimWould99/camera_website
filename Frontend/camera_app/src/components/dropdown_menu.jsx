@@ -71,7 +71,7 @@ export default function BasicMenu() {
     logout();
     localStorage.removeItem("user");
     localStorage.removeItem("chatHistory");
-    navigate("/");
+    navigate("/https://camera-website-frontend.onrender.com");
   };
 
   return (
@@ -106,21 +106,36 @@ export default function BasicMenu() {
         disableScrollLock={true}
         sx={{ paddingTop: 0 }}
       >
-        <Link href={"/profile"} underline="none">
+        <Link
+          href={"https://camera-website-frontend.onrender.com/profile"}
+          underline="none"
+        >
           <MenuItemOne onClick={handleClose}>Profile</MenuItemOne>
         </Link>
-        <Link href={"/list_camera"} underline="none">
+        <Link
+          href={"https://camera-website-frontend.onrender.com/list_camera"}
+          underline="none"
+        >
           <MenuItemOne onClick={handleClose}>My Selling Hub</MenuItemOne>
         </Link>
-        <Link href={"/cart"} underline="none">
+        <Link
+          href={"https://camera-website-frontend.onrender.com/cart"}
+          underline="none"
+        >
           <MenuItemTwo classList="small_menu" onClick={handleClose}>
             My Cart
           </MenuItemTwo>
         </Link>
-        <Link href={"/settings"} underline="none">
+        <Link
+          href={"https://camera-website-frontend.onrender.com/settings"}
+          underline="none"
+        >
           <MenuItemOne onClick={handleClose}>Settings</MenuItemOne>
         </Link>
-        <Link href={"/"} underline="none">
+        <Link
+          href={"https://camera-website-frontend.onrender.com"}
+          underline="none"
+        >
           <MenuItemTwo onClick={logOutClick}>Logout</MenuItemTwo>
         </Link>
       </Menu>

@@ -114,9 +114,9 @@ const Header = () => {
     e.preventDefault();
     setSearchParams({ q: query, category: queryCategory });
     navigate(
-      `/search/?q=${encodeURIComponent(query)}&category=${encodeURIComponent(
-        queryCategory
-      )}`
+      `https://camera-website-frontend.onrender.com/search/?q=${encodeURIComponent(
+        query
+      )}&category=${encodeURIComponent(queryCategory)}`
     );
     if (window.location.href.includes("search")) {
       window.location.reload();
@@ -137,7 +137,7 @@ const Header = () => {
     logout();
     localStorage.removeItem("user");
     localStorage.removeItem("chatHistory");
-    navigate("/");
+    navigate("https://camera-website-frontend.onrender.com");
   };
 
   return (

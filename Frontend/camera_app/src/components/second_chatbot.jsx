@@ -28,7 +28,10 @@ const Openai_chatbot = () => {
           "Content-Type": "application/json",
         },
       };
-      const response = await fetch("/api/product/chatbot_test", options);
+      const response = await fetch(
+        "https://camera-website-backend.onrender.com/api/product/chatbot_test",
+        options
+      );
       const data = await response.text();
       //console.log("before", chatHistory);
       //console.log("value", value);
