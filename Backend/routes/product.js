@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { rateLimit } = require("express-rate-limit");
+const cors = require("cors");
 
 const product_display_controller = require("../controllers/product_display_controller");
 const product_delete_controller = require("../controllers/product_delete_controller");
@@ -23,7 +24,7 @@ router.get("/user_cameras", product_display_controller.user_cameras);
 
 //chatbot test
 
-router.post("/chatbot_test", chatbot_main_controller.chatbot_main);
+router.post("/chatbot_test", cors(), chatbot_main_controller.chatbot_main);
 
 //chatbot
 
