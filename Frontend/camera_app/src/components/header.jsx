@@ -137,7 +137,7 @@ const Header = () => {
     logout();
     localStorage.removeItem("user");
     localStorage.removeItem("chatHistory");
-    navigate("https://camera-website-frontend.onrender.com");
+    navigate("/");
   };
 
   return (

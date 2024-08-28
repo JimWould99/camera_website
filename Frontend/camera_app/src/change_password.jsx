@@ -47,7 +47,7 @@ const ChangePassword = () => {
     logout();
     localStorage.removeItem("user");
     localStorage.removeItem("chatHistory");
-    navigate("https://camera-website-frontend.onrender.com/login");
+    navigate("/login");
   };
 
   const handleSubmit = async (e) => {

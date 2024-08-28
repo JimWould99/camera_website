@@ -30,7 +30,7 @@ const Login = () => {
   const { sign_up_request, loading, error } = ExecuteLogin();
   const { user, login, logout } = useContext(AuthContext);
   if (user) {
-    navigate("https://camera-website-frontend.onrender.com");
+    navigate("/");
   }
 
   const handleSubmit = async (e) => {

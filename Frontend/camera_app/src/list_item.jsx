@@ -84,7 +84,7 @@ const List_item = () => {
       }
     );
 
-    navigate("https://camera-website-frontend.onrender.com");
+    navigate("/");
   };
 
   const handleSubmit = async (e) => {

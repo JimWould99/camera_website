@@ -29,7 +29,7 @@ const Sign_up = () => {
   const { sign_up_request, loading, error } = ExecuteSignup();
   const { user, login, logout } = useContext(AuthContext);
   if (user) {
-    navigate("https://camera-website-frontend.onrender.com");
+    navigate("/");
   }
   const handleSubmission = async (e) => {
     e.preventDefault();
