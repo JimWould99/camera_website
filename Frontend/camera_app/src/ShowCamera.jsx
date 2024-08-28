@@ -167,12 +167,14 @@ const ShowCamera = () => {
     <>
       <Header></Header>
       <ChatPopper></ChatPopper>
-      {cameraDetails && (
-        <CameraLarger
-          cameraDetails={cameraDetails.camera}
-          handleSubmit={handleSubmit}
-        />
-      )}
+      <Box sx={{ minHeight: "100vh" }}>
+        {cameraDetails && (
+          <CameraLarger
+            cameraDetails={cameraDetails.camera}
+            handleSubmit={handleSubmit}
+          />
+        )}
+      </Box>
       <Footer></Footer>
     </>
   );
