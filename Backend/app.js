@@ -4,11 +4,12 @@ require("dotenv").config();
 const cors = require("cors");
 
 const app = express();
-app.use(
+
+/*app.use(
   cors({
     origin: "*",
   })
-);
+);*/
 
 /*app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -17,7 +18,7 @@ app.use(
   next();
 });*/
 
-//app.use(cors());
+app.use(cors());
 /*app.use(
   cors({
     origin: "https://camera-website-frontend.onrender.com",
