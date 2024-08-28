@@ -114,9 +114,9 @@ const Header = () => {
     e.preventDefault();
     setSearchParams({ q: query, category: queryCategory });
     navigate(
-      `https://camera-website-frontend.onrender.com/search/?q=${encodeURIComponent(
-        query
-      )}&category=${encodeURIComponent(queryCategory)}`
+      `/search/?q=${encodeURIComponent(query)}&category=${encodeURIComponent(
+        queryCategory
+      )}`
     );
     if (window.location.href.includes("search")) {
       window.location.reload();
