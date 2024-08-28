@@ -29,7 +29,7 @@ const InfoBox = styled(Box)(({ theme }) => ({
   gap: 25,
   alignItems: "flex-start",
   justifyContent: "flex-start",
-  margin: "40px 0px 40px 15px",
+  margin: "30px 0px 40px 15px",
 }));
 const MainBox = styled(Box)(({ theme }) => ({}));
 const SubBox = styled(Box)(({ theme }) => ({}));
@@ -113,6 +113,9 @@ const Profile = () => {
       )}
       <Body sx={{ minHeight: "100vh" }}>
         <Content>
+          <Typography variant="h4" sx={{ marginTop: "30px" }}>
+            Profile Page
+          </Typography>
           <SubBox>
             <InfoBox>
               <AccountCircleIcon

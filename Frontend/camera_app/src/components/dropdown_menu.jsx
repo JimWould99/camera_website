@@ -110,7 +110,7 @@ export default function BasicMenu() {
           <MenuItemOne onClick={handleClose}>Profile</MenuItemOne>
         </Link>
         <Link href={"/list_camera"} underline="none">
-          <MenuItemOne onClick={handleClose}>My selling hub</MenuItemOne>
+          <MenuItemOne onClick={handleClose}>My Selling Hub</MenuItemOne>
         </Link>
         <Link href={"/cart"} underline="none">
           <MenuItemTwo classList="small_menu" onClick={handleClose}>

@@ -92,6 +92,9 @@ const List_item = () => {
     }
     console.log(photo);
     switch ("") {
+      case photo:
+        setError("Please fill all fields");
+        break;
       case name:
         setError("Please fill all fields");
         break;
@@ -141,7 +144,7 @@ const List_item = () => {
       <Main>
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <Form_Box>
-            <Typography variant="h4">List camera</Typography>
+            <Typography variant="h4">My Selling Hub</Typography>
             <InfoBox>
               <Typography sx={{ fontSize: "1.2rem", fontWeight: 700 }}>
                 Photo

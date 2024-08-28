@@ -2,6 +2,8 @@ import { useEffect, useState, useRef, useContext } from "react";
 import { json } from "react-router-dom";
 import Bubble from "./chatbot_comps/bubble";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import AutorenewTwoToneIcon from "@mui/icons-material/AutorenewTwoTone";
 import { Link, Button } from "@mui/material";
 import { AuthContext } from "../hooks/auth_context";
@@ -188,14 +190,6 @@ const Chatbot = ({ handleClick }) => {
                 >
                   Recommend me a camera
                 </Button>
-                <Button
-                  type="submit"
-                  value="Give a review summary for the Nikon Z8"
-                  onClick={(e) => setValue(e.target.value)}
-                  sx={{ border: "2px solid #525FE1", color: "#525FE1" }}
-                >
-                  Give a review summary for the Nikon Z8
-                </Button>
               </Box>
             </form>
           )}
@@ -258,6 +252,18 @@ const Chatbot = ({ handleClick }) => {
                 }}
               />
             )}
+            <ArrowForwardIcon
+              sx={{
+                margin: "5px 8px 0px 8px",
+                transform: `scale(1.1)`,
+                backgroundColor: "#525FE1",
+                borderRadius: "25px",
+                color: "white",
+                padding: "4px 0px",
+                cursor: "pointer",
+              }}
+              onClick={getResponse}
+            ></ArrowForwardIcon>
             <Button
               onClick={clear}
               component={Link}

@@ -51,29 +51,31 @@ const Settings = () => {
     <>
       <Header></Header>
       <ChatPopper></ChatPopper>
-      <DisplayBox>
-        <Personal>
-          <Typography variant="h5">Personal Infomation</Typography>
-          <Link href={`/`} underline="none">
-            <Typography variant="h6">Address (Not implemented)</Typography>
-          </Link>
-          <Link href={`/`} underline="none">
-            <Typography variant="h6">Sign in (Not implemented)</Typography>
-          </Link>
-          <Link href={`/`} underline="none">
-            <Typography variant="h6">Details (Not implemented)</Typography>
-          </Link>
-        </Personal>
-        <Account>
-          <Typography variant="h5">Account Preferences</Typography>
-          <Link href={`/delete`} underline="none">
-            <Typography variant="h6">Delete Account</Typography>
-          </Link>
-          <Link href={`/change_password`} underline="none">
-            <Typography variant="h6">Change password</Typography>
-          </Link>
-        </Account>
-      </DisplayBox>
+      <Box>
+        <DisplayBox>
+          <Personal>
+            <Typography variant="h5">Personal Infomation</Typography>
+            <Link href={`/`} underline="none">
+              <Typography variant="h6">Address (Not implemented)</Typography>
+            </Link>
+            <Link href={`/`} underline="none">
+              <Typography variant="h6">Sign in (Not implemented)</Typography>
+            </Link>
+            <Link href={`/`} underline="none">
+              <Typography variant="h6">Details (Not implemented)</Typography>
+            </Link>
+          </Personal>
+          <Account>
+            <Typography variant="h5">Account Preferences</Typography>
+            <Link href={`/delete`} underline="none">
+              <Typography variant="h6">Delete Account</Typography>
+            </Link>
+            <Link href={`/change_password`} underline="none">
+              <Typography variant="h6">Change password</Typography>
+            </Link>
+          </Account>
+        </DisplayBox>
+      </Box>
 
       <Footer></Footer>
     </>

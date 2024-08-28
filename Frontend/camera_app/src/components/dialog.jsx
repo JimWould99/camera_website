@@ -26,7 +26,6 @@ export default function AlertDialog({ id, setShowDialog }) {
     setShowDialog("");
     deleteCamera();
     handleClose();
-    window.location.reload();
   };
 
   useEffect(() => {
@@ -41,6 +40,7 @@ export default function AlertDialog({ id, setShowDialog }) {
 
   const handleClose = () => {
     setOpen(false);
+    window.location.reload();
   };
 
   return (
