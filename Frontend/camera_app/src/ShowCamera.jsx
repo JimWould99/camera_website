@@ -147,7 +147,9 @@ const ShowCamera = () => {
   useEffect(() => {
     const fetchCamera = async () => {
       //console.log(`/api/product/${id}`);
-      const response = await fetch(`/api/product/${id}`);
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_URL}/api/product/${id}`
+      );
       const json = await response.json();
       if (response.ok) {
         setCameraDetails(json);

@@ -122,7 +122,9 @@ const HomePage = () => {
   console.log("home cameras", displayedCameras);
   useEffect(() => {
     const fetchDisplays = async () => {
-      const response = await fetch("/api/product");
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_URL}/api/product`
+      );
       const json = await response.json();
       if (response.ok) {
         setDisplayedCameras(json);
@@ -130,6 +132,7 @@ const HomePage = () => {
     };
     fetchDisplays();
   }, []);
+  console.log("ENV", import.meta.env.VITE_REACT_APP_URL);
   const [searchParams, setSearchParams] = useSearchParams();
   const [brandQuery, setBrandQuery] = useState(searchParams.get("brand") || "");
   const navigate = useNavigate();

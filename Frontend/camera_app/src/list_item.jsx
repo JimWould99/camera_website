@@ -73,7 +73,7 @@ const List_item = () => {
     formData.append("price", price);
     formData.append("max_res", res);
 
-    await fetch("api/product/update", {
+    await fetch(`${import.meta.env.VITE_REACT_APP_URL}/api/product/update`, {
       method: "POST",
       body: formData,
       headers: {

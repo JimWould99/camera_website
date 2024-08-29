@@ -84,11 +84,14 @@ const Profile = () => {
   const [displayedCameras, setDisplayedCameras] = useState(null);
   useEffect(() => {
     const fetchDisplays = async () => {
-      const response = await fetch("/api/product/user_cameras", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_URL}/api/product/user_cameras`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
       if (response.ok) {
         setDisplayedCameras(json);

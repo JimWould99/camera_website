@@ -10,11 +10,14 @@ export const ExecuteLogin = () => {
     setLoading(true);
     setError(null);
 
-    const response = await fetch("/api/users/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_REACT_APP_URL}/api/users/login`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      }
+    );
     const json = await response.json();
 
     if (!response.ok) {

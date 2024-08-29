@@ -88,7 +88,10 @@ const Chatbot = ({ handleClick }) => {
           "Content-Type": "application/json",
         },
       };
-      const response = await fetch("/api/product/chatbot_test", options);
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_APP_URL}/api/product/chatbot_test`,
+        options
+      );
       const data = await response.text();
       //console.log("history", chatHistory[0].parts[0].text);
       //console.log(chatHistory);

@@ -61,13 +61,16 @@ const Delete = () => {
 
     console.log("done part one");
 
-    let response = await fetch("api/users/delete", {
-      method: "POST",
-      body: { password: password },
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    let response = await fetch(
+      `${import.meta.env.VITE_REACT_APP_URL}/api/users/delete`,
+      {
+        method: "POST",
+        body: { password: password },
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
     const json = await response.json();
 
     if (!response.ok) {

@@ -64,14 +64,17 @@ const ChangePassword = () => {
     console.log("done part one");
     console.log("old", oldPassword);
 
-    let response = await fetch("api/users/changePassword", {
-      method: "POST",
-      body: JSON.stringify({ oldPassword, password }),
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    let response = await fetch(
+      `${import.meta.env.VITE_REACT_APP_URL}/api/users/changePassword`,
+      {
+        method: "POST",
+        body: JSON.stringify({ oldPassword, password }),
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
     const json = await response.json();
 
     if (!response.ok) {

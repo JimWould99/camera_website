@@ -10,11 +10,14 @@ export const ExecuteSignup = () => {
     setLoading(true);
     setError(null);
 
-    const response = await fetch("/api/users/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, name, password }),
-    });
+    const response = await fetch(
+      `${import.meta.env.VITE_REACT_APP_URL}/api/users/signup`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name, password }),
+      }
+    );
     const json = await response.json();
 
     if (!response.ok) {

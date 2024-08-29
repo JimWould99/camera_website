@@ -16,7 +16,7 @@ export default function AlertDialog({ id, setShowDialog }) {
   const navigate = useNavigate();
 
   const deleteCamera = async (e) => {
-    await fetch("api/product/delete", {
+    await fetch(`${import.meta.env.VITE_REACT_APP_URL}/api/product/delete`, {
       method: "POST",
       body: JSON.stringify({ id }),
       headers: {
