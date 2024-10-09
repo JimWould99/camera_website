@@ -50,7 +50,7 @@ const Chatbot = ({ chatText, chatRole }) => {
   for (let i = 0; i <= split.length - 1; i++) {
     if (split[i].includes("http")) {
       linkExists = true;
-      link = split[i].slice(0, 71);
+      link = split[i].slice(0, 73);
     }
   }
   //link = link.slice(0, 54);
