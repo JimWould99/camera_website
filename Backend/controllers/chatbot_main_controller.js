@@ -68,7 +68,7 @@ const getMatches = async (userQuery, noMatches, budget) => {
     if (doc.price < budget) {
       documents.push(
         JSON.stringify(
-          `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: https://camera-website-frontend.onrender.com/camera/${doc.cam_id}`
+          `${doc.name}, Price: £${doc.price}, ${doc.description},  ${doc.category}, ${doc.brand}, condition: ${doc.condition}, url: https://camera-store-website.vercel.app/camera/${doc.cam_id}`
         )
       );
     }
