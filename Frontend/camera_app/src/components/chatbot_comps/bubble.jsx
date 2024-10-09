@@ -55,6 +55,7 @@ const Chatbot = ({ chatText, chatRole }) => {
   }
   //link = link.slice(0, 54);
   console.log("link:", link);
+  console.log("latest branch");
   chatText = chatText.replace(link, "");
   return (
     <>
